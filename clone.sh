@@ -1,0 +1,1 @@
+git clone https://github.com/generalcorporation/general_project.git

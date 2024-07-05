@@ -1,0 +1,25 @@
+name: 'general_lib'
+description: 'All in one library for help you make easy app on cross platform and support server side, inclue tcp, fetch, event emitter, websocket, and more.'
+version: '0.0.40'
+environment: 
+  sdk: '>=3.3.3 <4.0.0'
+executables: 
+  general_lib: 'general_lib'
+dev_dependencies: 
+  lints: '^3.0.0'
+  test: '^1.24.2'
+  server_universe: '0.0.14'
+dependencies: 
+  collection: '^1.17.1'
+  http: '>=0.13.4 <=5.1.0'
+  path: '>=1.8.3 <=1.9.0'
+  universal_io: '^2.2.2'
+  encrypt: '^5.0.3'
+  stack_trace: '>=1.10.0 <=5.0.0'
+  mason_logger: '^0.2.15'
+  yaml: '^3.1.2'
+dependency_overrides: 
+  pointycastle: '3.8.0'
+publish_to: 'none'
+funding: 
+  - 'https://github.com/sponsors/azkadev'
