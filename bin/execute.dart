@@ -48,7 +48,7 @@ void main(List<String> args) async {
       print("oke");
       return "s";
     },
-  ).general_lib_execute(
+  ).general_lib_execute_or_null(
     timeLimit: Duration(seconds: 2),
     onTimeout: () {
       print("time out");
@@ -60,7 +60,7 @@ void main(List<String> args) async {
     print("sap");
 
     throw "salspa";
-  }).general_lib_execute(
+  }).general_lib_execute_or_null(
     timeLimit: Duration(seconds: 2),
     onTimeout: () {
       exit(1);

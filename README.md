@@ -1,5 +1,4 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+ 
 
 <!-- START GLOBAL CORPORATION -->
 <h3 align="center">
