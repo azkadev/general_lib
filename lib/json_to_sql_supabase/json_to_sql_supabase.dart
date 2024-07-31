@@ -117,7 +117,9 @@ ALTER TABLE ${tableName} ADD COLUMN ${key} ${type_data} ${default_data};
     script_data += "${script_data_loop}";
     script_data += "\n";
   });
-  return script_data.replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "").trim();
+  return script_data
+      .replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "")
+      .trim();
 }
 
 // add column in
@@ -154,7 +156,7 @@ CREATE TABLE {table_name} (
   );
   script += "\n";
   // script = script.replaceAll(RegExp(r"({table_name})", caseSensitive: false), table_name).trim();
- 
+
   script += """
 );
 """
@@ -181,5 +183,8 @@ alter table {table_name} enable row level security;
   script += "\n\n";
   script += "-- Recommendation";
 
-  return (script.trim().replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName).trim());
+  return (script
+      .trim()
+      .replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName)
+      .trim());
 }
