@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_interpolations
+
 /* <!-- START LICENSE -->
 
 
@@ -50,14 +52,14 @@ String generateDataSqlJson({
       return;
     }
     String type_data = "";
-    String default_data = " DEFAULT";
+    String default_data = "default";
     if (value is num) {
       type_data = "bigint";
       // type_data += " 0";
       default_data += " 0";
     } else if (value is Map || value is List) {
       type_data = "json";
-      default_data += (" '${json.encode(value)}'");
+      default_data += (" '${json.encode(value)}'::json");
     } else if (value is String) {
       type_data = "text";
       default_data += " format(''::text)";
@@ -68,7 +70,7 @@ String generateDataSqlJson({
       throw "not found type";
     }
     String script_data_loop = """
-${key} ${type_data} ${default_data},
+${key} ${type_data} null ${default_data},
 """
         .trim();
     script_data += "  ${script_data_loop}";
@@ -112,10 +114,10 @@ String generate_add_sql_data({
 ALTER TABLE ${tableName} ADD COLUMN ${key} ${type_data} ${default_data};
 """
         .trim();
-    script_data += "  ${script_data_loop}";
+    script_data += "${script_data_loop}";
     script_data += "\n";
   });
-  return script_data.replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "");
+  return script_data.replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "").trim();
 }
 
 // add column in
@@ -128,9 +130,11 @@ ALTER TABLE ${tableName} ADD COLUMN ${key} ${type_data} ${default_data};
 // ALTER TABLE accounts ALTER COLUMN total_price_amount TYPE boolean;
 String jsonToSqlSupabase({
   required Map jsonData,
+  Map? originData,
   bool isEnableRls = true,
   String? tableName,
 }) {
+  // Map origin_data = originData ?? {};
   if (jsonData["@type"] is String == false) {
     jsonData["@type"] = "";
   }
@@ -150,20 +154,19 @@ CREATE TABLE {table_name} (
   );
   script += "\n";
   // script = script.replaceAll(RegExp(r"({table_name})", caseSensitive: false), table_name).trim();
-
-  script += "\n";
+ 
   script += """
 );
 """
       .trim();
   if (isEnableRls) {
-    script += "\n";
+    script += "\n\n";
     script += """
 -- 2. Enable RLS
 alter table {table_name} enable row level security;
 """
         .trim();
-    script += "\n";
+    script += "\n\n";
     script += """
 -- 3. ADD Column in Tabble Exist (Optional)
 """
@@ -172,10 +175,11 @@ alter table {table_name} enable row level security;
     script += generate_add_sql_data(
       data: jsonData,
       tableName: tableName,
-    );
+    ).trim();
   }
-  return (script
-      .trim()
-      .replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName)
-      .trim());
+
+  script += "\n\n";
+  script += "-- Recommendation";
+
+  return (script.trim().replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName).trim());
 }
