@@ -59,12 +59,9 @@ class Language {
     languageCode ??= language_code;
     regexpReplaces ??= regexp_replaces;
     try {
-      String language_result = languageCodeData[languageCode] ??
-          languageCodeData["id"] ??
-          "Translation not found\n\n${id}: Tidak ada bahasa ${languageCode}";
+      String language_result = languageCodeData[languageCode] ?? languageCodeData["id"] ?? "Translation not found\n\n${id}: Tidak ada bahasa ${languageCode}";
       if (language_result.isEmpty) {
-        language_result =
-            "Translation not found\n\n${id}: Tidak ada bahasa ${languageCode}";
+        language_result = "Translation not found\n\n${id}: Tidak ada bahasa ${languageCode}";
       }
 
       return variableMessage(
@@ -88,8 +85,7 @@ class Language {
       for (var i = 0; i < regexpReplaces.length; i++) {
         RegExpReplace regExpReplace = regexpReplaces[i];
         try {
-          message = message.replaceAllMapped(
-              regExpReplace.from, regExpReplace.replace);
+          message = message.replaceAllMapped(regExpReplace.from, regExpReplace.replace);
         } catch (e) {
           if (isThrowOnError) {
             rethrow;

@@ -206,6 +206,13 @@ class CaptchaResult {
     required this.answer,
     required this.captchas,
   });
+
+  void clear() {
+    answer.clear();
+
+    captchas.clear();
+  }
+
   Map toJson() {
     return {
       "answer": answer,

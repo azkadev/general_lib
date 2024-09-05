@@ -69,3 +69,5 @@ export "regexp_replace/regexp_replace.dart";
 export "download/download_core.dart";
 
 export "package:general_lib/execute/execute.dart";
+
+export "utils/utils.dart";

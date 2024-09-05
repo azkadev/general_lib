@@ -52,8 +52,7 @@ Future<Directory> jsonToScripts(
   String? comment,
   bool isMethodApi = true,
   required Directory directory,
-  String path_package_json_dart =
-      "import \"package:general_lib/general_lib.dart\";",
+  String path_package_json_dart = "import \"package:general_lib/general_lib.dart\";",
   int try_loop = 2,
 }) async {
   // String base_name = p.basename(directory.path);
@@ -63,9 +62,7 @@ Future<Directory> jsonToScripts(
     await directory.create(recursive: true);
   }
 
-  for (var loop_index_first = 0;
-      loop_index_first < try_loop;
-      loop_index_first++) {
+  for (var loop_index_first = 0; loop_index_first < try_loop; loop_index_first++) {
     // print(loop_index_first);
     void json_script_update({
       required Map newData,
@@ -200,9 +197,7 @@ Future<Directory> jsonToScripts(
       comment: comment,
       path_package_json_dart: path_package_json_dart,
     );
-    await File(p.join(directory.path,
-            "${data["@type"].toString().snakeCaseClass()}.dart"))
-        .writeAsString(res);
+    await File(p.join(directory.path, "${data["@type"].toString().snakeCaseClass()}.dart")).writeAsString(res);
   }
 
 //   String json_dart = """
@@ -363,8 +358,7 @@ Future<Directory> jsonToScripts(
 // """;
   datas.sort();
   // await File(p.join(directory.path, "json_dart.dart")).writeAsString(json_dart);
-  await File(p.join(directory.path, "${p.basename(directory.path)}.dart"))
-      .writeAsString(datas.toSet().toList().join("\n"));
+  await File(p.join(directory.path, "${p.basename(directory.path)}.dart")).writeAsString(datas.toSet().toList().join("\n"));
 
   return directory;
 }
@@ -374,14 +368,14 @@ String jsonToScriptStatic(
   bool isMethodApi = true,
   String? comment,
   required Directory directory,
-  String path_package_json_dart =
-      "import \"package:general_lib/general_lib.dart\";",
+  String path_package_json_dart = "import \"package:general_lib/general_lib.dart\";",
 }) {
   // String base_name = p.basename(directory.path);
   // String baseName = base_name.camelCaseClass();
   comment ??= "";
   // List<String> classMessages = [];
-  String className = data["@type"].toString().camelCaseClass();
+  final String className = data["@type"].toString().camelCaseClass();
+  final String class_name = className[0].toLowerCase() + className.substring(1, className.length);
   String package_data = "";
   String classMessage = """
 // ignore_for_file: non_constant_identifier_names, unused_import
@@ -404,12 +398,13 @@ class ${className} extends JsonScheme {
 
   ${comment}
   static ${className} create({
+              bool schemeUtilsIsSetDefaultData = false,
 
 """;
   String classDataCreateJson = """
 
-    // ${className} ${className[0].toLowerCase() + className.substring(1, className.length)} = ${className}({
-Map ${className[0].toLowerCase() + className.substring(1, className.length)}_data_create_json = {
+    // ${className} ${class_name} = ${className}({
+final Map ${class_name}_data_create_json = {
   
 """;
   data.forEach((key, value) {
@@ -533,14 +528,12 @@ Map ${className[0].toLowerCase() + className.substring(1, className.length)}_dat
           if (values.isNotEmpty) {
             if (values.first is Map) {
               String value_class_name = () {
-                if (values.first["@type"] is String &&
-                    (values.first["@type"] as String).isNotEmpty) {
+                if (values.first["@type"] is String && (values.first["@type"] as String).isNotEmpty) {
                   return values.first["@type"];
                 }
                 return key;
               }();
-              package_data +=
-                  "\nimport \"${value_class_name.snakeCaseClass()}.dart\";";
+              package_data += "\nimport \"${value_class_name.snakeCaseClass()}.dart\";";
               classMessage += textToListFunction(
                 key: key,
                 className: value_class_name.camelCaseClass(),
@@ -683,14 +676,12 @@ Map ${className[0].toLowerCase() + className.substring(1, className.length)}_dat
         if (value.first is Map) {
           // package_data += "${className.snakeCaseClass()}.dart";
           String value_class_name = () {
-            if (value.first["@type"] is String &&
-                (value.first["@type"] as String).isNotEmpty) {
+            if (value.first["@type"] is String && (value.first["@type"] as String).isNotEmpty) {
               return value.first["@type"];
             }
             return key;
           }();
-          package_data +=
-              "\nimport \"${value_class_name.snakeCaseClass()}.dart\";";
+          package_data += "\nimport \"${value_class_name.snakeCaseClass()}.dart\";";
           classMessage += textToFunctionDart(
             key: key,
             value: value.first,
@@ -871,15 +862,21 @@ Map ${className[0].toLowerCase() + className.substring(1, className.length)}_dat
 
   classDataCreateJson += "\n\n};";
   classDataCreate += "})  {";
+  final String json_name_create = "${class_name}_data_create_json";
   classDataCreate += """
 ${classDataCreateJson}
 
 
-          ${className[0].toLowerCase() + className.substring(1, className.length)}_data_create_json.removeWhere((key, value) => value == null);
-${className} ${className[0].toLowerCase() + className.substring(1, className.length)}_data_create = ${className}(${className[0].toLowerCase() + className.substring(1, className.length)}_data_create_json);
+          ${json_name_create}.removeWhere((key, value) => value == null);
 
-return ${className[0].toLowerCase() + className.substring(1, className.length)}_data_create;
-
+    if (schemeUtilsIsSetDefaultData) {
+      defaultData.forEach((key, value) {
+        if (${json_name_create}.containsKey(key) == false) {
+          ${json_name_create}[key] = value;
+        }
+      });
+    }
+return ${className}(${class_name}_data_create_json);
 """;
 
   classDataCreate += "\n\n      }";
@@ -892,9 +889,7 @@ return ${className[0].toLowerCase() + className.substring(1, className.length)}_
 
   // classMessage += "\n\n${classMessages.join("\n\n")}";/
 
-  classMessage = classMessage.replaceAll(
-      RegExp(r"{package_data}", caseSensitive: false),
-      package_data.split("\n").toSet().toList().join("\n"));
+  classMessage = classMessage.replaceAll(RegExp(r"{package_data}", caseSensitive: false), package_data.split("\n").toSet().toList().join("\n"));
   return classMessage;
 }
 
@@ -912,10 +907,7 @@ String textToFunctionDart({
   comment ??= "";
   String nameClass = className.camelCaseClass();
 
-  String nameMethod = key
-      .replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_")
-      .replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_")
-      .replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
+  String nameMethod = key.replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_").replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_").replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
   if (RegExp(r"^(do|is|in)$", caseSensitive: false).hasMatch(nameMethod)) {
     nameMethod += "_";
   }
@@ -1063,10 +1055,7 @@ String textToListFunction({
   comment ??= "";
   String nameClass = className.camelCaseClass();
 
-  String nameMethod = key
-      .replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_")
-      .replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_")
-      .replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
+  String nameMethod = key.replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_").replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_").replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
   if (RegExp(r"^(do|is|in)$", caseSensitive: false).hasMatch(nameMethod)) {
     nameMethod += "_";
   }

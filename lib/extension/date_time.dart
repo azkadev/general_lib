@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, empty_catches, non_constant_identifier_names
+
 /* <!-- START LICENSE -->
 
 
@@ -35,5 +37,89 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 extension DateTimeExtensions on DateTime {
   bool isExpired() {
     return isBefore(DateTime.now());
+  }
+
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime.now().add(Duration(days: 10)).extension_general_lib_countDownFromDateTime(
+  ///   dateTime: DateTime.now(),
+  /// );
+  /// ```
+  ///
+  /// result: example
+  /// 1 days 5 minutes 5 seconds
+  String extension_general_lib_countDownFromDateTime({
+    required DateTime dateTime,
+  }) {
+    try {
+      Duration duration = difference(dateTime);
+      String message = "";
+      if (duration.inDays >= 1) {
+        message += "${duration.inDays} Days";
+      }
+      if (duration.inHours >= 1) {
+        message += " ${23 - dateTime.hour} Hours";
+      }
+      if (duration.inMinutes >= 1) {
+        message += " ${59 - dateTime.minute} Minutes";
+      }
+      if (duration.inSeconds >= 1) {
+        message += " ${59 - dateTime.second} Seconds";
+      }
+      return message.trim();
+    } catch (e) {}
+    return "";
+  }
+
+  ///
+  /// Example:
+  /// ```dart
+  /// DateTime.now().extension_general_lib_countAgoFromDateTime(
+  ///   dateTime: dateTimeStart,
+  /// );
+  /// ```
+  ///
+  /// result: example
+  /// 1 days 5 minutes 5 seconds
+  String extension_general_lib_countAgoFromDateTime({
+    required DateTime dateTime,
+  }) {
+    try {
+      final Duration duration = difference(dateTime);
+      String message = "";
+      if (duration.inDays >= 1) {
+        message += "${duration.inDays} Days";
+      }
+      {
+        int result = 60 + hour - dateTime.hour;
+        if (result >= 60) {
+          result -= 60;
+        }
+        if (result >= 1) {
+          message += " ${result} Hours";
+        }
+      }
+      {
+        int result = 60 + minute - dateTime.minute;
+        if (result >= 60) {
+          result -= 60;
+        }
+        if (result >= 1) {
+          message += " ${result} Minutes";
+        }
+      }
+      {
+        int result = 60 + second - dateTime.second;
+        if (result >= 60) {
+          result -= 60;
+        }
+        if (result >= 1) {
+          message += " ${result} Seconds";
+        }
+      }
+      return message.trim();
+    } catch (e) {}
+    return "";
   }
 }

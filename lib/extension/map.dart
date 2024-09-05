@@ -279,8 +279,7 @@ extension GeneralLibExtensionMap on Map {
         if (this[key] == null) {
           this[key] = value;
         } else if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(
-              data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         }
@@ -308,8 +307,7 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapWithReplace(
-              data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapWithReplace(data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -331,8 +329,7 @@ extension GeneralLibExtensionMap on Map {
       if (value is Map) {
         value.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       } else if (value is JsonScheme) {
-        value.rawData
-            .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+        value.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       }
 
       if (value is List<Map>) {
@@ -341,8 +338,7 @@ extension GeneralLibExtensionMap on Map {
         }
       } else if (value is List<JsonScheme>) {
         for (var element in value) {
-          element.rawData
-              .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+          element.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
         }
       }
 
@@ -392,13 +388,67 @@ extension GeneralLibExtensionMap on Map {
             }
           } else if (value is List<JsonScheme>) {
             for (var element in value) {
-              element.rawData
-                  .general_lib_utils_removeRecursiveValueNullOrEmpty();
+              element.rawData.general_lib_utils_removeRecursiveValueNullOrEmpty();
             }
           }
         }
       }
       return false;
     });
+  }
+
+  void general_lib_extension_removeNullVoid() {
+    forEach((key, value) {
+      try {
+        if (value == null) {
+          remove(key);
+        }
+        if (value is Map) {
+          value.general_lib_extension_removeNullVoid();
+        }
+      } catch (e) {}
+    });
+    return;
+  }
+
+  void general_lib_extension_updateForce({
+    required Map data,
+  }) {
+    data.forEach((key, value) {
+      try {
+        // jika ada value
+        if (this[key] == null) {
+          this[key] = value;
+        } else if (value is Map && this[key] is Map) {
+          (this[key] as Map).general_lib_extension_updateForce(data: value);
+        } else if (key is List && this[key] is List) {
+        } else {
+          this[key] = value;
+        }
+      } catch (e) {}
+    });
+    return;
+  }
+
+  void general_lib_extension_updateVoid({
+    required Map data,
+  }) {
+    data.forEach((key, value) {
+      try {
+        // jika tidak ada key
+        if (!containsKey(key)) {
+          this[key] = value;
+          return;
+        }
+
+        // jika ada value
+        if (this[key] == null) {
+          this[key] = value;
+        } else if (value is Map && this[key] is Map) {
+          (this[key] as Map).general_lib_extension_updateVoid(data: value);
+        } else if (key is List && this[key] is List) {}
+      } catch (e) {}
+    });
+    return;
   }
 }

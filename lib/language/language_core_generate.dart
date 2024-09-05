@@ -46,48 +46,44 @@ Future<Directory> jsonToLanguageScript({
   required Map language_raw,
   required String default_language_code_id,
   required Directory directory,
-  required Future<String?> Function(String origin_data, String language_code_id,
-          String default_language_code_id)
-      onData,
+  required Future<String?> Function(String origin_data, String language_code_id, String default_language_code_id) onData,
   bool is_translate = true,
 }) async {
   if (!directory.existsSync()) {
     await directory.create(recursive: true);
   }
 
-  String base_name = path.basename(directory.path);
+  final String base_name = path.basename(directory.path);
 
-  List<Map> langugage_data = [];
-  String language_parameter =
-      "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
+  final List<Map> langugage_data = [];
+final   String language_parameter = "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
 
   for (var element in language_raw.entries) {
-    String key = element.key;
+final     String key = element.key;
     if (element.value is Map == false) {
       continue;
     }
-    Map value = element.value;
+    final Map value = element.value;
     if (value["is_skip"] == true) {
       continue;
     }
     value.remove("is_skip");
 
-    String name_extension =
-        "${key.toString().camelCaseClass()}Extension${base_name.camelCaseClass()}";
+    final String name_extension = "${key.toString().camelCaseClass()}Extension${base_name.camelCaseClass()}";
     String script = """
 // ignore_for_file: non_constant_identifier_names
 
 // import "${base_name}_core.dart";
-// import "${base_name}_code_data.dart"; 
-import "package:general_lib/general_lib.dart";
-import "package:general_lib/language/language_code_data.dart"; 
+// import "${base_name}_code_data.dart";
+import "package:general_lib/language/language_code_data.dart";
+import "package:general_lib/language/language_core.dart";
+import "package:general_lib/regexp_replace/regexp_replace.dart";
 
 // extension ${name_extension} on ${base_name.camelCaseClass()} {
-
 extension ${name_extension} on Language {
 
 """;
-    String script_method = await languageMapToStringScript(
+    final String script_method = await languageMapToStringScript(
       key_name: key,
       data: value,
       language_parameter: language_parameter,
@@ -100,7 +96,7 @@ extension ${name_extension} on Language {
     script += "\n${script_method}\n";
 
     script += "\n}";
-    Map jsonData = {
+    final Map jsonData = {
       "name": key,
       "script": script,
     };
@@ -109,11 +105,7 @@ extension ${name_extension} on Language {
   }
   langugage_data.add({
     "name": "${base_name}_scheme",
-    "script": langugage_data
-        .map((e) => "export ${json.encode("${e["name"]}.dart")};")
-        .toSet()
-        .toList()
-        .join("\n"),
+    "script": langugage_data.map((e) => "export ${json.encode("${e["name"]}.dart")};").toSet().toList().join("\n"),
   });
 
 //   langugage_data.add({
@@ -188,14 +180,13 @@ extension ${name_extension} on Language {
 
   // print(langugage_data);
   for (var i = 0; i < langugage_data.length; i++) {
-    Map language_data_raw = langugage_data[i];
+    final Map language_data_raw = langugage_data[i];
 
-    File file =
-        File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
+   final  File file = File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
     await file.writeAsString(language_data_raw["script"]);
   }
 
-  Map language_code_json = {
+  final Map language_code_json = {
     ...languageCodeJson,
   };
 
@@ -206,7 +197,7 @@ extension ${name_extension} on Language {
   //   path_package_json_dart: "import \"package:general_lib/json_scheme/json_scheme.dart\";",
   // );
 
-  File file = File(path.join(directory.path, "${base_name}.dart"));
+  final File file = File(path.join(directory.path, "${base_name}.dart"));
 
   if (file.existsSync()) {
     String contents = """
@@ -228,32 +219,29 @@ Future<String> languageMapToStringScript({
   bool is_translate = true,
   required String default_language_code_id,
   required String base_name,
-  required Future<String?> Function(String origin_data, String language_code_id,
-          String default_language_code_id)
-      onData,
+  required Future<String?> Function(String origin_data, String language_code_id, String default_language_code_id) onData,
 }) async {
   String script = "";
 
   for (var element in data.entries) {
-    String key = element.key;
+    final String key = element.key;
 
     if (element.value is String) {
-      String value = element.value;
+      final String value = element.value;
 
       String script_new = "";
-      Map language_raw_data = {
+      final Map language_raw_data = {
         default_language_code_id: value,
       };
 
       if (is_translate) {
         for (var i = 0; i < languageCodeNames.length; i++) {
-          String language_code_new = languageCodeNames[i];
+          final String language_code_new = languageCodeNames[i];
           if (language_raw_data.containsKey(language_code_new)) {
             continue;
           }
           try {
-            String? result_translate = await onData(
-                value, language_code_new, default_language_code_id);
+          final  String? result_translate = await onData(value, language_code_new, default_language_code_id);
             if (result_translate != value && result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;
@@ -275,7 +263,7 @@ Future<String> languageMapToStringScript({
       String? languageCode,
       List<RegExpReplace>? regexpReplaces,
     }) {
-      Map language_raw_data = ${json.encode(language_raw_data)};
+      final Map language_raw_data = ${json.encode(language_raw_data)};
 
       return sendLanguage( 
         // ${language_parameter}: ${base_name.camelCaseClass()}CodeData(        
@@ -293,10 +281,10 @@ Future<String> languageMapToStringScript({
     }
 
     if (element.value is Map) {
-      Map value = element.value;
+    final   Map value = element.value;
 
       String script_new = "";
-      Map language_raw_data = {
+    final   Map language_raw_data = {
         default_language_code_id: value[default_language_code_id],
       };
       for (var element in value.entries) {
@@ -314,17 +302,13 @@ Future<String> languageMapToStringScript({
 
       if (is_translate) {
         for (var i = 0; i < languageCodeNames.length; i++) {
-          String language_code_new = languageCodeNames[i];
+    final       String language_code_new = languageCodeNames[i];
           if (language_raw_data.containsKey(language_code_new)) {
             continue;
           }
           try {
-            String? result_translate = await onData(
-                value[default_language_code_id],
-                language_code_new,
-                default_language_code_id);
-            if (result_translate != value[default_language_code_id] &&
-                result_translate != null) {
+           final  String? result_translate = await onData(value[default_language_code_id], language_code_new, default_language_code_id);
+            if (result_translate != value[default_language_code_id] && result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;
               }
@@ -347,10 +331,10 @@ Future<String> languageMapToStringScript({
       String? languageCode,
       List<RegExpReplace>? regexpReplaces,
     }) {
-      Map language_raw_data = ${json.encode(language_raw_data)};
+      final Map language_raw_data = ${json.encode(language_raw_data)};
 
-      return sendLanguage( 
-        ${language_parameter}: ${base_name.camelCaseClass()}CodeData(
+      return sendLanguage(
+        languageCodeData: LanguageCodeData(
           language_raw_data,
         ),
         id: ${json.encode("${key_name}_${key}")},

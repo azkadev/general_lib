@@ -32,3 +32,31 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+
+import 'package:general_lib/general_lib.dart';
+import 'package:test/test.dart';
+import 'package:universal_io/io.dart';
+import "package:path/path.dart" as path;
+
+void main() {
+  Directory directory_temp = Directory(path.join(Directory.current.uri.toFilePath(), "temp", "test"));
+  if (directory_temp.existsSync()) {
+    directory_temp.deleteSync(recursive: true);
+  }
+  directory_temp.createSync(recursive: true);
+  test(
+    "Generate Scheme",
+    () async {
+      Directory directory = await jsonToScripts([
+        {
+          "@type": "slebew",
+          "soke": "soak",
+          "dia": 01,
+        },
+      ], directory: Directory(path.join(directory_temp.uri.toFilePath(), "scheme")));
+      expect(true, directory.existsSync());
+      Process.runSync("dart", ["format", directory.uri.toFilePath()]);
+      return;
+    },
+  );
+}
