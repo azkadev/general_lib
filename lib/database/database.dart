@@ -1,1 +1,1 @@
-export "package:general_lib/database/minimalist/minimalist.dart";
+export "package:general_lib/database/mini/mini.dart";

@@ -1,24 +1,37 @@
-import 'minimalist/minimalist.dart';
+import 'mini/mini.dart';
 
 class DatabaseGeneralLib {
-  static final Map<String, DatabaseMinimalistGeneralLibrary> _stateDbMinamlist = {};
+  static final Map<String, DatabaseMiniGeneralLibrary> _stateDbMini = {};
   DatabaseGeneralLib();
 
-  DatabaseMinimalistGeneralLibrary openDatabaseMinimalist({
+  DatabaseMiniGeneralLibrary openDatabaseMini({
     required String key,
-    required DatabaseMinimalistGeneralLibraryBaseOptions databaseMinimalistGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
-    final DatabaseMinimalistGeneralLibrary? databaseMinimalistGeneralLibraryOld = _stateDbMinamlist[key];
-    if (databaseMinimalistGeneralLibraryOld == null) {
-      final DatabaseMinimalistGeneralLibrary newDatabaseMinimalistGeneralLibrary = DatabaseMinimalistGeneralLibrary();
-      newDatabaseMinimalistGeneralLibrary.ensureInitialized(
+    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
+    if (databaseMiniGeneralLibraryOld == null) {
+      final DatabaseMiniGeneralLibrary newDatabaseMiniGeneralLibrary = DatabaseMiniGeneralLibrary();
+      newDatabaseMiniGeneralLibrary.ensureInitialized(
         pathToFile: key,
-        databaseMinimalistGeneralLibraryBaseOptions: databaseMinimalistGeneralLibraryBaseOptions,
+        databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
       );
-      newDatabaseMinimalistGeneralLibrary.initiaLizedSync();
-      _stateDbMinamlist[key] = newDatabaseMinimalistGeneralLibrary;
-      return newDatabaseMinimalistGeneralLibrary;
+      newDatabaseMiniGeneralLibrary.initiaLizedSync();
+      _stateDbMini[key] = newDatabaseMiniGeneralLibrary;
+      return newDatabaseMiniGeneralLibrary;
     }
-    return databaseMinimalistGeneralLibraryOld;
+    return databaseMiniGeneralLibraryOld;
   }
+
+  bool closeDatabaseMini({
+    required String key,
+  }) {
+    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
+    if (databaseMiniGeneralLibraryOld == null) {
+      return true;
+    }
+    databaseMiniGeneralLibraryOld.close();
+    _stateDbMini.remove(key);
+    return true;
+  }
+  
 }

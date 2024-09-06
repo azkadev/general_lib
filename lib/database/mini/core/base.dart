@@ -4,11 +4,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:general_lib/crypto/crypto.dart';
-import 'package:general_lib/database/minimalist/core/builder.dart';
-import 'package:general_lib/database/minimalist/core/type.dart';
+import 'package:general_lib/database/mini/core/builder.dart';
+import 'package:general_lib/database/mini/core/type.dart';
 import 'package:general_lib/extension/map.dart';
 
-abstract class DatabaseMinimalistGeneralLibraryBaseAbstract {
+abstract class DatabaseMiniGeneralLibraryBaseAbstract {
   String platformName() {
     return "";
   }
@@ -34,68 +34,78 @@ abstract class DatabaseMinimalistGeneralLibraryBaseAbstract {
   }
 }
 
-class DatabaseMinimalistGeneralLibraryBaseOptions {
+class DatabaseMiniGeneralLibraryBaseOptions {
   final Crypto crypto;
   final bool isEncrypt;
   final bool isIgnoreError;
 
-  DatabaseMinimalistGeneralLibraryBaseOptions({
+  DatabaseMiniGeneralLibraryBaseOptions({
     required this.crypto,
     required this.isEncrypt,
     required this.isIgnoreError,
   });
 }
 
-abstract class DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalistGeneralLibraryBaseAbstract {
+abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibraryBaseAbstract {
   late final String pathToFile;
-  late final DatabaseMinimalistGeneralLibraryBaseOptions databaseMinimalistGeneralLibraryBaseOptions;
+  late final DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions;
   bool isEnsureInitialized = false;
+
+  bool isInitialized = false;
+
   Map<dynamic, dynamic> stateData = <dynamic, dynamic>{};
   Map<dynamic, dynamic> defaultData = const <dynamic, dynamic>{};
 
-  DatabaseMinimalistGeneralLibraryBase();
+  DatabaseMiniGeneralLibraryBase();
 
   void ensureInitialized({
     required String pathToFile,
-    required DatabaseMinimalistGeneralLibraryBaseOptions databaseMinimalistGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (isEnsureInitialized) {
       return;
     }
     this.pathToFile = pathToFile;
-    this.databaseMinimalistGeneralLibraryBaseOptions = databaseMinimalistGeneralLibraryBaseOptions;
-
+    this.databaseMiniGeneralLibraryBaseOptions = databaseMiniGeneralLibraryBaseOptions;
     isEnsureInitialized = true;
   }
 
   void initiaLizedSync({
     Map<dynamic, dynamic> defaultData = const {},
   }) {
+    if (isInitialized) {
+      return;
+    }
     stateData.clear();
     try {
-      stateData = json.decode(decrypt(data_base64: readSync(), isIgnoreError: databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError));
+      stateData = json.decode(decrypt(data_base64: readSync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
     } catch (e) {
-      if (databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError == false) {
+      if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
         rethrow;
       }
     }
     this.defaultData = defaultData;
     setDaultData(defaultData: this.defaultData);
+    isInitialized = true;
   }
 
   Future<void> initiaLized({
     Map<dynamic, dynamic> defaultData = const {},
   }) async {
+    if (isInitialized) {
+      return;
+    }
     stateData.clear();
     try {
-      stateData = json.decode(decrypt(data_base64: await readAsync(), isIgnoreError: databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError));
+      stateData = json.decode(decrypt(data_base64: await readAsync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
     } catch (e) {
-      if (databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError == false) {
+      if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
         rethrow;
       }
     }
     this.defaultData = defaultData;
     setDaultData(defaultData: this.defaultData);
+    isInitialized = true;
   }
 
   void reset() {
@@ -117,7 +127,7 @@ abstract class DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalis
     required bool isIgnoreError,
   }) {
     try {
-      return databaseMinimalistGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
+      return databaseMiniGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
     } catch (e) {
       if (isIgnoreError == false) {
         rethrow;
@@ -131,7 +141,7 @@ abstract class DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalis
     required bool isIgnoreError,
   }) {
     try {
-      return databaseMinimalistGeneralLibraryBaseOptions.crypto.decrypt(data_base64: data_base64);
+      return databaseMiniGeneralLibraryBaseOptions.crypto.decrypt(data_base64: data_base64);
     } catch (e) {
       if (isIgnoreError == false) {
         rethrow;
@@ -141,16 +151,16 @@ abstract class DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalis
   }
 
   T valueBuilder<T>({
-    required T Function(DatabaseMinimalistGeneralLibraryBase db) builder,
+    required T Function(DatabaseMiniGeneralLibraryBase db) builder,
   }) {
     return builder(this);
   }
+
   FutureOr<T> valueBuilderAsync<T>({
-    required FutureOr<T> Function(DatabaseMinimalistGeneralLibraryBase db) builder,
-  }) async{
+    required FutureOr<T> Function(DatabaseMiniGeneralLibraryBase db) builder,
+  }) async {
     return await builder(this);
   }
-
 
   Map<dynamic, dynamic> toMap() {
     return toJson();
@@ -165,44 +175,50 @@ abstract class DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalis
     return json.encode(stateData);
   }
 
-  DatabaseMinimalistGeneralLibraryBuilder<T> get<T>({
+  DatabaseMiniGeneralLibraryBuilder<T> get<T>({
     required String key,
   }) {
-    final DatabaseMinimalistGeneralLibraryBuilder<T> databaseMinimalistGeneralLibraryBuilder = DatabaseMinimalistGeneralLibraryBuilder<T>(
+    final DatabaseMiniGeneralLibraryBuilder<T> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<T>(
       db: this,
     );
-    databaseMinimalistGeneralLibraryBuilder.ensureInitialized(
+    databaseMiniGeneralLibraryBuilder.ensureInitialized(
       key: key,
       value: null,
-      databaseMinimalistGeneralLibraryMethodType: DatabaseMinimalistGeneralLibraryMethodType.getDatabase,
+      databaseMiniMethodType: DatabaseMiniMethodType.getDatabase,
     );
-    return databaseMinimalistGeneralLibraryBuilder;
+    return databaseMiniGeneralLibraryBuilder;
   }
 
-  DatabaseMinimalistGeneralLibraryBuilder<bool> set<bool>({
+  DatabaseMiniGeneralLibraryBuilder<bool> set<bool>({
     required String key,
     required Object? value,
   }) {
-    final DatabaseMinimalistGeneralLibraryBuilder<bool> databaseMinimalistGeneralLibraryBuilder = DatabaseMinimalistGeneralLibraryBuilder<bool>(
+    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
-    databaseMinimalistGeneralLibraryBuilder.ensureInitialized(
+    databaseMiniGeneralLibraryBuilder.ensureInitialized(
       key: key,
       value: value,
-      databaseMinimalistGeneralLibraryMethodType: DatabaseMinimalistGeneralLibraryMethodType.setDatabase,
+      databaseMiniMethodType: DatabaseMiniMethodType.setDatabase,
     );
-    return databaseMinimalistGeneralLibraryBuilder;
+    return databaseMiniGeneralLibraryBuilder;
   }
 
-  DatabaseMinimalistGeneralLibraryBuilder<bool> write<bool>() {
-    final DatabaseMinimalistGeneralLibraryBuilder<bool> databaseMinimalistGeneralLibraryBuilder = DatabaseMinimalistGeneralLibraryBuilder<bool>(
+  DatabaseMiniGeneralLibraryBuilder<bool> write<bool>() {
+    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
-    databaseMinimalistGeneralLibraryBuilder.ensureInitialized(
+    databaseMiniGeneralLibraryBuilder.ensureInitialized(
       key: "",
       value: null,
-      databaseMinimalistGeneralLibraryMethodType: DatabaseMinimalistGeneralLibraryMethodType.writeDatabase,
+      databaseMiniMethodType: DatabaseMiniMethodType.writeDatabase,
     );
-    return databaseMinimalistGeneralLibraryBuilder;
+    return databaseMiniGeneralLibraryBuilder;
+  }
+
+  void close() {
+    stateData.clear();
+    defaultData.clear();
+    return;
   }
 }

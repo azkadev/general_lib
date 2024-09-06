@@ -1,6 +1,6 @@
 
 
-enum DatabaseMinimalistGeneralLibraryMethodType {
+enum DatabaseMiniMethodType {
   getDatabase,
   setDatabase,
   writeDatabase,

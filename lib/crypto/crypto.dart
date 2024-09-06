@@ -50,6 +50,16 @@ class Crypto {
     defaultIv = iv;
   }
 
+  static Crypto defaultCrypto() {
+    return Crypto(
+      key: "O1VH0mtJc6VL463I",
+    );
+  }
+
+  static Crypto empty() {
+    return Crypto(key: "");
+  }
+
   String encrypt({
     required String data,
     String? newKey,
@@ -117,8 +127,7 @@ class Crypto {
     iv ??= defaultIv;
     key ??= defaultKey;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
-    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)),
-        iv: IV.fromBase64(iv));
+    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)), iv: IV.fromBase64(iv));
   }
 
   Uint8List encryptsBytes({

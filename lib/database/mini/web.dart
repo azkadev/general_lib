@@ -1,7 +1,7 @@
 import 'core/base.dart';
 
-class DatabaseMinimalistGeneralLibrary extends DatabaseMinimalistGeneralLibraryBase {
-  DatabaseMinimalistGeneralLibrary();
+class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
+  DatabaseMiniGeneralLibrary();
   @override
   Future<String> readAsync() async {
     return "";

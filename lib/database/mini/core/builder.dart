@@ -8,29 +8,29 @@ import 'package:general_lib/extension/map.dart';
 import 'package:general_lib/json_scheme/json_scheme.dart';
 import 'base.dart';
 
-class DatabaseMinimalistGeneralLibraryBuilder<T> implements Future<T> {
+class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
   String state_key = "";
   Object? state_value = "";
-  DatabaseMinimalistGeneralLibraryMethodType databaseMinimalistGeneralLibraryMethodType = DatabaseMinimalistGeneralLibraryMethodType.unknown;
-  final DatabaseMinimalistGeneralLibraryBase db;
-  DatabaseMinimalistGeneralLibraryBuilder({
+  DatabaseMiniMethodType databaseMiniMethodType = DatabaseMiniMethodType.unknown;
+  final DatabaseMiniGeneralLibraryBase db;
+  DatabaseMiniGeneralLibraryBuilder({
     required this.db,
   });
 
   void ensureInitialized({
     required String key,
     required Object? value,
-    required DatabaseMinimalistGeneralLibraryMethodType databaseMinimalistGeneralLibraryMethodType,
+    required DatabaseMiniMethodType databaseMiniMethodType,
   }) {
     this.state_key = key;
     this.state_value = value;
-    this.databaseMinimalistGeneralLibraryMethodType = databaseMinimalistGeneralLibraryMethodType;
+    this.databaseMiniMethodType = databaseMiniMethodType;
   }
 
   // @override
   T? sync() {
-    if (databaseMinimalistGeneralLibraryMethodType == DatabaseMinimalistGeneralLibraryMethodType.writeDatabase) {
-      db.writeSync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError));
+    if (databaseMiniMethodType == DatabaseMiniMethodType.writeDatabase) {
+      db.writeSync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
       return true as T;
     }
 
@@ -38,7 +38,7 @@ class DatabaseMinimalistGeneralLibraryBuilder<T> implements Future<T> {
   }
 
   T? execute() {
-    if (databaseMinimalistGeneralLibraryMethodType == DatabaseMinimalistGeneralLibraryMethodType.getDatabase) {
+    if (databaseMiniMethodType == DatabaseMiniMethodType.getDatabase) {
       final ClassMirror classMirror = reflectClass(T);
       if (classMirror.isAssignableTo(reflectType(JsonScheme))) {
         final T result = (classMirror.invoke(Symbol("empty"), []).reflectee as T);
@@ -59,18 +59,18 @@ class DatabaseMinimalistGeneralLibraryBuilder<T> implements Future<T> {
       }
     }
 
-    if (databaseMinimalistGeneralLibraryMethodType == DatabaseMinimalistGeneralLibraryMethodType.setDatabase) {
+    if (databaseMiniMethodType == DatabaseMiniMethodType.setDatabase) {
       db.stateData.utils_set_data_void(state_key, state_value);
       return true as T;
     }
 
-    throw UnimplementedError(databaseMinimalistGeneralLibraryMethodType.name);
+    throw UnimplementedError(databaseMiniMethodType.name);
   }
 
   // @override
   Future<T?> _execute() async {
-    if (databaseMinimalistGeneralLibraryMethodType == DatabaseMinimalistGeneralLibraryMethodType.writeDatabase) {
-      await db.writeAsync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMinimalistGeneralLibraryBaseOptions.isIgnoreError));
+    if (databaseMiniMethodType == DatabaseMiniMethodType.writeDatabase) {
+      await db.writeAsync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
       return true as T;
     }
     return execute();

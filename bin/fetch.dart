@@ -10,17 +10,15 @@ import 'package:universal_io/io.dart';
 void main(List<String> args) async {
   print("start");
   final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
-  final DatabaseMinimalistGeneralLibrary database = databaseGeneralLib.openDatabaseMinimalist(
+  final DatabaseMiniGeneralLibrary database = databaseGeneralLib.openDatabaseMini(
     key: "/home/galaxeus/Documents/galaxeus/app/general_lib/temp/data",
-    databaseMinimalistGeneralLibraryBaseOptions: DatabaseMinimalistGeneralLibraryBaseOptions(
-      crypto: Crypto(
-        key: "O1VH0mtJc6VL463I",
-      ),
+    databaseMiniGeneralLibraryBaseOptions: DatabaseMiniGeneralLibraryBaseOptions(
+      crypto: Crypto.defaultCrypto(),
       isEncrypt: true,
       isIgnoreError: true,
     ),
   );
-  print(database.databaseMinimalistGeneralLibraryBaseOptions.crypto.defaultKey);
+  print(database.databaseMiniGeneralLibraryBaseOptions.crypto.defaultKey);
   print(database.platformName());
 
   await database.initiaLized(

@@ -3,8 +3,8 @@ import 'package:universal_io/io.dart';
 
 import 'core/base.dart';
 
-class DatabaseMinimalistGeneralLibrary extends DatabaseMinimalistGeneralLibraryBase implements DatabaseMinimalistGeneralLibraryBaseAbstract {
-  DatabaseMinimalistGeneralLibrary();
+class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibraryBaseAbstract {
+  DatabaseMiniGeneralLibrary();
 
   File get _file {
     return File(pathToFile);
