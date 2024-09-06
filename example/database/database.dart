@@ -11,10 +11,10 @@ void main(List<String> args) async {
   print("start");
   final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
   final DatabaseMiniGeneralLibrary database = databaseGeneralLib.openDatabaseMini(
-    key: "temp/data",
+    key: "temp/slewp",
     databaseMiniGeneralLibraryBaseOptions: DatabaseMiniGeneralLibraryBaseOptions(
       crypto: Crypto.defaultCrypto(),
-      isEncrypt: true,
+      isUseCrypto: true,
       isIgnoreError: true,
     ),
   );
@@ -28,18 +28,19 @@ void main(List<String> args) async {
       },
     },
   );
-  // database.reset();
-  database.toJson().printPretty();
-  final Slebew? result = await database.get(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe");
-  print(result);
+  String key_one = "spaslpalps.as.apd.pe.pf.pg.p.gp.p45.hgp5.phg.p.pth.p54h.p54hp5.hp54php.554p.h54php54h.p54h.p54ph.5php.54h.pd";
+  final Slebew? result = await database.get(key: key_one);
 
-  Map? resultData = database.get<Map>(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe").sync();
+  Map? resultData = database.get<Map>(key: key_one).sync();
   if (resultData == null) {
-    await database.set(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe", value: {"konyol": "anj"});
+    await database.set(key: key_one, value: {"konyol": "anj"});
   }
   // database["skonaoskao"] = Platform.environment;
-
+  await database.set(key: "anuy", value: DateTime.now());
+  await database.set(key: "ebew", value: Slebew({"saplsap": "Ssapslap"}));
+  await database.set(key: "slapslap", value: Uri.parse("https://google.com"));
   resultData.printPretty();
+
   database.get(key: "sa");
   await database.set(
     key: "azkoaksoa",
@@ -78,6 +79,8 @@ void main(List<String> args) async {
     database.toJson()["count"] += 1;
     database.toJson().printPretty();
   });
+  
+  print(Duration(milliseconds: 864010000));
 }
 
 class Slebew extends JsonScheme {

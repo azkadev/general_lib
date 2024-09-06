@@ -30,7 +30,12 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
   // @override
   T? sync() {
     if (databaseMiniMethodType == DatabaseMiniMethodType.writeDatabase) {
-      db.writeSync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
+      db.writeSync(
+        content: db.encrypt(
+          data: db.stateData,
+          databaseMiniGeneralLibraryBaseOptions: db.databaseMiniGeneralLibraryBaseOptions,
+        ),
+      );
       return true as T;
     }
 
@@ -60,17 +65,43 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     }
 
     if (databaseMiniMethodType == DatabaseMiniMethodType.setDatabase) {
-      db.stateData.utils_set_data_void(state_key, state_value);
+      db.stateData.utils_set_data_void(
+        state_key,
+        anyValueToWriteableJson(state_value),
+      );
       return true as T;
     }
 
     throw UnimplementedError(databaseMiniMethodType.name);
   }
 
+  dynamic anyValueToWriteableJson(dynamic value) { 
+    if (value is JsonScheme) {
+      return value.toJson();
+    } else if (value is List<JsonScheme>) {
+      return value.toJson();
+    } else if (value is DateTime) {
+      return value.millisecondsSinceEpoch;
+    } else if (value is Enum) {
+      return value.name;
+    } else if (value is List<Enum>) {
+      return value.map((e) => e.name).toList();
+    } else if (value is Uri) {
+      return value.toString();
+    } else  {
+      return value;
+    }
+  }
+
   // @override
   Future<T?> _execute() async {
     if (databaseMiniMethodType == DatabaseMiniMethodType.writeDatabase) {
-      await db.writeAsync(content: db.encrypt(data: db.stateData, isIgnoreError: db.databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
+      await db.writeAsync(
+        content: db.encrypt(
+          data: db.stateData,
+          databaseMiniGeneralLibraryBaseOptions: db.databaseMiniGeneralLibraryBaseOptions,
+        ),
+      );
       return true as T;
     }
     return execute();

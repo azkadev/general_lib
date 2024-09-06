@@ -36,12 +36,12 @@ abstract class DatabaseMiniGeneralLibraryBaseAbstract {
 
 class DatabaseMiniGeneralLibraryBaseOptions {
   final Crypto crypto;
-  final bool isEncrypt;
+  final bool isUseCrypto;
   final bool isIgnoreError;
 
   DatabaseMiniGeneralLibraryBaseOptions({
     required this.crypto,
-    required this.isEncrypt,
+    required this.isUseCrypto,
     required this.isIgnoreError,
   });
 }
@@ -89,7 +89,10 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     stateData.clear();
     try {
       setDefaultData(
-        defaultData: json.decode(decrypt(data_base64: readSync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError)),
+        defaultData: json.decode(decrypt(
+          data_base64: readSync(),
+          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
+        )),
       );
     } catch (e) {
       if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
@@ -110,7 +113,10 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     stateData.clear();
     try {
       setDefaultData(
-        defaultData: json.decode(decrypt(data_base64: await readAsync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError)),
+        defaultData: json.decode(decrypt(
+          data_base64: await readAsync(),
+          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
+        )),
       );
     } catch (e) {
       if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
@@ -139,29 +145,51 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
 
   String encrypt({
     required Map data,
-    required bool isIgnoreError,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
-    try {
-      return databaseMiniGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
-    } catch (e) {
-      if (isIgnoreError == false) {
-        rethrow;
+    if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
+      try {
+        return databaseMiniGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
+      } catch (e) {
+        if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
+          rethrow;
+        }
+        return "";
       }
-      return "";
+    } else {
+      try {
+        return json.encode(data);
+      } catch (e) {
+        if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
+          rethrow;
+        }
+        return "";
+      }
     }
   }
 
   String decrypt({
     required String data_base64,
-    required bool isIgnoreError,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
-    try {
-      return databaseMiniGeneralLibraryBaseOptions.crypto.decrypt(data_base64: data_base64);
-    } catch (e) {
-      if (isIgnoreError == false) {
-        rethrow;
+    if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
+      try {
+        return databaseMiniGeneralLibraryBaseOptions.crypto.decrypt(data_base64: data_base64);
+      } catch (e) {
+        if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
+          rethrow;
+        }
+        return json.encode({});
       }
-      return json.encode({});
+    } else {
+      try {
+        return data_base64;
+      } catch (e) {
+        if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
+          rethrow;
+        }
+        return json.encode({});
+      }
     }
   }
 

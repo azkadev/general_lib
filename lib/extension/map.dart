@@ -232,11 +232,8 @@ extension GeneralLibExtensionMap on Map {
   dynamic extension_general_lib_getData({
     required String key,
   }) {
-    if (isEmpty) {
-      return null;
-    }
+    final List<String> datas = key.split("."); 
     dynamic state_data;
-    final List<String> datas = key.split(".");
     for (var index = 0; index < datas.length; index++) {
       final dynamic data_key = datas[index];
       if (index == 0) {
@@ -251,10 +248,7 @@ extension GeneralLibExtensionMap on Map {
     return state_data;
   }
 
-  void utils_set_datas_void(List datas, dynamic value) {
-    if (isEmpty) {
-      return;
-    }
+  void utils_set_datas_void(List datas, dynamic value) { 
     dynamic state_data = this;
     for (var index = 0; index < datas.length; index++) {
       dynamic data_key = datas[index];
@@ -380,10 +374,7 @@ extension GeneralLibExtensionMap on Map {
 
   void general_lib_utils_removeRecursiveByKeys({
     required List<String> keyDatas,
-  }) {
-    if (isEmpty) {
-      return;
-    }
+  }) { 
     removeWhere((key, value) {
       if (keyDatas.contains(key)) {
         return true;
