@@ -388,10 +388,20 @@ class ${className} extends JsonScheme {
 
   ${comment}
   ${className}(super.rawData);
-   
+  
+  /// return default data
+  /// 
   static Map get defaultData {
     return ${json.encode(data)};
   }
+
+  /// create [${className}]
+  /// Empty  
+  static ${className} empty() {
+    return ${className}({});
+  }
+
+  
 """;
 
   String classDataCreate = """
@@ -988,6 +998,10 @@ String textToFunctionDart({
     return """
 
   ${comment}
+  ///
+  /// default:
+  /// 
+  /// 
   List<${returnType}> get ${nameMethod.toLowerCase()} {
     try {
       if (rawData["${key}"] is List == false){

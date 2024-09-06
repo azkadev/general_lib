@@ -57,7 +57,7 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   Map<dynamic, dynamic> defaultData = const <dynamic, dynamic>{};
 
   DatabaseMiniGeneralLibraryBase();
-  
+
   /// operator map data
   operator [](key) {
     return stateData[key];
@@ -67,7 +67,6 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   void operator []=(key, value) {
     stateData[key] = value;
   }
-
 
   void ensureInitialized({
     required String pathToFile,
@@ -89,14 +88,16 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     }
     stateData.clear();
     try {
-      stateData = json.decode(decrypt(data_base64: readSync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
+      setDefaultData(
+        defaultData: json.decode(decrypt(data_base64: readSync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError)),
+      );
     } catch (e) {
       if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
         rethrow;
       }
     }
     this.defaultData = defaultData;
-    setDaultData(defaultData: this.defaultData);
+    setDefaultData(defaultData: this.defaultData);
     isInitialized = true;
   }
 
@@ -108,23 +109,26 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     }
     stateData.clear();
     try {
-      stateData = json.decode(decrypt(data_base64: await readAsync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError));
+      setDefaultData(
+        defaultData: json.decode(decrypt(data_base64: await readAsync(), isIgnoreError: databaseMiniGeneralLibraryBaseOptions.isIgnoreError)),
+      );
     } catch (e) {
       if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
         rethrow;
       }
     }
     this.defaultData = defaultData;
-    setDaultData(defaultData: this.defaultData);
+    setDefaultData(defaultData: this.defaultData);
     isInitialized = true;
   }
 
   void reset() {
     stateData.clear();
-    stateData = defaultData;
+    // stateData.addAll(defaultData);
+    setDefaultData(defaultData: defaultData);
   }
 
-  void setDaultData({
+  void setDefaultData({
     required Map<dynamic, dynamic> defaultData,
   }) {
     stateData.general_lib_utils_updateIfNotSameTypeOrEmpty(

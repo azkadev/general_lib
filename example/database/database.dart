@@ -28,21 +28,14 @@ void main(List<String> args) async {
       },
     },
   );
-  final Slebew? result = await database.valueBuilderAsync(
-    builder: (db) async {
-      try {
-        return Slebew(await db.get(
-          key: "azka",
-        ));
-      } catch (e) {
-        return Slebew({});
-      }
-    },
-  );
+  // database.reset();
+  database.toJson().printPretty();
+  final Slebew? result = await database.get(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe");
   print(result);
-  Map? resultData = database.get<Map>(key: "azka").sync();
+
+  Map? resultData = database.get<Map>(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe").sync();
   if (resultData == null) {
-    await database.set(key: "azka", value: {"konyol": "anj"});
+    await database.set(key: "azka.salpslaps.aslpalspa.sapldpwlpf.efpe.pfepf.pefpe.fp.epf.pe", value: {"konyol": "anj"});
   }
   // database["skonaoskao"] = Platform.environment;
 
@@ -92,6 +85,10 @@ class Slebew extends JsonScheme {
 
   static Map get defaultData {
     return {"@type": "slebew", "soke": "soak", "dia": 1};
+  }
+
+  static Slebew empty() {
+    return Slebew({});
   }
 
   String? get special_type {

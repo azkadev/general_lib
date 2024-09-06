@@ -232,14 +232,19 @@ extension GeneralLibExtensionMap on Map {
   dynamic extension_general_lib_getData({
     required String key,
   }) {
-    final List<String> datas = key.split(".");
+    if (isEmpty) {
+      return null;
+    }
     dynamic state_data;
-
+    final List<String> datas = key.split(".");
     for (var index = 0; index < datas.length; index++) {
       final dynamic data_key = datas[index];
       if (index == 0) {
         state_data = this[data_key];
         continue;
+      }
+      if (state_data == null) {
+        return null;
       }
       state_data = state_data[data_key];
     }
@@ -247,6 +252,9 @@ extension GeneralLibExtensionMap on Map {
   }
 
   void utils_set_datas_void(List datas, dynamic value) {
+    if (isEmpty) {
+      return;
+    }
     dynamic state_data = this;
     for (var index = 0; index < datas.length; index++) {
       dynamic data_key = datas[index];
