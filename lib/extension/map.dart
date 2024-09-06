@@ -229,6 +229,23 @@ extension GeneralLibExtensionMap on Map {
     }
   }
 
+  dynamic extension_general_lib_getData({
+    required String key,
+  }) {
+    final List<String> datas = key.split(".");
+    dynamic state_data;
+
+    for (var index = 0; index < datas.length; index++) {
+      final dynamic data_key = datas[index];
+      if (index == 0) {
+        state_data = this[data_key];
+        continue;
+      }
+      state_data = state_data[data_key];
+    }
+    return state_data;
+  }
+
   void utils_set_datas_void(List datas, dynamic value) {
     dynamic state_data = this;
     for (var index = 0; index < datas.length; index++) {
@@ -318,9 +335,47 @@ extension GeneralLibExtensionMap on Map {
     return;
   }
 
+  void general_lib_utils_updateIfNotSameTypeOrEmpty({
+    required Map data,
+    required List<String> ignoreKeys,
+  }) {
+    if (data.isEmpty) {
+      return;
+    }
+    data.general_lib_utils_removeRecursiveByKeys(keyDatas: ignoreKeys);
+    data.forEach((key, value) {
+      if (ignoreKeys.contains(key)) {
+        return;
+      }
+      try {
+        if (value == null) {
+          return;
+        }
+        if (value is String) {
+          if (value.isEmpty) {
+            return;
+          }
+        }
+        if (value is Map && this[key] is Map) {
+          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(data: value, ignoreKeys: ignoreKeys);
+        } else if (value is List && this[key] is List) {
+          if (value is List<Map> && this[key] is List<Map>) {}
+        } else {
+          // reflect(this[key]);
+          // reflect(value);
+          this[key] = value;
+        }
+      } catch (e) {}
+    });
+    return;
+  }
+
   void general_lib_utils_removeRecursiveByKeys({
     required List<String> keyDatas,
   }) {
+    if (isEmpty) {
+      return;
+    }
     removeWhere((key, value) {
       if (keyDatas.contains(key)) {
         return true;

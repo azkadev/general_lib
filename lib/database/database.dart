@@ -1,0 +1,1 @@
+export "package:general_lib/database/minimalist/minimalist.dart";

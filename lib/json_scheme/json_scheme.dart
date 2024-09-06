@@ -50,6 +50,10 @@ class JsonScheme {
     };
   }
 
+  static JsonScheme empty() {
+    return JsonScheme({});
+  }
+
   /// return original data json
   static JsonScheme create({
     String special_type = "JsonScheme",
