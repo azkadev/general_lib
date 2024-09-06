@@ -79,8 +79,8 @@ void main(List<String> args) async {
     database.toJson()["count"] += 1;
     database.toJson().printPretty();
   });
-  
-  print(Duration(milliseconds: 864010000));
+
+  print(Duration(milliseconds: 864010000)); 
 }
 
 class Slebew extends JsonScheme {

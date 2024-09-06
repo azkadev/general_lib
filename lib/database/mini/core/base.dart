@@ -264,4 +264,82 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     defaultData.clear();
     return;
   }
+
+  /// map extension
+  ///
+  ///
+
+  void addAll(Map other) {
+    stateData.addAll(other);
+  }
+
+  void addEntries(Iterable<MapEntry> newEntries) {
+    stateData.addEntries(newEntries);
+  }
+
+  Map<RK, RV> cast<RK, RV>() {
+    return stateData.cast<RK, RV>();
+  }
+
+  void clear() {
+    stateData.clear();
+    // TODO: implement clear
+  }
+
+  bool containsKey(Object? key) {
+    return stateData.containsKey(key);
+  }
+
+  bool containsValue(Object? value) {
+    return stateData.containsValue(value);
+  }
+
+  // TODO: implement entries
+  Iterable<MapEntry> get entries => stateData.entries;
+
+  void forEach(void Function(dynamic key, dynamic value) action) {
+    stateData.forEach(action);
+  }
+
+  // TODO: implement isEmpty
+  bool get isEmpty => stateData.isEmpty;
+
+  // TODO: implement isNotEmpty
+  bool get isNotEmpty => stateData.isNotEmpty;
+
+  // TODO: implement keys
+  Iterable get keys => stateData.keys;
+
+  // TODO: implement length
+  int get length => stateData.length;
+
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
+    return stateData.map<K2, V2>(convert);
+  }
+
+  putIfAbsent(key, Function() ifAbsent) {
+    return stateData.putIfAbsent(key, ifAbsent);
+  }
+
+  remove(Object? key) {
+    return stateData.remove(key);
+  }
+
+  void removeWhere(bool Function(dynamic key, dynamic value) test) {
+    return stateData.removeWhere(test);
+  }
+
+  update(key, Function(dynamic value) update, {Function()? ifAbsent}) {
+    return stateData.update(key, update, ifAbsent: ifAbsent);
+  }
+
+  void updateAll(Function(dynamic key, dynamic value) update) {
+    // TODO: implement updateAll
+    return stateData.updateAll(update);
+  }
+
+  // TODO: implement values
+  Iterable get values => stateData.values;
+
+  ///
 }
