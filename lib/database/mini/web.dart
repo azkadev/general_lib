@@ -21,6 +21,7 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
   void writeSync({required String content}) {
     return;
   }
+
   @override
   String platformName() {
     return "web";

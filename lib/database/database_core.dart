@@ -3,7 +3,7 @@ import 'mini/mini.dart';
 class DatabaseGeneralLib {
   static final Map<String, DatabaseMiniGeneralLibrary> _stateDbMini = {};
   DatabaseGeneralLib();
-
+  
   DatabaseMiniGeneralLibrary openDatabaseMini({
     required String key,
     required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
@@ -33,5 +33,5 @@ class DatabaseGeneralLib {
     _stateDbMini.remove(key);
     return true;
   }
-  
+
 }

@@ -57,6 +57,17 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   Map<dynamic, dynamic> defaultData = const <dynamic, dynamic>{};
 
   DatabaseMiniGeneralLibraryBase();
+  
+  /// operator map data
+  operator [](key) {
+    return stateData[key];
+  }
+
+  /// operator map data
+  void operator []=(key, value) {
+    stateData[key] = value;
+  }
+
 
   void ensureInitialized({
     required String pathToFile,
