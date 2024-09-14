@@ -43,6 +43,7 @@ class EventEmitter {
       onCancel: (event) {
         event_datas.remove(event.event_unique_id);
         remove(eventName: eventName, uniqueId: event.event_unique_id);
+        event.dispose();
       },
     );
     event_datas[eventEmitterListenerGeneralLib.event_unique_id] = eventEmitterListenerGeneralLib;

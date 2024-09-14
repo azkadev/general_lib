@@ -118,14 +118,9 @@ class ScriptGenerator {
       // Slebew Project
       // New Project
       RegExpReplace(
-        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "),
-            caseSensitive: false),
+        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "), caseSensitive: false),
         replace: (match) {
-          return newProjectName
-              .snakeCaseClass()
-              .split("_")
-              .map((e) => e.toUpperCaseFirstData())
-              .join(" ");
+          return newProjectName.snakeCaseClass().split("_").map((e) => e.toUpperCaseFirstData()).join(" ");
         },
       ),
     ];
@@ -143,8 +138,7 @@ class ScriptGenerator {
   }
 
   String getPath() {
-    return path.relative(file_system_entity.uri.toFilePath(),
-        from: directory_base.uri.toFilePath());
+    return path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
   }
 
   Map toJson() {
@@ -152,32 +146,78 @@ class ScriptGenerator {
       "@type": "ScriptGenerator",
       "is_generate": true,
       "directory_base": (path.basename(directory_base.uri.toFilePath())),
-      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(),
-          from: directory_base.uri.toFilePath()),
+      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath()),
       "file_system_entity_type": file_system_entity_type.toString(),
       "value": value,
       "children": children.map((e) => e.toJson()).toList(growable: true),
     };
   }
 
-  String toScriptDart() {
-    String parse_value =
-        (value).replaceAllMapped(RegExp(r"((.)?(\$))"), (match) {
-      String gro = match.group(2) ?? "";
-      String gall = match.group(1) ?? "";
+  String valueToScript() {
+    String parse_value = value;
+    for (final RegExpReplace regExpReplace in regExpReplaces()) {
+      parse_value = parse_value.replaceAllMapped(regExpReplace.from, regExpReplace.replace);
+    }
 
-      // if (gro != "\\") {
-      //   return "\\${gall}";
-      // }
-      return "${gall}";
-    });
+    if (parse_value.isEmpty) {
+      return "${json.encode("")}";
+    }
+    if (is_file_dart) {
+      // return "${json.encode(json.encode(parse_value))}";
+    }
+    return "r\"\"\"${parse_value}\"\"\"";
+  }
+
+  bool get is_file_dart => (path.extension(file_system_entity.path) == ".dart");
+
+  List<RegExpReplace> regExpReplaces() {
+    bool is_file_dart_procces = is_file_dart;
+    return [
+      RegExpReplace(
+        from: RegExp(r"((.)?(\$))"),
+        replace: (match) {
+          final String gro = match.group(2) ?? "";
+          final String gall = match.group(1) ?? "";
+          // if (gro != "\\") {
+          //   return "\\${gall}";
+          // }
+          return "${gall}";
+        },
+      ),
+      if (is_file_dart_procces) ...[
+        RegExpReplace(
+          from: RegExp(r"((\\)?(\$))"),
+          replace: (match) {
+            final String dollar = match.group(3) ?? "";
+            String escape = match.group(2) ?? "";
+            if (escape.isEmpty) {
+              return "\\${dollar}";
+            }
+            return match.group(1) ?? "";
+          },
+        ),
+        RegExpReplace(
+          from: RegExp(r'((\\)?\"(\\)?\"(\\)?\")'),
+          replace: (match) {
+            final String all = match.group(1) ?? "";
+            final String actually = '\\"\\"\\"';
+            if (all != actually) {
+              return actually;
+            }
+            return all;
+          },
+        ),
+      ],
+    ];
+  }
+
+  String toScriptDart() {
     String script_generate = """
 ScriptGenerator(
   is_generate: true,
   directory_base: Directory(${json.encode(path.basename(directory_base.uri.toFilePath()))}),
   file_system_entity: ${() {
-      String base_file_path = path.relative(file_system_entity.uri.toFilePath(),
-          from: directory_base.uri.toFilePath());
+      String base_file_path = path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
       if (file_system_entity_type == FileSystemEntityType.file) {
         return "File(${json.encode(base_file_path)})";
       }
@@ -185,7 +225,7 @@ ScriptGenerator(
     }()},
   state_data: {},
   file_system_entity_type: FileSystemEntityType.${file_system_entity_type.toString()},
-  value: r\"\"\"${parse_value}\"\"\",
+  value: ${valueToScript()},
   children: [
     ${children.map((e) => e.toScriptDart()).join(",\n    ")}
   ],

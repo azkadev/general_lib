@@ -38,31 +38,28 @@ import 'package:general_lib/extension/extension.dart';
 import 'package:general_lib/extension/regexp.dart';
 
 class Args {
-  List<String> arguments = [];
+  final List<String> arguments = [];
 
   Args(List<String> args) {
     arguments.addAll(args);
   }
 
   factory Args.fromString(String arg) {
-    List<String> args = [];
+    final List<String> args = [];
     String state_data = "";
 
     for (var i = 0; i < arg.length; i++) {
       String loop_data = arg[i];
       if (state_data.isNotEmpty) {
         void addStateData(String end_data, int index) {
-          for (var index_state = index;
-              index_state < arg.length;
-              index_state++) {
+          for (var index_state = index; index_state < arg.length; index_state++) {
             if (index_state == arg.length - 1) {
               state_data += arg[index_state];
               i = index_state;
               args.add(state_data);
               state_data = "";
               break;
-            } else if (RegExp(end_data, caseSensitive: false)
-                .hashData(arg[index_state])) {
+            } else if (RegExp(end_data, caseSensitive: false).hashData(arg[index_state])) {
               if (end_data == " ") {
               } else {
                 state_data += arg[index_state];
@@ -82,12 +79,10 @@ class Args {
             break;
           }
           String state_data_first = state_data[0];
-          if (RegExp("([-+=])", caseSensitive: false)
-              .hashData(state_data_first)) {
+          if (RegExp("([-+=])", caseSensitive: false).hashData(state_data_first)) {
             addStateData(" ", i);
             break;
-          } else if (RegExp("([\"'`])", caseSensitive: false)
-              .hashData(state_data_first)) {
+          } else if (RegExp("([\"'`])", caseSensitive: false).hashData(state_data_first)) {
             addStateData(state_data_first, i);
             break;
           } else {
@@ -104,14 +99,23 @@ class Args {
     return Args(args);
   }
 
-  bool contains(Object? key) {
+  bool contains(
+    Object? key, {
+    bool isRemoveIfFound = false,
+  }) {
     if (key is String) {
-      return arguments.contains(key);
-    }
-    if (key is List<String>) {
-      for (var i = 0; i < key.length; i++) {
-        String key_data = key[i];
-        if (arguments.contains(key_data)) {
+      if (arguments.contains(key)) {
+        if (isRemoveIfFound) {
+          arguments.remove(key);
+        }
+        return true;
+      }
+    } else if (key is List<String>) {
+      for (final String element in key) {
+        if (arguments.contains(element)) {
+          if (isRemoveIfFound) {
+            arguments.remove(element);
+          }
           return true;
         }
       }

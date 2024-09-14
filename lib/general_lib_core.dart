@@ -40,6 +40,20 @@ import 'dart:math';
 import 'package:general_lib/extension/extension.dart';
 import 'package:universal_io/io.dart';
 
+enum NetworkClientConnectionType {
+  http,
+  tcpsocket,
+  websocket,
+}
+
+
+
+enum GeneralLibSchemeType {
+  database,
+  isar,
+  scheme,
+}
+
 /// getRandom uuid for parameters @extra
 String getUuid(int length, {String? text}) {
   var ch = '0123456789abcdefghijklmnopqrstuvwxyz';

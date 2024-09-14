@@ -44,8 +44,7 @@ import 'package:universal_io/io.dart';
 
 import "package:path/path.dart" as path;
 
-typedef OnWrittingScriptGenerator = FutureOr<String> Function(
-    ScriptGenerator scriptGenerator, File file);
+typedef OnWrittingScriptGenerator = FutureOr<String> Function(ScriptGenerator scriptGenerator, File file);
 
 extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
   List<ScriptGenerator> toScriptGenerate({
@@ -77,17 +76,14 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
         String base_name = path.basename(fileSystemEntity.uri.toFilePath());
         if (["pubspec.lock"].contains(base_name.toLowerCase().trim())) {
           if (isVerbose) {
-            print(
-                "SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
-        List<String> paths_folders =
-            path.split(fileSystemEntity.uri.toFilePath());
+        List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
         if (paths_folders.contains(".dart_tool")) {
           if (isVerbose) {
-            print(
-                "SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
@@ -110,8 +106,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
         ));
       } else if (fileSystemEntity is Directory) {
         String base_name = path.basename(fileSystemEntity.uri.toFilePath());
-        List<String> paths_folders =
-            path.split(fileSystemEntity.uri.toFilePath());
+        List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
         if (RegExp(r"^([.])", caseSensitive: false).hasMatch(base_name)) {
           if ([".github", ".idea"].contains(base_name) == false) {
             continue;
@@ -119,8 +114,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
         }
         if (paths_folders.contains(".dart_tool")) {
           if (isVerbose) {
-            print(
-                "SKIP ON DIR: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print("SKIP ON DIR: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
@@ -131,9 +125,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           state_data: {},
           value: "",
           file_system_entity_type: fileSystemEntity.statSync().type,
-          children: fileSystemEntity
-              .listSync()
-              .toScriptGenerate(directoryBase: directory, isVerbose: isVerbose),
+          children: fileSystemEntity.listSync().toScriptGenerate(directoryBase: directory, isVerbose: isVerbose),
         ));
       } else {
         String base_name = path.basename(fileSystemEntity.uri.toFilePath());
@@ -181,17 +173,10 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
     /// loop
     for (ScriptGenerator scriptGenerator in this) {
       ///
-      if (scriptGenerator.file_system_entity_type ==
-          FileSystemEntityType.file) {
+      if (scriptGenerator.file_system_entity_type == FileSystemEntityType.file) {
         /// parse_path
         String path_origin_file = () {
-          if ((path
-                  .basename(scriptGenerator.directory_base.uri.toFilePath())
-                  .toLowerCase() ==
-              path
-                  .basenameWithoutExtension(
-                      scriptGenerator.file_system_entity.uri.toFilePath())
-                  .toLowerCase())) {
+          if ((path.basename(scriptGenerator.directory_base.uri.toFilePath()).toLowerCase() == path.basenameWithoutExtension(scriptGenerator.file_system_entity.uri.toFilePath()).toLowerCase())) {
             String result_path = "";
             if (scriptGenerator.is_generate) {
               result_path = scriptGenerator.file_system_entity.uri.toFilePath();
@@ -205,8 +190,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
             // return result_path.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name);
             return ScriptGenerator.replacerData(
               value: result_path,
-              originProjectName: path
-                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(result_path),
@@ -227,8 +211,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
             // return result_path.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name);
             return ScriptGenerator.replacerData(
               value: result_path,
-              originProjectName: path
-                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(result_path),
@@ -238,8 +221,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
         }();
         // end parse
 
-        File file =
-            File(path.join(directory_base.uri.toFilePath(), path_origin_file));
+        File file = File(path.join(directory_base.uri.toFilePath(), path_origin_file));
         yield ScriptGeneratorStatus(
           file_system_entity: file,
           text: "Check Parent Directory",
@@ -253,18 +235,15 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
             text: "Parent Exist",
           );
         }
-        OnWrittingScriptGenerator? onWrittingScriptGenerator_script =
-            onWritting;
+        OnWrittingScriptGenerator? onWrittingScriptGenerator_script = onWritting;
         if (onWrittingScriptGenerator_script != null) {
-          await file.writeAsString(
-              (await onWrittingScriptGenerator_script(scriptGenerator, file)));
+          await file.writeAsString((await onWrittingScriptGenerator_script(scriptGenerator, file)));
         } else {
           // await file.writeAsString(scriptGenerator.value.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name));
           await file.writeAsString(
             ScriptGenerator.replacerData(
               value: scriptGenerator.value,
-              originProjectName: path
-                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(file.path),
@@ -272,8 +251,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
             ),
           );
         }
-      } else if (scriptGenerator.file_system_entity_type ==
-          FileSystemEntityType.directory) {
+      } else if (scriptGenerator.file_system_entity_type == FileSystemEntityType.directory) {
         yield ScriptGeneratorStatus(
           file_system_entity: scriptGenerator.file_system_entity,
           text: "Generate Children",
