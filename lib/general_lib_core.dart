@@ -55,14 +55,10 @@ String generateUuid(
   int length, {
   String text = "0123456789abcdefghijklmnopqrstuvwxyz",
 }) {
-  Random random = Random();
+  // final Random random = Random();
   return List.generate(length, (index) {
-    String data_text = text[random.nextInt(text.length)];
-    List<bool> true_false_data = [
-      true,
-      false,
-    ];
-    if (true_false_data[random.nextInt(true_false_data.length)]) {
+    final String data_text = text[Random().nextInt(text.length)]; 
+    if (Random().nextBool()) {
       return data_text.toUpperCase();
     } else {
       return data_text;

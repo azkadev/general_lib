@@ -1,4 +1,3 @@
- 
 import 'package:universal_io/io.dart';
 
 import 'core/base.dart';
@@ -7,7 +6,11 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase implemen
   DatabaseMiniGeneralLibrary();
 
   File get _file {
-    return File(pathToFile);
+    final File file = File(pathToFile);
+    if (file.parent.existsSync() == false) {
+      file.parent.createSync(recursive: true);
+    }
+    return file;
   }
 
   @override
@@ -31,7 +34,6 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase implemen
   Future<void> writeAsync({
     required String content,
   }) async {
-    
     await _file.writeAsString(content);
   }
 

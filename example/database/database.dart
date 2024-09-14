@@ -8,10 +8,12 @@ import 'package:general_lib/general_lib.dart';
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
+  
   print("start");
   final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
   final DatabaseMiniGeneralLibrary database = databaseGeneralLib.openDatabaseMini(
     key: "temp/slewp",
+    defaultData: {},
     databaseMiniGeneralLibraryBaseOptions: DatabaseMiniGeneralLibraryBaseOptions(
       crypto: Crypto.defaultCrypto(),
       isUseCrypto: true,
@@ -80,7 +82,7 @@ void main(List<String> args) async {
     database.toJson().printPretty();
   });
 
-  print(Duration(milliseconds: 864010000)); 
+  print(Duration(milliseconds: 864010000));
 }
 
 class Slebew extends JsonScheme {

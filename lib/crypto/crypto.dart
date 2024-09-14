@@ -38,6 +38,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:encrypt/encrypt.dart';
+import 'package:general_lib/general_lib.dart';
 
 class Crypto {
   late String defaultKey;
@@ -50,9 +51,15 @@ class Crypto {
     defaultIv = iv;
   }
 
+  static String generateKey({
+    String scheme  ="0123456789abcdefghijklmnopqrstuvwxyz",
+  }) {
+    return generateUuid(32,text: scheme);
+  }
+
   static Crypto defaultCrypto() {
     return Crypto(
-      key: "O1VH0mtJc6VL463I",
+      key: "Xv2CgIFX5J0OPr7VxH2E79ec0OarCSeh",
     );
   }
 

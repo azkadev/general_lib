@@ -395,6 +395,23 @@ class ${className} extends JsonScheme {
     return ${json.encode(data)};
   }
 
+  /// check data 
+  /// if raw data 
+  /// - rawData["@type"] == ${data["@type"]}
+  /// if same return true
+  bool json_scheme_utils_checkDataIsSameBySpecialType() {
+    return rawData["@type"] == defaultData["@type"];
+  }
+
+  /// check value data whatever do yout want
+  bool json_scheme_utils_checkDataIsSameBuilder({
+    required bool Function(Map rawData, Map defaultData) onResult,
+  }) {
+    return onResult(rawData["@type"], defaultData["@type"]);
+  }
+
+  
+
   /// create [${className}]
   /// Empty  
   static ${className} empty() {

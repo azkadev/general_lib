@@ -7,6 +7,7 @@ class DatabaseGeneralLib {
   DatabaseMiniGeneralLibrary openDatabaseMini({
     required String key,
     required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
+    required Map<dynamic, dynamic> defaultData,
   }) {
     final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
     if (databaseMiniGeneralLibraryOld == null) {
@@ -15,7 +16,9 @@ class DatabaseGeneralLib {
         pathToFile: key,
         databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
       );
-      newDatabaseMiniGeneralLibrary.initiaLizedSync();
+      newDatabaseMiniGeneralLibrary.initiaLizedSync(
+        defaultData: defaultData,
+      );
       _stateDbMini[key] = newDatabaseMiniGeneralLibrary;
       return newDatabaseMiniGeneralLibrary;
     }

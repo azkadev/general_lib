@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
-import 'dart:mirrors';
+// import 'dart:mirrors';
 
 import 'type.dart';
 import 'package:general_lib/extension/map.dart';
@@ -44,18 +44,22 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
 
   T? execute() {
     if (databaseMiniMethodType == DatabaseMiniMethodType.getDatabase) {
-      final ClassMirror classMirror = reflectClass(T);
-      if (classMirror.isAssignableTo(reflectType(JsonScheme))) {
-        final T result = (classMirror.invoke(Symbol("empty"), []).reflectee as T);
-        if (result is JsonScheme) {
-          final Map? result_data = db.stateData.extension_general_lib_getData(key: state_key);
-          if (result_data == null) {
-            return null;
-          }
-          result.rawData = result_data;
-        }
-        return result;
-      } else {
+      // unsupported
+      // {
+      //   final ClassMirror classMirror = reflectClass(T);
+      //   if (classMirror.isAssignableTo(reflectType(JsonScheme))) {
+      //     final T result = (classMirror.invoke(Symbol("empty"), []).reflectee as T);
+      //     if (result is JsonScheme) {
+      //       final Map? result_data = db.stateData.extension_general_lib_getData(key: state_key);
+      //       if (result_data == null) {
+      //         return null;
+      //       }
+      //       result.rawData = result_data;
+      //     }
+      //     return result;
+      //   }
+      // }
+      {
         final result_data = db.stateData.extension_general_lib_getData(key: state_key);
         if (result_data == null) {
           return null;
@@ -75,7 +79,7 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     throw UnimplementedError(databaseMiniMethodType.name);
   }
 
-  dynamic anyValueToWriteableJson(dynamic value) { 
+  dynamic anyValueToWriteableJson(dynamic value) {
     if (value is JsonScheme) {
       return value.toJson();
     } else if (value is List<JsonScheme>) {
@@ -88,7 +92,7 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
       return value.map((e) => e.name).toList();
     } else if (value is Uri) {
       return value.toString();
-    } else  {
+    } else {
       return value;
     }
   }
