@@ -51,16 +51,16 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
     Directory? directoryBase,
     bool isVerbose = false,
   }) {
-    List<ScriptGenerator> sles = [];
+    final List<ScriptGenerator> sles = [];
     local_sort();
-    FileSystemEntity? fileSystemEntity_base = firstWhereOrNull((element) {
+    final FileSystemEntity? fileSystemEntity_base = firstWhereOrNull((element) {
       if (element is Directory) {
         return true;
       }
       return false;
     });
 
-    Directory directory = () {
+    final Directory directory = () {
       if (directoryBase != null) {
         return directoryBase;
       }
@@ -70,17 +70,17 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
       return Directory.current;
     }();
     for (var i = 0; i < length; i++) {
-      FileSystemEntity fileSystemEntity = this[i];
+      final FileSystemEntity fileSystemEntity = this[i];
 
       if (fileSystemEntity is File) {
-        String base_name = path.basename(fileSystemEntity.uri.toFilePath());
+        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
         if (["pubspec.lock"].contains(base_name.toLowerCase().trim())) {
           if (isVerbose) {
             print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
-        List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
+        final List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
         if (paths_folders.contains(".dart_tool")) {
           if (isVerbose) {
             print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
@@ -88,7 +88,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           continue;
         }
 
-        File file = File(fileSystemEntity.uri.toFilePath());
+        final File file = File(fileSystemEntity.uri.toFilePath());
         String data = "";
         try {
           data = file.readAsStringSync();
@@ -105,8 +105,8 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           children: [],
         ));
       } else if (fileSystemEntity is Directory) {
-        String base_name = path.basename(fileSystemEntity.uri.toFilePath());
-        List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
+        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
+        final List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
         if (RegExp(r"^([.])", caseSensitive: false).hasMatch(base_name)) {
           if ([".github", ".idea"].contains(base_name) == false) {
             continue;
@@ -128,7 +128,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           children: fileSystemEntity.listSync().toScriptGenerate(directoryBase: directory, isVerbose: isVerbose),
         ));
       } else {
-        String base_name = path.basename(fileSystemEntity.uri.toFilePath());
+        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
         if (RegExp(r"^([.])", caseSensitive: false).hasMatch(base_name)) {
           continue;
         }
@@ -147,7 +147,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
   }
 }
 
-extension FileSaloslapsExtension on List<ScriptGenerator> {
+extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
   ///
   Stream<ScriptGeneratorStatus> generateToDirectory({
     required Directory directoryBase,
@@ -159,11 +159,11 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
     /// misal data path_slebew/.
     /// akhiran titik
     /// akan di baca base name jadi titik
-    Directory directory_base = Directory(directoryBase.uri.toFilePath());
+    final Directory directory_base = Directory(directoryBase.uri.toFilePath());
 
     /// mendapatkan nama folder
 
-    String base_name = path.basename(directory_base.path);
+    final String base_name = path.basename(directory_base.path);
     if (directory_base.existsSync() == false) {
       await directory_base.create(
         recursive: true,
@@ -171,11 +171,11 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
     }
 
     /// loop
-    for (ScriptGenerator scriptGenerator in this) {
+    for (final ScriptGenerator scriptGenerator in this) {
       ///
       if (scriptGenerator.file_system_entity_type == FileSystemEntityType.file) {
         /// parse_path
-        String path_origin_file = () {
+        final String path_origin_file = () {
           if ((path.basename(scriptGenerator.directory_base.uri.toFilePath()).toLowerCase() == path.basenameWithoutExtension(scriptGenerator.file_system_entity.uri.toFilePath()).toLowerCase())) {
             String result_path = "";
             if (scriptGenerator.is_generate) {
@@ -221,7 +221,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
         }();
         // end parse
 
-        File file = File(path.join(directory_base.uri.toFilePath(), path_origin_file));
+        final File file = File(path.join(directory_base.uri.toFilePath(), path_origin_file));
         yield ScriptGeneratorStatus(
           file_system_entity: file,
           text: "Check Parent Directory",
@@ -235,7 +235,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
             text: "Parent Exist",
           );
         }
-        OnWrittingScriptGenerator? onWrittingScriptGenerator_script = onWritting;
+        final OnWrittingScriptGenerator? onWrittingScriptGenerator_script = onWritting;
         if (onWrittingScriptGenerator_script != null) {
           await file.writeAsString((await onWrittingScriptGenerator_script(scriptGenerator, file)));
         } else {
@@ -256,7 +256,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
           file_system_entity: scriptGenerator.file_system_entity,
           text: "Generate Children",
         );
-        var stream = scriptGenerator.children.generateToDirectory(
+        final stream = scriptGenerator.children.generateToDirectory(
           directoryBase: directory_base,
           onWritting: onWritting,
           isSkipAutoRename: isSkipAutoRename,
@@ -278,7 +278,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
   }
 
   Map toJson() {
-    List<Map> scripts = map((e) => e.toJson()).toList(
+    final List<Map> scripts = map((e) => e.toJson()).toList(
       growable: true,
     );
     return {
@@ -289,7 +289,7 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
   }
 
   List<Map> toJsonList() {
-    List<Map> scripts = map((e) => e.toJson()).toList(
+    final List<Map> scripts = map((e) => e.toJson()).toList(
       growable: true,
     );
     return scripts;
@@ -302,14 +302,14 @@ extension FileSaloslapsExtension on List<ScriptGenerator> {
   String toScriptDart({
     required String scriptName,
   }) {
-    String script_dart_generate = """
+    final String script_dart_generate = """
 // ignore_for_file: non_constant_identifier_names
 
 // import 'dart:io';
 import 'package:general_lib/script_generate/script_generate.dart';
 import 'package:universal_io/io.dart';
 
-List<ScriptGenerator> ${scriptName}_script_generators = [
+final List<ScriptGenerator> ${scriptName}_script_generators = [
   ${map((e) => e.toScriptDart()).join(",\n")}
 ];
  

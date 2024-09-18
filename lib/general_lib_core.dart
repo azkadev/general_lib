@@ -46,12 +46,19 @@ enum NetworkClientConnectionType {
   websocket,
 }
 
-
-
 enum GeneralLibSchemeType {
   database,
   isar,
-  scheme,
+  scheme;
+  String toSpesialType() {
+    if (this == database) {
+      return "Database";
+    }
+    if (this == isar) {
+      return "IsarDatabase";
+    }
+    return "";
+  }
 }
 
 /// getRandom uuid for parameters @extra
@@ -61,8 +68,7 @@ String getUuid(int length, {String? text}) {
     ch = text;
   }
   Random r = Random();
-  return String.fromCharCodes(
-      Iterable.generate(length, (_) => ch.codeUnitAt(r.nextInt(ch.length))));
+  return String.fromCharCodes(Iterable.generate(length, (_) => ch.codeUnitAt(r.nextInt(ch.length))));
 }
 
 String generateUuid(
@@ -71,7 +77,7 @@ String generateUuid(
 }) {
   // final Random random = Random();
   return List.generate(length, (index) {
-    final String data_text = text[Random().nextInt(text.length)]; 
+    final String data_text = text[Random().nextInt(text.length)];
     if (Random().nextBool()) {
       return data_text.toUpperCase();
     } else {
@@ -124,8 +130,7 @@ class JsonDataScript {
       output_first_name = "${output_path}${first_name}";
       output_last_name = "${output_path}${last_name}";
     } else {
-      output_first_name =
-          "${output_path}${Platform.pathSeparator}${first_name}";
+      output_first_name = "${output_path}${Platform.pathSeparator}${first_name}";
       output_last_name = "${output_path}${Platform.pathSeparator}${last_name}";
     }
     await File(output_first_name).writeAsString(first);

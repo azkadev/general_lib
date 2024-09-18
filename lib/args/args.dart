@@ -144,11 +144,8 @@ class Args {
       }
     }
     if (key is List<String>) {
-      for (var i = 0; i < key.length; i++) {
-        String data = key[i];
-
-        String? args_data = this[data];
-
+      for (final String data in key) {
+        final String? args_data = this[data];
         if (args_data != null) {
           return args_data;
         }
@@ -164,7 +161,7 @@ class Args {
     if (data is String) {
       return this[data];
     }
-    return null;
+    return this[data];
   }
 
   String? before(Object? data) {

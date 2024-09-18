@@ -95,7 +95,7 @@ class ScriptGenerator {
     if (is_file) {
       return value;
     }
-    List<RegExpReplace> regExpReplaces = [
+    final List<RegExpReplace> regExpReplaces = [
       // example:
       // SlebewProject
       // NewProject
@@ -165,7 +165,7 @@ class ScriptGenerator {
     if (is_file_dart) {
       // return "${json.encode(json.encode(parse_value))}";
     }
-    return "r\"\"\"${parse_value}\"\"\"";
+    return "r\"\"\"\n${parse_value}\n\"\"\"";
   }
 
   bool get is_file_dart => (path.extension(file_system_entity.path) == ".dart");
@@ -184,23 +184,12 @@ class ScriptGenerator {
           return "${gall}";
         },
       ),
-      if (is_file_dart_procces) ...[
-        RegExpReplace(
-          from: RegExp(r"((\\)?(\$))"),
-          replace: (match) {
-            final String dollar = match.group(3) ?? "";
-            String escape = match.group(2) ?? "";
-            if (escape.isEmpty) {
-              return "\\${dollar}";
-            }
-            return match.group(1) ?? "";
-          },
-        ),
+      if (is_file_dart_procces) ...[ 
         RegExpReplace(
           from: RegExp(r'((\\)?\"(\\)?\"(\\)?\")'),
           replace: (match) {
             final String all = match.group(1) ?? "";
-            final String actually = '\\"\\"\\"';
+            final String actually = "'''"; 
             if (all != actually) {
               return actually;
             }

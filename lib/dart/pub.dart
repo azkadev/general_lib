@@ -52,15 +52,11 @@ class Pub {
     }
     String? configDir;
     if (Platform.isLinux) {
-      configDir = path.join(
-          Platform.environment['XDG_CONFIG_HOME'] ??
-              Platform.environment['HOME']!,
-          '.pub-cache');
+      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ?? Platform.environment['HOME']!, '.pub-cache');
     } else if (Platform.isWindows) {
       configDir = Platform.environment['APPDATA']!;
     } else if (Platform.isMacOS) {
-      configDir = path.join(
-          Platform.environment['HOME']!, 'Library', 'Application Support');
+      configDir = path.join(Platform.environment['HOME']!, 'Library', 'Application Support');
     } else {
       configDir = path.join(Platform.environment['HOME'] ?? '', '.pub-cache');
     }
@@ -111,18 +107,21 @@ class Pub {
 
   Directory? installFromDirectory({
     required Directory directoryPackage,
+    bool deleteIfExist = true,
   }) {
     if (Dart.isWeb) {
       return null;
     }
-    File file_pubspec = File(path.join(directoryPackage.path, "pubspec.yaml"));
+    final File file_pubspec = File(path.join(directoryPackage.path, "pubspec.yaml"));
     if (file_pubspec.existsSync() == false) {
       return null;
     }
-    Map yaml_code =
-        (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
-    Directory directory_pub_dev = Directory(path.join(hosted_directory.path,
-        "pub.dev", "${yaml_code["name"]}-${yaml_code["version"]}"));
+    final Map yaml_code = (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
+    final Directory directory_pub_dev = Directory(path.join(hosted_directory.path, "pub.dev", "${yaml_code["name"]}-${yaml_code["version"]}"));
+    if (deleteIfExist && directory_pub_dev.existsSync()) {
+      directory_pub_dev.deleteSync(recursive: true);
+      directory_pub_dev.createSync(recursive: true);
+    }
     directoryPackage.copyTo(directory_pub_dev);
     return directory_pub_dev;
   }
@@ -143,12 +142,7 @@ class Pub {
       return null;
     }
     for (var i = 0; i < path.split(result.toFilePath()).length; i++) {
-      File file_pubspec = File(path.join(
-          Directory(path.join(result.toFilePath(),
-                  List.generate(i, (index) => "..").join(Dart.pathSeparator)))
-              .uri
-              .toFilePath(),
-          "pubspec.yaml"));
+      File file_pubspec = File(path.join(Directory(path.join(result.toFilePath(), List.generate(i, (index) => "..").join(Dart.pathSeparator))).uri.toFilePath(), "pubspec.yaml"));
       if (file_pubspec.existsSync()) {
         return file_pubspec.parent;
       }
