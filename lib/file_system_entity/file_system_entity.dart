@@ -35,7 +35,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
- 
+
 import 'package:general_lib/general_lib.dart';
 import 'package:universal_io/io.dart';
 
@@ -52,6 +52,7 @@ class FileSystemEntityIgnore {
     final List<String> results = [];
     for (final ignoreFileName in ignoreFileNames) {
       final File file_ignore = File(path.join(currentPath, ignoreFileName));
+      // print(file_ignore);
       if (file_ignore.existsSync() == false) {
         continue;
       }
