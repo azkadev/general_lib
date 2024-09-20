@@ -6,11 +6,11 @@ environment:
 executables: 
   general_lib: 'general_lib'
 dev_dependencies: 
-  lints: '^3.0.0'
-  test: '^1.24.2'
-  server_universe: '0.0.14'
+  lints: '^4.0.0'
+  test: '^1.25.8'
+  server_universe: '^0.0.19'
 dependencies: 
-  collection: '^1.17.1'
+  collection: '^1.18.0'
   http: '>=0.13.4 <=5.1.0'
   path: '^1.9.0'
   universal_io: '^2.2.2'
@@ -18,8 +18,13 @@ dependencies:
   stack_trace: '>=1.10.0 <=5.0.0'
   mason_logger: '^0.2.15'
   yaml: '^3.1.2'
+  glob: "^2.1.2"
 dependency_overrides: 
   pointycastle: '3.8.0'
 funding: 
   - 'https://github.com/sponsors/azkadev'
+  - 'https://github.com/sponsors/generalfoss'
 repository: 'https://github.com/azkadev/general_lib'
+homepage: 'https://youtube.com/@azkadev'
+issue_tracker: 'https://t.me/DEVELOPER_GLOBAL_PUBLIC'
+documentation: 'https://youtube.com/@azkadev'

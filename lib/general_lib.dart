@@ -64,6 +64,7 @@ export "file_system_entity/file_system_entity.dart";
 export "file_system_entity/sort_entity_type.dart";
 
 export "language/language_core.dart";
+export "glob/glob.dart";
 
 export "regexp_replace/regexp_replace.dart";
 export "download/download_core.dart";

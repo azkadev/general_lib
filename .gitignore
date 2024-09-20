@@ -16,7 +16,7 @@ docs/canvaskit
 /build/
 generate_glx_*
 node_modules/
-build/
+# build/
 ephemeral/
 flutter/ephemeral
 android/.gradle
