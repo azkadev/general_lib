@@ -36,10 +36,7 @@ extension Saaslpalsp on FileSystemEntity {
 class ArchiveGeneralLib {
   final Archive archive = Archive();
 
-  final ArchiveGeneralLibOptions archiveGeneralLibOptions;
-  ArchiveGeneralLib({
-    required this.archiveGeneralLibOptions,
-  });
+  ArchiveGeneralLib();
 
   void addFilesByDirectory({
     required Directory directory,
@@ -103,6 +100,24 @@ class ArchiveGeneralLib {
     );
   }
 
+  Archive zipDecoder({
+    required String path,
+    required String? password,
+    required bool verify,
+  }) {
+    final ZipDecoder zipDecoder = ZipDecoder();
+
+    return zipDecoder.decodeBuffer(InputFileStream(path), password: password, verify: verify);
+  }
+
+  void close() {
+    archive.clearSync();
+  }
+
+  Future<void> closeAsync() async {
+    await archive.clear();
+  }
+
   static File createArchiveZip({
     required Directory directory,
     required String? password,
@@ -110,9 +125,7 @@ class ArchiveGeneralLib {
     DateTime? modified,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
-    final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib(
-      archiveGeneralLibOptions: archiveGeneralLibOptions,
-    );
+    final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
     archiveGeneralLib.addFilesByDirectory(
       directory: directory,
       archiveGeneralLibOptions: archiveGeneralLibOptions,
@@ -128,8 +141,78 @@ class ArchiveGeneralLib {
       }
       outPutFile.writeAsBytesSync(result);
     }
-    archiveGeneralLib.archive.clearSync();
+    archiveGeneralLib.close();
 
     return outPutFile;
+  }
+
+  static Future<File> createArchiveZipAsync({
+    required Directory directory,
+    required String? password,
+    required File outPutFile,
+    DateTime? modified,
+    required ArchiveGeneralLibOptions archiveGeneralLibOptions,
+  }) async {
+    final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
+    archiveGeneralLib.addFilesByDirectory(
+      directory: directory,
+      archiveGeneralLibOptions: archiveGeneralLibOptions,
+      directoryBase: directory,
+    );
+    final result = archiveGeneralLib.toZipBytes(
+      password: password,
+      modified: modified,
+    );
+    if (result != null) {
+      if (outPutFile.parent.existsSync() == false) {
+        await outPutFile.parent.create(recursive: true);
+      }
+      await outPutFile.writeAsBytes(result);
+    }
+    await archiveGeneralLib.closeAsync();
+
+    return outPutFile;
+  }
+
+  static Directory extractArchiveZip({
+    required File archivedFile,
+    required Directory directoryOutput,
+    required String? password,
+    required bool verify,
+    required ArchiveGeneralLibOptions archiveGeneralLibOptions,
+  }) {
+    final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
+    extractArchiveToDiskSync(
+      archiveGeneralLib.zipDecoder(
+        path: archivedFile.path,
+        password: password,
+        verify: verify,
+      ),
+      directoryOutput.uri.toFilePath(),
+    );
+    archiveGeneralLib.close();
+
+    return directoryOutput;
+  }
+
+  static Future<Directory> extractArchiveZipAsync({
+    required File archivedFile,
+    required Directory directoryOutput,
+    required String? password,
+    bool verify  = true,
+    required ArchiveGeneralLibOptions archiveGeneralLibOptions,
+  }) async {
+    final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
+    await extractArchiveToDisk(
+      archiveGeneralLib.zipDecoder(
+        path: archivedFile.path,
+        password: password,
+        verify: verify,
+      ),
+      directoryOutput.uri.toFilePath(),
+    );
+    await archiveGeneralLib.closeAsync();
+
+    return directoryOutput;
   }
 }
