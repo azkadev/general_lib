@@ -203,16 +203,16 @@ class ArchiveGeneralLib {
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) async {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
-    await extractArchiveToDisk(
+    await extractArchiveToDiskAsync(
       archiveGeneralLib.zipDecoder(
         path: archivedFile.path,
         password: password,
         verify: verify,
       ),
       directoryOutput.uri.toFilePath(),
+      asyncWrite: true,
     );
-    await archiveGeneralLib.closeAsync();
-
+    await archiveGeneralLib.closeAsync(); 
     return directoryOutput;
   }
 }
