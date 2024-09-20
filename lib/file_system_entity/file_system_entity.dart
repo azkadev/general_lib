@@ -35,16 +35,41 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-
-import 'package:general_lib/extension/dynamic.dart';
-import 'package:general_lib/extension/list.dart';
-import 'package:general_lib/file_system_entity/sort_entity_type.dart';
+ 
+import 'package:general_lib/general_lib.dart';
 import 'package:universal_io/io.dart';
+
+import "package:path/path.dart" as path;
+
+class FileSystemEntityIgnore {
+  static List<String> ignoreFileNames = [
+    ".gitignore",
+    ".pubignore",
+  ];
+  static List<String> getFileIgnoresByDirectory({
+    required String currentPath,
+  }) {
+    final List<String> results = [];
+    for (final ignoreFileName in ignoreFileNames) {
+      final File file_ignore = File(path.join(currentPath, ignoreFileName));
+      if (file_ignore.existsSync() == false) {
+        continue;
+      }
+
+      // final data = file_ignore.readAsStringSync().toGlob();
+      for (final element in file_ignore.readAsStringSync().toGlob()) {
+        if (results.contains(element) == false) {
+          results.add(element);
+        }
+      }
+    }
+    return results;
+  }
+}
 
 extension ExtensionOnStorTtpe on List<FileSystemEntity> {
   List<FileSystemEntity> local_sort({
-    SortFileSystemEntityType sortFileSystemEntityType =
-        SortFileSystemEntityType.type,
+    SortFileSystemEntityType sortFileSystemEntityType = SortFileSystemEntityType.type,
   }) {
     switch (sortFileSystemEntityType) {
       case SortFileSystemEntityType.name:
@@ -104,11 +129,7 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
           fileSystemEntity: fileSystemEntity,
           state_data: {},
           fileSystemEntityType: fileSystemEntity.statSync().type,
-          children: fileSystemEntity
-              .listSync()
-              .clone<FileSystemEntity>()
-              .local_sort()
-              .toTree(),
+          children: fileSystemEntity.listSync().clone<FileSystemEntity>().local_sort().toTree(),
         ));
       } else {
         sles.add(FileSystemEntityChildren(

@@ -37,19 +37,19 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:general_lib/extension/extension.dart';
-import 'package:general_lib/file_system_entity/file_system_entity.dart';
+import 'package:general_lib/general_lib.dart';
 import 'package:general_lib/script_generate/script_generate_core.dart';
+import 'package:general_lib/script_generate/script_generate_options.dart';
 import 'package:universal_io/io.dart';
 
 import "package:path/path.dart" as path;
 
 typedef OnWrittingScriptGenerator = FutureOr<String> Function(ScriptGenerator scriptGenerator, File file);
 
-extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
+extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSystemEntity> {
   List<ScriptGenerator> toScriptGenerate({
     Directory? directoryBase,
-    bool isVerbose = false,
+    required ScriptGeneratorOptions scriptGeneratorOptions,
   }) {
     final List<ScriptGenerator> sles = [];
     local_sort();
@@ -69,20 +69,32 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
       }
       return Directory.current;
     }();
+
+    final List<String> file_system_entity_ignores = scriptGeneratorOptions.fileSystemEntityIgnore.toGlob();
+
+    for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
+      if (file_system_entity_ignores.contains(element) == false) {
+        file_system_entity_ignores.add(element);
+      }
+    }
+    final List<RegExp> file_system_entity_ignores_regexp = file_system_entity_ignores.map((e) => RegExp(e)).toList();
+
     for (var i = 0; i < length; i++) {
       final FileSystemEntity fileSystemEntity = this[i];
-
+      if (file_system_entity_ignores_regexp.globContains(fileSystemEntity.path)) {
+        continue;
+      }
       if (fileSystemEntity is File) {
         final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
         if (["pubspec.lock"].contains(base_name.toLowerCase().trim())) {
-          if (isVerbose) {
+          if (scriptGeneratorOptions.isVerbose) {
             print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
         final List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
         if (paths_folders.contains(".dart_tool")) {
-          if (isVerbose) {
+          if (scriptGeneratorOptions.isVerbose) {
             print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
@@ -113,7 +125,7 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           }
         }
         if (paths_folders.contains(".dart_tool")) {
-          if (isVerbose) {
+          if (scriptGeneratorOptions.isVerbose) {
             print("SKIP ON DIR: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
@@ -125,7 +137,12 @@ extension ExtensionOnStorSapsapslpaTtpe on List<FileSystemEntity> {
           state_data: {},
           value: "",
           file_system_entity_type: fileSystemEntity.statSync().type,
-          children: fileSystemEntity.listSync().toScriptGenerate(directoryBase: directory, isVerbose: isVerbose),
+          children: fileSystemEntity.listSync().toScriptGenerate(
+                directoryBase: directory,
+                scriptGeneratorOptions: scriptGeneratorOptions.copyWith(
+                  fileSystemEntityIgnore: file_system_entity_ignores.join("\n"),
+                ),
+              ),
         ));
       } else {
         final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
@@ -251,7 +268,8 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
             ),
           );
         }
-      } else if (scriptGenerator.file_system_entity_type == FileSystemEntityType.directory) {
+      } else if (scriptGenerator.file_system_entity_type == FileSystemEntityType.directory) { 
+        
         yield ScriptGeneratorStatus(
           file_system_entity: scriptGenerator.file_system_entity,
           text: "Generate Children",

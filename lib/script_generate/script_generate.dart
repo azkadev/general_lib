@@ -33,4 +33,5 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 export "script_generate_core.dart";
+export "script_generate_options.dart";
 export "extensions.dart";
