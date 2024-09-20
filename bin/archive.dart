@@ -14,9 +14,7 @@ void main(List<String> args) async {
     directory: Directory(path.join(Directory.current.path)),
     password: password,
     outPutFile: file_archived,
-    archiveGeneralLibOptions: ArchiveGeneralLibOptions(
-      fileSystemEntityIgnore: "",
-      isVerbose: false,
+    archiveGeneralLibOptions: ArchiveGeneralLibOptions.empty( 
     ),
   );
   print("extract");
@@ -25,7 +23,7 @@ void main(List<String> args) async {
     directoryOutput: directory_output,
     password: password,
     verify: true,
-    archiveGeneralLibOptions: ArchiveGeneralLibOptions(fileSystemEntityIgnore: "", isVerbose: false),
+    archiveGeneralLibOptions: ArchiveGeneralLibOptions.empty(),
   );
   print("done");
 }

@@ -8,24 +8,40 @@ import "package:path/path.dart" as path_package;
 
 class ArchiveGeneralLibOptions {
   final String fileSystemEntityIgnore;
+  final bool isUseFileSystemEntityIgnore;
   final bool isVerbose;
   ArchiveGeneralLibOptions({
     required this.fileSystemEntityIgnore,
+    required this.isUseFileSystemEntityIgnore,
     required this.isVerbose,
   });
 
   ArchiveGeneralLibOptions copyWith({
     String? fileSystemEntityIgnore,
+    bool? isUseFileSystemEntityIgnore,
     bool? isVerbose,
   }) {
     return ArchiveGeneralLibOptions(
       fileSystemEntityIgnore: fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
+      isUseFileSystemEntityIgnore: isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
       isVerbose: isVerbose ?? this.isVerbose,
+    );
+  }
+
+  static ArchiveGeneralLibOptions empty({
+    String fileSystemEntityIgnore = "",
+    bool isUseFileSystemEntityIgnore = true,
+    bool isVerbose = false,
+  }) {
+    return ArchiveGeneralLibOptions(
+      fileSystemEntityIgnore: fileSystemEntityIgnore,
+      isUseFileSystemEntityIgnore: isUseFileSystemEntityIgnore,
+      isVerbose: isVerbose,
     );
   }
 }
 
-extension Saaslpalsp on FileSystemEntity {
+extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile on FileSystemEntity {
   ArchiveFile toArchiveFile({
     required String name,
   }) {
@@ -43,13 +59,16 @@ class ArchiveGeneralLib {
     required Directory directoryBase,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
-    final List<String> fileSystemEntityIgnores = archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob();
-    for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
-      if (fileSystemEntityIgnores.contains(element) == false) {
-        fileSystemEntityIgnores.add(element);
+    final List<String> fileSystemEntityIgnores = (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob() : [];
+    if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
+      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
+        if (fileSystemEntityIgnores.contains(element) == false) {
+          fileSystemEntityIgnores.add(element);
+        }
       }
     }
     final List<RegExp> fileSystemEntityIgnoresRegexp = fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
+
     for (final element in directory.listSync()) {
       if (fileSystemEntityIgnoresRegexp.globContains(element.path)) {
         continue;
@@ -91,7 +110,7 @@ class ArchiveGeneralLib {
     final ZipEncoder zipEncoder = ZipEncoder(
       password: password,
     );
-    
+
     return zipEncoder.encode(
       archive,
       level: level,
@@ -199,7 +218,7 @@ class ArchiveGeneralLib {
     required File archivedFile,
     required Directory directoryOutput,
     required String? password,
-    bool verify  = true,
+    bool verify = true,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) async {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
@@ -212,7 +231,7 @@ class ArchiveGeneralLib {
       directoryOutput.uri.toFilePath(),
       asyncWrite: true,
     );
-    await archiveGeneralLib.closeAsync(); 
+    await archiveGeneralLib.closeAsync();
     return directoryOutput;
   }
 }
