@@ -115,7 +115,7 @@ class JsonScheme {
   }
 
   /// operator map data
-  operator [](key) {
+  operator []( key) {
     return rawData[key];
   }
 
