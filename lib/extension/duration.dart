@@ -92,14 +92,14 @@ extension DurationExtensions on Duration {
   }
 
   Duration fromJson(Map data) {
-    DurationDataScheme durationData = DurationDataScheme(data);
+    final DurationDataScheme durationData = DurationDataScheme(data);
     return Duration(
-      days: durationData.days ?? 0,
-      hours: durationData.hours ?? 0,
-      minutes: durationData.minutes ?? 0,
-      seconds: durationData.seconds ?? 0,
-      milliseconds: durationData.milliseconds ?? 0,
-      microseconds: durationData.microseconds ?? 0,
+      days: (durationData.days ?? 0).toInt(),
+      hours: (durationData.hours ?? 0).toInt(),
+      minutes: (durationData.minutes ?? 0).toInt(),
+      seconds: (durationData.seconds ?? 0).toInt(),
+      milliseconds: (durationData.milliseconds ?? 0).toInt(),
+      microseconds: (durationData.microseconds ?? 0).toInt(),
     );
   }
 

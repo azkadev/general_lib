@@ -36,7 +36,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 
-import 'package:general_lib/scheme/enum/socket_connection_type.dart';
+import 'package:general_lib/enum/socket_connection_type.dart';
 import 'package:general_lib/scheme/socket_connection.dart';
 import 'package:general_lib/scheme/socket_error.dart';
 // import 'package:general_lib/scheme/scheme.dart';

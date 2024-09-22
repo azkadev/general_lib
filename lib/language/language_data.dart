@@ -44,7 +44,7 @@ import 'package:general_lib/language/scheme/scheme.dart';
 ///   "code": "DZ",
 ///   "dial_code": "+213"
 /// },
-Map<String, Map> languageCodeJson = {
+final Map<String, Map> languageCodeJson = {
   "dz": {"@type": "languageDetailData", "name": "Algeria", "flag": "🇩🇿", "code": "DZ", "dial_code": "+213"},
   "as": {"@type": "languageDetailData", "name": "American Samoa", "flag": "🇦🇸", "code": "AS", "dial_code": "+1684"},
   "ad": {"@type": "languageDetailData", "name": "Andorra", "flag": "🇦🇩", "code": "AD", "dial_code": "+376"},

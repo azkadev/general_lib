@@ -1,59 +1,49 @@
-/* <!-- START LICENSE -->
-
-
-This Software / Program / Source Code Created By Developer From Company GLOBAL CORPORATION
-Social Media:
-
-   - Youtube: https://youtube.com/@Global_Corporation 
-   - Github: https://github.com/globalcorporation
-   - TELEGRAM: https://t.me/GLOBAL_CORP_ORG_BOT
-
-All code script in here created 100% original without copy / steal from other code if we copy we add description source at from top code
-
-If you wan't edit you must add credit me (don't change)
-
-If this Software / Program / Source Code has you
-
-Jika Program ini milik anda dari hasil beli jasa developer di (Global Corporation / apapun itu dari turunan itu jika ada kesalahan / bug / ingin update segera lapor ke sub)
-
-Misal anda beli Beli source code di Slebew CORPORATION anda lapor dahulu di slebew jangan lapor di GLOBAL CORPORATION!
-
-Jika ada kendala program ini (Pastikan sebelum deal project tidak ada negosiasi harga)
-Karena jika ada negosiasi harga kemungkinan
-
-1. Software Ada yang di kurangin
-2. Informasi tidak lengkap
-3. Bantuan Tidak Bisa remote / full time (Ada jeda)
-
-Sebelum program ini sampai ke pembeli developer kami sudah melakukan testing
-
-jadi sebelum nego kami sudah melakukan berbagai konsekuensi jika nego tidak sesuai ? 
-Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba tiba di potong akhirnya bantuan / software kadang tidak lengkap
-
-
-<!-- END LICENSE --> */
-// ignore_for_file: non_constant_identifier_names
-import "json_dart.dart";
+// ignore_for_file: non_constant_identifier_names, unused_import
+import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class DurationData extends JsonDart {
-  DurationData(super.rawData);
 
+ 
+class DurationData extends JsonScheme {
+
+  
+  DurationData(super.rawData);
+  
+  /// return default data
+  /// 
   static Map get defaultData {
-    return {
-      "@type": "durationData",
-      "days": 0,
-      "hours": 0,
-      "minutes": 0,
-      "seconds": 0,
-      "milliseconds": 0,
-      "microseconds": 0
-    };
+    return {"@type":"durationData","days":0,"hours":0,"minutes":0,"seconds":0,"milliseconds":0,"microseconds":0};
   }
 
+  /// check data 
+  /// if raw data 
+  /// - rawData["@type"] == durationData
+  /// if same return true
+  bool json_scheme_utils_checkDataIsSameBySpecialType() {
+    return rawData["@type"] == defaultData["@type"];
+  }
+
+  /// check value data whatever do yout want
+  bool json_scheme_utils_checkDataIsSameBuilder({
+    required bool Function(Map rawData, Map defaultData) onResult,
+  }) {
+    return onResult(rawData["@type"], defaultData["@type"]);
+  }
+
+  
+
+  /// create [DurationData]
+  /// Empty  
+  static DurationData empty() {
+    return DurationData({});
+  }
+
+  
+
+  
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false) {
+      if (rawData["@type"] is String == false){
         return null;
       }
       return rawData["@type"] as String;
@@ -62,82 +52,135 @@ class DurationData extends JsonDart {
     }
   }
 
-  int? get days {
+  
+  set special_type(String? value) {
+    rawData["@type"] = value;
+  }
+
+
+  
+  num? get days {
     try {
-      if (rawData["days"] is int == false) {
+      if (rawData["days"] is num == false){
         return null;
       }
-      return rawData["days"] as int;
+      return rawData["days"] as num;
     } catch (e) {
       return null;
     }
   }
 
-  int? get hours {
+  
+  set days(num? value) {
+    rawData["days"] = value;
+  }
+
+
+  
+  num? get hours {
     try {
-      if (rawData["hours"] is int == false) {
+      if (rawData["hours"] is num == false){
         return null;
       }
-      return rawData["hours"] as int;
+      return rawData["hours"] as num;
     } catch (e) {
       return null;
     }
   }
 
-  int? get minutes {
+  
+  set hours(num? value) {
+    rawData["hours"] = value;
+  }
+
+
+  
+  num? get minutes {
     try {
-      if (rawData["minutes"] is int == false) {
+      if (rawData["minutes"] is num == false){
         return null;
       }
-      return rawData["minutes"] as int;
+      return rawData["minutes"] as num;
     } catch (e) {
       return null;
     }
   }
 
-  int? get seconds {
+  
+  set minutes(num? value) {
+    rawData["minutes"] = value;
+  }
+
+
+  
+  num? get seconds {
     try {
-      if (rawData["seconds"] is int == false) {
+      if (rawData["seconds"] is num == false){
         return null;
       }
-      return rawData["seconds"] as int;
+      return rawData["seconds"] as num;
     } catch (e) {
       return null;
     }
   }
 
-  int? get milliseconds {
+  
+  set seconds(num? value) {
+    rawData["seconds"] = value;
+  }
+
+
+  
+  num? get milliseconds {
     try {
-      if (rawData["milliseconds"] is int == false) {
+      if (rawData["milliseconds"] is num == false){
         return null;
       }
-      return rawData["milliseconds"] as int;
+      return rawData["milliseconds"] as num;
     } catch (e) {
       return null;
     }
   }
 
-  int? get microseconds {
+  
+  set milliseconds(num? value) {
+    rawData["milliseconds"] = value;
+  }
+
+
+  
+  num? get microseconds {
     try {
-      if (rawData["microseconds"] is int == false) {
+      if (rawData["microseconds"] is num == false){
         return null;
       }
-      return rawData["microseconds"] as int;
+      return rawData["microseconds"] as num;
     } catch (e) {
       return null;
     }
   }
 
+  
+  set microseconds(num? value) {
+    rawData["microseconds"] = value;
+  }
+
+
+  
   static DurationData create({
-    String? special_type,
-    int? days,
-    int? hours,
-    int? minutes,
-    int? seconds,
-    int? milliseconds,
-    int? microseconds,
-  }) {
-    DurationData durationData = DurationData({
+              bool schemeUtilsIsSetDefaultData = false,
+
+    String special_type = "durationData",
+    num? days,
+    num? hours,
+    num? minutes,
+    num? seconds,
+    num? milliseconds,
+    num? microseconds,
+})  {
+    // DurationData durationData = DurationData({
+final Map durationData_data_create_json = {
+  
       "@type": special_type,
       "days": days,
       "hours": hours,
@@ -145,8 +188,22 @@ class DurationData extends JsonDart {
       "seconds": seconds,
       "milliseconds": milliseconds,
       "microseconds": microseconds,
-    });
 
-    return durationData;
-  }
+
+};
+
+
+          durationData_data_create_json.removeWhere((key, value) => value == null);
+
+    if (schemeUtilsIsSetDefaultData) {
+      defaultData.forEach((key, value) {
+        if (durationData_data_create_json.containsKey(key) == false) {
+          durationData_data_create_json[key] = value;
+        }
+      });
+    }
+return DurationData(durationData_data_create_json);
+
+
+      }
 }

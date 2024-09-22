@@ -56,10 +56,10 @@ Future<Directory> jsonToLanguageScript({
   final String base_name = path.basename(directory.path);
 
   final List<Map> langugage_data = [];
-final   String language_parameter = "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
+  final String language_parameter = "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
 
   for (var element in language_raw.entries) {
-final     String key = element.key;
+    final String key = element.key;
     if (element.value is Map == false) {
       continue;
     }
@@ -182,7 +182,7 @@ extension ${name_extension} on Language {
   for (var i = 0; i < langugage_data.length; i++) {
     final Map language_data_raw = langugage_data[i];
 
-   final  File file = File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
+    final File file = File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
     await file.writeAsString(language_data_raw["script"]);
   }
 
@@ -241,7 +241,7 @@ Future<String> languageMapToStringScript({
             continue;
           }
           try {
-          final  String? result_translate = await onData(value, language_code_new, default_language_code_id);
+            final String? result_translate = await onData(value, language_code_new, default_language_code_id);
             if (result_translate != value && result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;
@@ -281,10 +281,10 @@ Future<String> languageMapToStringScript({
     }
 
     if (element.value is Map) {
-    final   Map value = element.value;
+      final Map value = element.value;
 
       String script_new = "";
-    final   Map language_raw_data = {
+      final Map language_raw_data = {
         default_language_code_id: value[default_language_code_id],
       };
       for (var element in value.entries) {
@@ -302,12 +302,12 @@ Future<String> languageMapToStringScript({
 
       if (is_translate) {
         for (var i = 0; i < languageCodeNames.length; i++) {
-    final       String language_code_new = languageCodeNames[i];
+          final String language_code_new = languageCodeNames[i];
           if (language_raw_data.containsKey(language_code_new)) {
             continue;
           }
           try {
-           final  String? result_translate = await onData(value[default_language_code_id], language_code_new, default_language_code_id);
+            final String? result_translate = await onData(value[default_language_code_id], language_code_new, default_language_code_id);
             if (result_translate != value[default_language_code_id] && result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;

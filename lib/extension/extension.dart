@@ -42,3 +42,5 @@ export "regexp.dart";
 export "string.dart";
 export "tcp.dart";
 export "dynamic.dart";
+
+export "object.dart";
