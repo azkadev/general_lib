@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 /* <!-- START LICENSE -->
 
 
@@ -58,7 +60,7 @@ class JsonScheme {
   static JsonScheme create({
     String special_type = "JsonScheme",
   }) {
-    Map jsonCreate = {
+    final Map jsonCreate = {
       "@type": special_type,
     };
 
@@ -82,14 +84,33 @@ class JsonScheme {
   operator /(value) {}
 
   /// operator map data
-  Map operator +(Map value) {
-    rawData.addAll(value);
+  Map operator +(dynamic value) {
+    if (value is Map) {
+      rawData.addAll(value);
+    } else if (value is Set) {
+      for (final element in value.toList()) {
+        rawData[element] = null;
+      }
+    } else if (value is List) {
+    } else {
+      rawData[value] = null;
+    }
     return rawData;
   }
 
   /// return original data json
-  Map operator -(List values) {
-    utils_remove_by_keys_void(values);
+  Map operator -(dynamic value) {
+    if (value is List) {
+      utils_remove_by_keys_void(value);
+    } else if (value is Set) {
+      utils_remove_by_keys_void(value.toList());
+    } else if (value is String) {
+      utils_remove_by_keys_void([value]);
+    } else if (value is num) {
+      utils_remove_by_keys_void(["${value}"]);
+    } else if (value is Map) {
+      utils_remove_by_keys_void(value.keys.toList());
+    }
     return rawData;
   }
 
@@ -105,11 +126,7 @@ class JsonScheme {
 
   /// return original data json
   void utils_remove_values_null_void() {
-    rawData.forEach((key, value) {
-      if (value == null) {
-        rawData.remove(key);
-      }
-    });
+    rawData.removeWhere((key, value) => value == null);
   }
 
   /// return original data json
@@ -120,13 +137,9 @@ class JsonScheme {
 
   /// return original data json
   void utils_remove_by_values_void(List values) {
-    rawData.forEach((key, value) {
-      for (var element in values) {
-        if (value == element) {
-          rawData.remove(key);
-        }
-      }
-    });
+    for (final value_remove in values) {
+      rawData.removeWhere((key, value) => value == value_remove);
+    }
   }
 
   /// return original data json
@@ -136,7 +149,7 @@ class JsonScheme {
   }
 
   void utils_remove_by_keys_void(List keys) {
-    for (var element in keys) {
+    for (final element in keys) {
       rawData.remove(element);
     }
   }
@@ -149,7 +162,7 @@ class JsonScheme {
 
   /// return original data json
   Map utils_filter_by_keys(List keys) {
-    Map jsonData = {};
+    final Map jsonData = {};
     for (var key in keys) {
       jsonData[key] = rawData[key];
     }
@@ -178,7 +191,11 @@ class JsonScheme {
   }
 }
 
-extension JsonSchemeExtensions on List<JsonScheme> {
+extension JsonSchemeGeneralLibExtensions on List<JsonScheme> {
+  List<Map> toMap() {
+    return toJson();
+  }
+
   List<Map> toJson() {
     return map((e) => e.toJson()).toList().cast<Map>();
   }
