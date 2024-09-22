@@ -35,8 +35,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, empty_catches, unnecessary_brace_in_string_interps
 //
 import 'package:general_lib/regexp_replace/regexp_replace.dart';
+import 'package:general_lib/scheme/language_code_data.dart';
 
-import 'language_code_data.dart';
 
 class Language {
   String language_code = "id";

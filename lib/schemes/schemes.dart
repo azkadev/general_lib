@@ -1,3 +1,5 @@
+import 'package:general_lib/schemes/language_code.dart';
+
 final List<Map<String, dynamic>> schemes = [
   {
     "@type": "captchaResult",
@@ -26,4 +28,8 @@ final List<Map<String, dynamic>> schemes = [
   {"@type": "regExpDataScheme", "pattern": "", "is_multi_line": false, "is_case_sensitive": false, "is_unicode": false, "is_dot_all": false},
   {"@type": "socketConnection", "status": "connect"},
   {"@type": "socketError", "message": "", "description": "", "error": "e"},
+  {
+    "@type": "languageCodeData",
+...languageCodeJson,
+  },
 ];
