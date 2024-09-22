@@ -26,3 +26,4 @@ macos/Flutter/ephemeral
 windows/ephemeral
 data
 tmp/
+build/

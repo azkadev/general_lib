@@ -60,7 +60,7 @@ class ArchiveGeneralLib {
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
     final List<String> fileSystemEntityIgnores = (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob() : [];
-    if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
+     if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
       for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
         if (fileSystemEntityIgnores.contains(element) == false) {
           fileSystemEntityIgnores.add(element);
@@ -88,6 +88,8 @@ class ArchiveGeneralLib {
         );
       }
     }
+    fileSystemEntityIgnores.clear();
+    fileSystemEntityIgnoresRegexp.clear();
   }
 
   void addFile({
