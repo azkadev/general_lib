@@ -118,9 +118,14 @@ class ScriptGenerator {
       // Slebew Project
       // New Project
       RegExpReplace(
-        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "), caseSensitive: false),
+        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "),
+            caseSensitive: false),
         replace: (match) {
-          return newProjectName.snakeCaseClass().split("_").map((e) => e.toUpperCaseFirstData()).join(" ");
+          return newProjectName
+              .snakeCaseClass()
+              .split("_")
+              .map((e) => e.toUpperCaseFirstData())
+              .join(" ");
         },
       ),
     ];
@@ -138,7 +143,8 @@ class ScriptGenerator {
   }
 
   String getPath() {
-    return path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
+    return path.relative(file_system_entity.uri.toFilePath(),
+        from: directory_base.uri.toFilePath());
   }
 
   Map toJson() {
@@ -146,7 +152,8 @@ class ScriptGenerator {
       "@type": "ScriptGenerator",
       "is_generate": true,
       "directory_base": (path.basename(directory_base.uri.toFilePath())),
-      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath()),
+      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(),
+          from: directory_base.uri.toFilePath()),
       "file_system_entity_type": file_system_entity_type.toString(),
       "value": value,
       "children": children.map((e) => e.toJson()).toList(growable: true),
@@ -156,7 +163,8 @@ class ScriptGenerator {
   String valueToScript() {
     String parse_value = value;
     for (final RegExpReplace regExpReplace in regExpReplaces()) {
-      parse_value = parse_value.replaceAllMapped(regExpReplace.from, regExpReplace.replace);
+      parse_value = parse_value.replaceAllMapped(
+          regExpReplace.from, regExpReplace.replace);
     }
 
     if (parse_value.isEmpty) {
@@ -184,12 +192,12 @@ class ScriptGenerator {
           return "${gall}";
         },
       ),
-      if (is_file_dart_procces) ...[ 
+      if (is_file_dart_procces) ...[
         RegExpReplace(
           from: RegExp(r'((\\)?\"(\\)?\"(\\)?\")'),
           replace: (match) {
             final String all = match.group(1) ?? "";
-            final String actually = "'''"; 
+            final String actually = "'''";
             if (all != actually) {
               return actually;
             }
@@ -206,7 +214,8 @@ ScriptGenerator(
   is_generate: true,
   directory_base: Directory(${json.encode(path.basename(directory_base.uri.toFilePath()))}),
   file_system_entity: ${() {
-      String base_file_path = path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
+      String base_file_path = path.relative(file_system_entity.uri.toFilePath(),
+          from: directory_base.uri.toFilePath());
       if (file_system_entity_type == FileSystemEntityType.file) {
         return "File(${json.encode(base_file_path)})";
       }

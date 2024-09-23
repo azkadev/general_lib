@@ -11,7 +11,8 @@ import 'base.dart';
 class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
   String state_key = "";
   Object? state_value = "";
-  DatabaseMiniMethodType databaseMiniMethodType = DatabaseMiniMethodType.unknown;
+  DatabaseMiniMethodType databaseMiniMethodType =
+      DatabaseMiniMethodType.unknown;
   final DatabaseMiniGeneralLibraryBase db;
   DatabaseMiniGeneralLibraryBuilder({
     required this.db,
@@ -33,7 +34,8 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
       db.writeSync(
         content: db.encrypt(
           data: db.stateData,
-          databaseMiniGeneralLibraryBaseOptions: db.databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions:
+              db.databaseMiniGeneralLibraryBaseOptions,
         ),
       );
       return true as T;
@@ -60,7 +62,8 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
       //   }
       // }
       {
-        final result_data = db.stateData.extension_general_lib_getData(key: state_key);
+        final result_data =
+            db.stateData.extension_general_lib_getData(key: state_key);
         if (result_data == null) {
           return null;
         }
@@ -103,7 +106,8 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
       await db.writeAsync(
         content: db.encrypt(
           data: db.stateData,
-          databaseMiniGeneralLibraryBaseOptions: db.databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions:
+              db.databaseMiniGeneralLibraryBaseOptions,
         ),
       );
       return true as T;
@@ -136,7 +140,9 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     FutureOr<U> Function(T value) onValue, {
     Function? onError,
   }) async {
-    if (onError != null && onError is! Function(Object, StackTrace) && onError is! Function(Object)) {
+    if (onError != null &&
+        onError is! Function(Object, StackTrace) &&
+        onError is! Function(Object)) {
       throw ArgumentError.value(
         onError,
         "onError",

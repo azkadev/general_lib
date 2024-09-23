@@ -26,14 +26,18 @@ class EventEmitter {
 
   EventEmitterListener on({
     required String eventName,
-    required FutureOr<dynamic> Function(EventEmitterListener listener, dynamic update) onCallback,
+    required FutureOr<dynamic> Function(
+            EventEmitterListener listener, dynamic update)
+        onCallback,
     Map? stateData,
   }) {
-    final Map<String, EventEmitterListener> event_datas = events.putIfAbsent(eventName, () {
+    final Map<String, EventEmitterListener> event_datas =
+        events.putIfAbsent(eventName, () {
       return {};
     });
 
-    final EventEmitterListener eventEmitterListenerGeneralLib = EventEmitterListener(
+    final EventEmitterListener eventEmitterListenerGeneralLib =
+        EventEmitterListener(
       stateData: stateData ?? {},
     );
     eventEmitterListenerGeneralLib.ensureInitiaLized(
@@ -46,7 +50,8 @@ class EventEmitter {
         event.dispose();
       },
     );
-    event_datas[eventEmitterListenerGeneralLib.event_unique_id] = eventEmitterListenerGeneralLib;
+    event_datas[eventEmitterListenerGeneralLib.event_unique_id] =
+        eventEmitterListenerGeneralLib;
     return eventEmitterListenerGeneralLib;
   }
 
@@ -64,7 +69,8 @@ class EventEmitter {
     required String eventName,
     required String uniqueId,
   }) {
-    final Map<String, EventEmitterListener> event_datas = events.putIfAbsent(eventName, () {
+    final Map<String, EventEmitterListener> event_datas =
+        events.putIfAbsent(eventName, () {
       return {};
     });
     event_datas.remove(uniqueId);
@@ -82,7 +88,8 @@ class EventEmitter {
     required Map<String, EventEmitterListener> event_datas,
   }) {
     while (true) {
-      final String new_unique_id = generateUuid(Random().nextInt(10) + 10, text: "0123456789abcdefghijklmnopqrstuvwxyz-_");
+      final String new_unique_id = generateUuid(Random().nextInt(10) + 10,
+          text: "0123456789abcdefghijklmnopqrstuvwxyz-_");
       if (event_datas.containsKey(new_unique_id) == false) {
         return new_unique_id;
       }

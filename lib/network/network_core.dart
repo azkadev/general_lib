@@ -25,14 +25,15 @@ class NetworkClientGeneralLib {
   EventEmitterListener on({
     required String eventName,
     Object? context,
-    required FutureOr<dynamic> Function(GeneralSocketMessageData generalSocketMessageData) onUpdate,
+    required FutureOr<dynamic> Function(
+            GeneralSocketMessageData generalSocketMessageData)
+        onUpdate,
     FutureOr<dynamic> Function(Object e, StackTrace stackTrace)? onError,
   }) {
     return event_emitter.on(
       eventName: eventName,
-      
-      onCallback:(_, update) async {
-        try { 
+      onCallback: (_, update) async {
+        try {
           if (update is GeneralSocketMessageData) {
             return await onUpdate(update);
           }
@@ -73,7 +74,8 @@ class NetworkClientGeneralLib {
         return "";
       }
       final String new_socket_id = generateUuid(10);
-      final GeneralSocketData? generalSocketData = general_socket_data[new_socket_id];
+      final GeneralSocketData? generalSocketData =
+          general_socket_data[new_socket_id];
       if (generalSocketData == null) {
         return new_socket_id;
       }

@@ -18,7 +18,8 @@ void main() {
   });
   test("slebew", () async {
     print("start");
-    print("event before loop: ${eventEmitter.getListenersCount(eventName: event)}");
+    print(
+        "event before loop: ${eventEmitter.getListenersCount(eventName: event)}");
 
     print("Wait");
     await Future.delayed(Duration(seconds: 10));
@@ -50,10 +51,12 @@ void main() {
         print("done");
       },
     );
-    print("event after loop: ${eventEmitter.getListenersCount(eventName: event)}");
+    print(
+        "event after loop: ${eventEmitter.getListenersCount(eventName: event)}");
     print("Wait");
     await Future.delayed(Duration(seconds: 10));
-    print("event after delay: ${eventEmitter.getListenersCount(eventName: event)}");
+    print(
+        "event after delay: ${eventEmitter.getListenersCount(eventName: event)}");
     expect(0, eventEmitter.getListenersCount(eventName: event));
   }, timeout: Timeout(Duration(days: 12100)));
 }

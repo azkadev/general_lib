@@ -58,7 +58,6 @@ String generateDataSqlJson({
       // type_data += " 0";
       default_data += " 0";
     } else if (value is Map || value is List) {
-      
       // type_data = "json";
       // new
       type_data = "jsonb";

@@ -232,7 +232,7 @@ extension GeneralLibExtensionMap on Map {
   dynamic extension_general_lib_getData({
     required String key,
   }) {
-    final List<String> datas = key.split("."); 
+    final List<String> datas = key.split(".");
     dynamic state_data;
     for (var index = 0; index < datas.length; index++) {
       final dynamic data_key = datas[index];
@@ -248,7 +248,7 @@ extension GeneralLibExtensionMap on Map {
     return state_data;
   }
 
-  void utils_set_datas_void(List datas, dynamic value) { 
+  void utils_set_datas_void(List datas, dynamic value) {
     dynamic state_data = this;
     for (var index = 0; index < datas.length; index++) {
       dynamic data_key = datas[index];
@@ -298,7 +298,8 @@ extension GeneralLibExtensionMap on Map {
         if (this[key] == null) {
           this[key] = value;
         } else if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         }
@@ -326,7 +327,8 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapWithReplace(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapWithReplace(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -359,7 +361,8 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -374,7 +377,7 @@ extension GeneralLibExtensionMap on Map {
 
   void general_lib_utils_removeRecursiveByKeys({
     required List<String> keyDatas,
-  }) { 
+  }) {
     removeWhere((key, value) {
       if (keyDatas.contains(key)) {
         return true;
@@ -383,7 +386,8 @@ extension GeneralLibExtensionMap on Map {
       if (value is Map) {
         value.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       } else if (value is JsonScheme) {
-        value.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+        value.rawData
+            .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       }
 
       if (value is List<Map>) {
@@ -392,7 +396,8 @@ extension GeneralLibExtensionMap on Map {
         }
       } else if (value is List<JsonScheme>) {
         for (var element in value) {
-          element.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+          element.rawData
+              .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
         }
       }
 
@@ -442,7 +447,8 @@ extension GeneralLibExtensionMap on Map {
             }
           } else if (value is List<JsonScheme>) {
             for (var element in value) {
-              element.rawData.general_lib_utils_removeRecursiveValueNullOrEmpty();
+              element.rawData
+                  .general_lib_utils_removeRecursiveValueNullOrEmpty();
             }
           }
         }

@@ -22,8 +22,10 @@ class ArchiveGeneralLibOptions {
     bool? isVerbose,
   }) {
     return ArchiveGeneralLibOptions(
-      fileSystemEntityIgnore: fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
-      isUseFileSystemEntityIgnore: isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
+      fileSystemEntityIgnore:
+          fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
+      isUseFileSystemEntityIgnore:
+          isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
       isVerbose: isVerbose ?? this.isVerbose,
     );
   }
@@ -41,7 +43,8 @@ class ArchiveGeneralLibOptions {
   }
 }
 
-extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile on FileSystemEntity {
+extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
+    on FileSystemEntity {
   ArchiveFile toArchiveFile({
     required String name,
   }) {
@@ -59,15 +62,20 @@ class ArchiveGeneralLib {
     required Directory directoryBase,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
-    final List<String> fileSystemEntityIgnores = (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob() : [];
-     if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
-      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
+    final List<String> fileSystemEntityIgnores =
+        (archiveGeneralLibOptions.isUseFileSystemEntityIgnore)
+            ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob()
+            : [];
+    if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
+      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(
+          currentPath: directory.uri.toFilePath())) {
         if (fileSystemEntityIgnores.contains(element) == false) {
           fileSystemEntityIgnores.add(element);
         }
       }
     }
-    final List<RegExp> fileSystemEntityIgnoresRegexp = fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
+    final List<RegExp> fileSystemEntityIgnoresRegexp =
+        fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
 
     for (final element in directory.listSync()) {
       if (fileSystemEntityIgnoresRegexp.globContains(element.path)) {
@@ -84,7 +92,8 @@ class ArchiveGeneralLib {
       } else if (element is File) {
         addFile(
           fileSystemEntity: element,
-          name: path_package.relative(element.uri.toFilePath(), from: directoryBase.uri.toFilePath()),
+          name: path_package.relative(element.uri.toFilePath(),
+              from: directoryBase.uri.toFilePath()),
         );
       }
     }
@@ -128,7 +137,8 @@ class ArchiveGeneralLib {
   }) {
     final ZipDecoder zipDecoder = ZipDecoder();
 
-    return zipDecoder.decodeBuffer(InputFileStream(path), password: password, verify: verify);
+    return zipDecoder.decodeBuffer(InputFileStream(path),
+        password: password, verify: verify);
   }
 
   void close() {

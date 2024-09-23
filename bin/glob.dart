@@ -4,8 +4,7 @@ import 'package:general_lib/extension/dynamic.dart';
 import 'package:general_lib/glob/glob.dart';
 import 'package:universal_io/io.dart';
 
- 
-void main(List<String> args) { 
+void main(List<String> args) {
   List<RegExp> ignores = ignore.toGlobRegExp();
   for (var element in Directory.current.listSync(recursive: true)) {
     if (ignores.globContains(element.path)) {

@@ -46,9 +46,11 @@ class DatabaseMiniGeneralLibraryBaseOptions {
   });
 }
 
-abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibraryBaseAbstract {
+abstract class DatabaseMiniGeneralLibraryBase
+    implements DatabaseMiniGeneralLibraryBaseAbstract {
   late final String pathToFile;
-  late final DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions;
+  late final DatabaseMiniGeneralLibraryBaseOptions
+      databaseMiniGeneralLibraryBaseOptions;
   bool isEnsureInitialized = false;
 
   bool isInitialized = false;
@@ -70,13 +72,15 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
 
   void ensureInitialized({
     required String pathToFile,
-    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions
+        databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (isEnsureInitialized) {
       return;
     }
     this.pathToFile = pathToFile;
-    this.databaseMiniGeneralLibraryBaseOptions = databaseMiniGeneralLibraryBaseOptions;
+    this.databaseMiniGeneralLibraryBaseOptions =
+        databaseMiniGeneralLibraryBaseOptions;
     isEnsureInitialized = true;
   }
 
@@ -91,7 +95,8 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
       setDefaultData(
         defaultData: json.decode(decrypt(
           data_base64: readSync(),
-          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions:
+              databaseMiniGeneralLibraryBaseOptions,
         )),
       );
     } catch (e) {
@@ -115,7 +120,8 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
       setDefaultData(
         defaultData: json.decode(decrypt(
           data_base64: await readAsync(),
-          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions:
+              databaseMiniGeneralLibraryBaseOptions,
         )),
       );
     } catch (e) {
@@ -145,11 +151,13 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
 
   String encrypt({
     required Map data,
-    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions
+        databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
       try {
-        return databaseMiniGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
+        return databaseMiniGeneralLibraryBaseOptions.crypto
+            .encrypt(data: json.encode(data));
       } catch (e) {
         if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
           rethrow;
@@ -170,11 +178,13 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
 
   String decrypt({
     required String data_base64,
-    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions
+        databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
       try {
-        return databaseMiniGeneralLibraryBaseOptions.crypto.decrypt(data_base64: data_base64);
+        return databaseMiniGeneralLibraryBaseOptions.crypto
+            .decrypt(data_base64: data_base64);
       } catch (e) {
         if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
           rethrow;
@@ -221,7 +231,9 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   DatabaseMiniGeneralLibraryBuilder<T> get<T>({
     required String key,
   }) {
-    final DatabaseMiniGeneralLibraryBuilder<T> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<T>(
+    final DatabaseMiniGeneralLibraryBuilder<T>
+        databaseMiniGeneralLibraryBuilder =
+        DatabaseMiniGeneralLibraryBuilder<T>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -236,7 +248,9 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
     required String key,
     required Object? value,
   }) {
-    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
+    final DatabaseMiniGeneralLibraryBuilder<bool>
+        databaseMiniGeneralLibraryBuilder =
+        DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -248,7 +262,9 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   }
 
   DatabaseMiniGeneralLibraryBuilder<bool> write<bool>() {
-    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
+    final DatabaseMiniGeneralLibraryBuilder<bool>
+        databaseMiniGeneralLibraryBuilder =
+        DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -313,7 +329,8 @@ abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibr
   // TODO: implement length
   int get length => stateData.length;
 
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
+  Map<K2, V2> map<K2, V2>(
+      MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
     return stateData.map<K2, V2>(convert);
   }
 

@@ -40,7 +40,7 @@ import 'dart:math';
 
 import 'package:general_lib/extension/date_time.dart';
 import 'package:general_lib/extension/regexp.dart';
-import 'package:general_lib/general_lib_core.dart'; 
+import 'package:general_lib/general_lib_core.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart';
 // import 'package:mime/mime.dart';
@@ -56,19 +56,19 @@ class GeneralLibUtils {
     return "{bold_end}";
   }
 
-static int generateRandomNumber(int min_data, int max_data) {
-  final random = Random();
-  return random.nextInt(max_data - min_data + 1) + min_data;
-}
+  static int generateRandomNumber(int min_data, int max_data) {
+    final random = Random();
+    return random.nextInt(max_data - min_data + 1) + min_data;
+  }
 
- 
-static  String generateToken(int min_data, int max_data) {
-  return generateUuid(
-    generateRandomNumber(min_data, max_data),
-    text: "abcdefghijklmnopqrstuvwxyz0123456789-_",
-    // text: "abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&*()_+{}|:<>?,./;\\'[]\\-=",
-  );
-}
+  static String generateToken(int min_data, int max_data) {
+    return generateUuid(
+      generateRandomNumber(min_data, max_data),
+      text: "abcdefghijklmnopqrstuvwxyz0123456789-_",
+      // text: "abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&*()_+{}|:<>?,./;\\'[]\\-=",
+    );
+  }
+
   static dynamic autoParseChatId(dynamic data) {
     try {
       try {
@@ -145,7 +145,10 @@ static  String generateToken(int min_data, int max_data) {
   /// ```
   static List<int> messagesTdlibToApi(dynamic message_ids) {
     if (message_ids is List<num>) {
-      return message_ids.map((message_id) => messageTdlibToApi(message_id).toInt()).toList().cast<int>();
+      return message_ids
+          .map((message_id) => messageTdlibToApi(message_id).toInt())
+          .toList()
+          .cast<int>();
     }
 
     if (message_ids is num) {
@@ -163,7 +166,10 @@ static  String generateToken(int min_data, int max_data) {
   /// ```
   static List<int> messagesApiToTdlib(message_ids) {
     if (message_ids is List<int>) {
-      return message_ids.map((message_id) => messageApiToTdlib(message_id).toInt()).toList().cast<int>();
+      return message_ids
+          .map((message_id) => messageApiToTdlib(message_id).toInt())
+          .toList()
+          .cast<int>();
     }
     return [];
   }
@@ -178,12 +184,14 @@ static  String generateToken(int min_data, int max_data) {
   }
 
   /// ccreate offset for tl
-  static List<String> splitByLength(String text, int length, {bool ignoreEmpty = false}) {
+  static List<String> splitByLength(String text, int length,
+      {bool ignoreEmpty = false}) {
     final List<String> pieces = [];
 
     for (int i = 0; i < text.length; i += length) {
       final int offset = i + length;
-      String piece = text.substring(i, offset >= text.length ? text.length : offset);
+      String piece =
+          text.substring(i, offset >= text.length ? text.length : offset);
 
       if (ignoreEmpty) {
         piece = piece.replaceAll(RegExp(r'\s+'), '');
@@ -270,7 +278,9 @@ static  String generateToken(int min_data, int max_data) {
     };
     queryParameters.removeWhere((key, value) => value.isEmpty);
 
-    return Uri.parse("https://t.me/share/url").replace(queryParameters: queryParameters).toString();
+    return Uri.parse("https://t.me/share/url")
+        .replace(queryParameters: queryParameters)
+        .toString();
   }
 
   /// convert messages_api to messages_api_tdlib
@@ -286,7 +296,9 @@ static  String generateToken(int min_data, int max_data) {
     return Uri.parse("https://t.me/").replace(
       pathSegments: [
         "c",
-        chat_id.toString().replaceAll(RegExp(r"^(-100|-)", caseSensitive: false), ""),
+        chat_id
+            .toString()
+            .replaceAll(RegExp(r"^(-100|-)", caseSensitive: false), ""),
         message_id.toString(),
       ],
     ).toString();
@@ -356,8 +368,11 @@ ${text}
       if (parameters["chat_id"] is int) {
         return (parameters["chat_id"]);
       }
-      if (parameters["chat_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
+      if (parameters["chat_id"] is String &&
+          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
+              .hashData(parameters["chat_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
+            .hashData(parameters["chat_id"])) {
           return int.tryParse(parameters["chat_id"]) ?? 0;
         }
         return (parameters["chat_id"]);
@@ -365,8 +380,11 @@ ${text}
       if (parameters["user_id"] is int) {
         return (parameters["user_id"]);
       }
-      if (parameters["user_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["user_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["user_id"])) {
+      if (parameters["user_id"] is String &&
+          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
+              .hashData(parameters["user_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
+            .hashData(parameters["user_id"])) {
           return int.tryParse(parameters["user_id"]) ?? 0;
         }
         return (parameters["user_id"]);
@@ -383,8 +401,11 @@ ${text}
       if (parameters["chat_id"] is int) {
         return (parameters["chat_id"]);
       }
-      if (parameters["chat_id"] is String && RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
-        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false).hashData(parameters["chat_id"])) {
+      if (parameters["chat_id"] is String &&
+          RegExp(r"^((@)[a-z0-9_]+)$", caseSensitive: false)
+              .hashData(parameters["chat_id"])) {
+        if (RegExp(r"^((-)?[0-9]+)$", caseSensitive: false)
+            .hashData(parameters["chat_id"])) {
           return int.tryParse(parameters["chat_id"]) ?? 0;
         }
         return (parameters["chat_id"]);
@@ -486,7 +507,8 @@ ${text}
         "@type": "replyMarkupInlineKeyboard",
       };
 
-      final List inline_keyboards_old = (replyMarkup["inline_keyboard"] as List);
+      final List inline_keyboards_old =
+          (replyMarkup["inline_keyboard"] as List);
 
       final List inline_keyboards = [];
       for (var i = 0; i < inline_keyboards_old.length; i++) {
@@ -554,7 +576,8 @@ ${text}
       if (content["is_post_buffer"] == true) {
         if (directory_temp != null) {
           final String name_file = () {
-            if (content["name"] is String && (content["name"] as String).isNotEmpty) {
+            if (content["name"] is String &&
+                (content["name"] as String).isNotEmpty) {
               return content["name"];
             }
             return "${DateTime.now().millisecondsSinceEpoch}";
@@ -579,7 +602,8 @@ ${text}
         "@type": 'inputFileRemote',
         "id": content,
       };
-    } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false).hashData(content)) {
+    } else if (RegExp(r"^(\/|\.\.?\/|~\/)", caseSensitive: false)
+        .hashData(content)) {
       return {
         "@type": 'inputFileLocal',
         "path": content,
@@ -637,7 +661,8 @@ ${text}
                   final Map data_row_type = data_row["type"];
                   if (data_row_type["@type"] == "keyboardButtonTypeText") {}
 
-                  if (data_row_type["@type"] == "keyboardButtonTypeRequestChat") {
+                  if (data_row_type["@type"] ==
+                      "keyboardButtonTypeRequestChat") {
                     jsonData["request_chat"] = {};
                     data_row_type.forEach((key, value) {
                       if (key == "id") {
@@ -650,7 +675,8 @@ ${text}
                       }
                     });
                   }
-                  if (data_row_type["@type"] == "keyboardButtonTypeRequestUser") {
+                  if (data_row_type["@type"] ==
+                      "keyboardButtonTypeRequestUser") {
                     jsonData["request_user"] = {};
                     data_row_type.forEach((key, value) {
                       if (key == "id") {
@@ -664,10 +690,12 @@ ${text}
                     });
                   }
 
-                  if (data_row_type["@type"] == "keyboardButtonTypeRequestPhoneNumber") {
+                  if (data_row_type["@type"] ==
+                      "keyboardButtonTypeRequestPhoneNumber") {
                     jsonData["request_contact"] = true;
                   }
-                  if (data_row_type["@type"] == "keyboardButtonTypeRequestLocation") {
+                  if (data_row_type["@type"] ==
+                      "keyboardButtonTypeRequestLocation") {
                     jsonData["request_location"] = true;
                   }
                 }
@@ -702,17 +730,23 @@ ${text}
                 };
                 if (data_row["type"] is Map) {
                   final Map data_row_type = data_row["type"];
-                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeCallback") {
-                    jsonData["callback_data"] = utf8.decode(base64.decode(data_row_type["data"]));
+                  if (data_row_type["@type"] ==
+                      "inlineKeyboardButtonTypeCallback") {
+                    jsonData["callback_data"] =
+                        utf8.decode(base64.decode(data_row_type["data"]));
                   }
-                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeWebApp") {
+                  if (data_row_type["@type"] ==
+                      "inlineKeyboardButtonTypeWebApp") {
                     jsonData["web_app"] = {"url": data_row_type["url"]};
                   }
 
-                  if (data_row_type["@type"] == "inlineKeyboardButtonTypeSwitchInline") {
+                  if (data_row_type["@type"] ==
+                      "inlineKeyboardButtonTypeSwitchInline") {
                     if (data_row_type["target_chat"] is Map) {
-                      if (data_row_type["target_chat"]["@type"] == "targetChatCurrent") {
-                        jsonData["switch_inline_query_current_chat"] = data_row_type["query"];
+                      if (data_row_type["target_chat"]["@type"] ==
+                          "targetChatCurrent") {
+                        jsonData["switch_inline_query_current_chat"] =
+                            data_row_type["query"];
                       }
                     }
                   }
@@ -795,7 +829,8 @@ ${text}
     if (["2", "3", "1"].contains(dc) == false) {
       dc = "2";
     }
-    return "99966${dc}YYYY".replaceAllMapped(RegExp("(y)", caseSensitive: false), (match) {
+    return "99966${dc}YYYY"
+        .replaceAllMapped(RegExp("(y)", caseSensitive: false), (match) {
       return "${Random().nextInt(9)}";
     });
   }
@@ -805,7 +840,81 @@ ${text}
   }
 
   static List<String> bot_emoji_reactions() {
-    return ["👍", "👎", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"];
+    return [
+      "👍",
+      "👎",
+      "❤",
+      "🔥",
+      "🥰",
+      "👏",
+      "😁",
+      "🤔",
+      "🤯",
+      "😱",
+      "🤬",
+      "😢",
+      "🎉",
+      "🤩",
+      "🤮",
+      "💩",
+      "🙏",
+      "👌",
+      "🕊",
+      "🤡",
+      "🥱",
+      "🥴",
+      "😍",
+      "🐳",
+      "❤‍🔥",
+      "🌚",
+      "🌭",
+      "💯",
+      "🤣",
+      "⚡",
+      "🍌",
+      "🏆",
+      "💔",
+      "🤨",
+      "😐",
+      "🍓",
+      "🍾",
+      "💋",
+      "🖕",
+      "😈",
+      "😴",
+      "😭",
+      "🤓",
+      "👻",
+      "👨‍💻",
+      "👀",
+      "🎃",
+      "🙈",
+      "😇",
+      "😨",
+      "🤝",
+      "✍",
+      "🤗",
+      "🫡",
+      "🎅",
+      "🎄",
+      "☃",
+      "💅",
+      "🤪",
+      "🗿",
+      "🆒",
+      "💘",
+      "🙉",
+      "🦄",
+      "😘",
+      "💊",
+      "🙊",
+      "😎",
+      "👾",
+      "🤷‍♂",
+      "🤷",
+      "🤷‍♀",
+      "😡"
+    ];
   }
 
   static List<String> bot_emoji_reaction_goods() {
@@ -853,7 +962,8 @@ ${text}
       "bot${tokenBot}",
       parameters["@type"],
     ]).toString();
-    final DateTime dateTime_expire = DateTime.now().add(durationTaskTimeOut ?? Duration(minutes: 1));
+    final DateTime dateTime_expire =
+        DateTime.now().add(durationTaskTimeOut ?? Duration(minutes: 1));
 
     final Map result = await Future<Map>(() async {
       while (true) {
@@ -871,7 +981,11 @@ ${text}
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
           };
-          final Response response = await http_client.post(Uri.parse(url), headers: header, body: json.encode(parameters)).timeout(durationFetchTimeOut ?? Duration(seconds: 1), onTimeout: () {
+          final Response response = await http_client
+              .post(Uri.parse(url),
+                  headers: header, body: json.encode(parameters))
+              .timeout(durationFetchTimeOut ?? Duration(seconds: 1),
+                  onTimeout: () {
             return Response(
               json.encode({
                 "ok": false,
@@ -885,7 +999,8 @@ ${text}
             if (parameters["@type"].toString().toLowerCase() == "getfile") {
               final Map getFile = json.decode(response.body);
               final String url = "${urlApi}file/bot${tokenBot.toString()}";
-              getFile["result"]["file_url"] = "${url}/${getFile["result"]["file_path"]}";
+              getFile["result"]["file_url"] =
+                  "${url}/${getFile["result"]["file_path"]}";
               return getFile;
             } else {
               return json.decode(response.body);
@@ -898,9 +1013,11 @@ ${text}
           if (e is ClientException) {
             continue;
           }
-          if (RegExp(r"^(send)", caseSensitive: false).hasMatch(parameters["@type"])) {
+          if (RegExp(r"^(send)", caseSensitive: false)
+              .hasMatch(parameters["@type"])) {
             if (e is Map) {
-              if (RegExp("Unsupported start tag", caseSensitive: false).hasMatch(e["description"])) {
+              if (RegExp("Unsupported start tag", caseSensitive: false)
+                  .hasMatch(e["description"])) {
                 parameters.remove("parse_mode");
                 return await telegramInvoke(
                   parametersRequest: parameters,

@@ -41,7 +41,7 @@ class TcpSocketServer {
   late SecureServerSocket server_secure;
 
   TcpSocketServer();
-  
+
   Future<ServerSocket> listen({
     required String host,
     required int port,

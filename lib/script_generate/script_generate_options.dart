@@ -11,7 +11,8 @@ class ScriptGeneratorOptions {
     bool? isVerbose,
   }) {
     return ScriptGeneratorOptions(
-      fileSystemEntityIgnore: fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
+      fileSystemEntityIgnore:
+          fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
       isVerbose: isVerbose ?? this.isVerbose,
     );
   }

@@ -31,7 +31,9 @@ class GeneralSocketData {
   Future<void> ensureInitiaLized({
     required RawDatagramSocket socket,
     required NetworkInterface networkInterface,
-    required FutureOr<void> Function(GeneralSocketMessageData generalSocketMessageData) onMessage,
+    required FutureOr<void> Function(
+            GeneralSocketMessageData generalSocketMessageData)
+        onMessage,
     required void Function() onDone,
   }) async {
     if (is_initialized) {

@@ -34,4 +34,4 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 export "language_core_generate.dart";
 
-export "language_data.dart"; 
+export "language_data.dart";

@@ -4,8 +4,10 @@ import "package:path/path.dart" as path;
 
 void main(List<String> args) async {
   print("start");
-  File file_archived = File(path.join(Directory.current.path, "temp", "slebew.zip"));
-  Directory directory_output = Directory(path.join(Directory.current.path, "temp", "azka"));
+  File file_archived =
+      File(path.join(Directory.current.path, "temp", "slebew.zip"));
+  Directory directory_output =
+      Directory(path.join(Directory.current.path, "temp", "azka"));
   String? password;
   if (directory_output.existsSync()) {
     directory_output.deleteSync(recursive: true);
@@ -14,8 +16,7 @@ void main(List<String> args) async {
     directory: Directory(path.join(Directory.current.path)),
     password: password,
     outPutFile: file_archived,
-    archiveGeneralLibOptions: ArchiveGeneralLibOptions.empty( 
-    ),
+    archiveGeneralLibOptions: ArchiveGeneralLibOptions.empty(),
   );
   print("extract");
   await ArchiveGeneralLib.extractArchiveZipAsync(

@@ -51,11 +51,14 @@ final Map<String, LanguageCodeDataDetail> languageCodeDetailData = () {
   return jsonData;
 }.call();
 
-final List<String> languageCodeNames = languageCodeJson.keys.whereType<String>().toList();
+final List<String> languageCodeNames =
+    languageCodeJson.keys.whereType<String>().toList();
 
-extension LanguageCodeDataDetailGeneralLibExtensions on Map<String, LanguageCodeDataDetail> {
+extension LanguageCodeDataDetailGeneralLibExtensions
+    on Map<String, LanguageCodeDataDetail> {
   Future<LanguageCodeDataDetail?> languageDetailDataQuery({
-    required Future<bool> Function(LanguageCodeDataDetail languageDetailData) onData,
+    required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
+        onData,
   }) async {
     for (var element in entries) {
       final LanguageCodeDataDetail value = element.value;
@@ -84,17 +87,20 @@ extension LanguageCodeDataDetailGeneralLibExtensions on Map<String, LanguageCode
   }
 
   Future<LanguageCodeDataDetail> languageDetailDataQueryForce({
-    required Future<bool> Function(LanguageCodeDataDetail languageDetailData) onData,
+    required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
+        onData,
     required LanguageCodeDataDetail defaultLanguageCodeDataDetail,
   }) async {
-    return (await languageDetailDataQuery(onData: onData)) ?? defaultLanguageCodeDataDetail;
+    return (await languageDetailDataQuery(onData: onData)) ??
+        defaultLanguageCodeDataDetail;
   }
 
   LanguageCodeDataDetail languageDetailDataQueryForceSync({
     required bool Function(LanguageCodeDataDetail languageDetailData) onData,
     required LanguageCodeDataDetail defaultLanguageCodeDataDetail,
   }) {
-    return languageDetailDataQuerySync(onData: onData) ?? defaultLanguageCodeDataDetail;
+    return languageDetailDataQuerySync(onData: onData) ??
+        defaultLanguageCodeDataDetail;
   }
 
   LanguageCodeDataDetail? languageDetailDataGetByPhoneCode({
