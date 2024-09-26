@@ -80,7 +80,7 @@ Future<Directory> jsonToLanguageScript({
 
 // import "${base_name}_core.dart";
 // import "${base_name}_code_data.dart";
-import "package:general_lib/language/language_code_data.dart";
+import "package:general_lib/scheme/language_code_data.dart";
 import "package:general_lib/language/language_core.dart";
 import "package:general_lib/regexp_replace/regexp_replace.dart";
 

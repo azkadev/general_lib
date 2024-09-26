@@ -38,9 +38,12 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:io';
 
+import 'package:general_lib/archive/archive.dart';
 import 'package:general_lib/dart/dart.dart';
 import 'package:general_lib/dart/resolve_package_uri/resolve_package_uri.dart';
 import 'package:general_lib/extension/directory.dart';
+import 'package:general_lib/general_lib_core.dart';
+// import 'package:general_lib/general_lib.d/art';
 import 'package:universal_io/io.dart';
 import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
@@ -52,15 +55,11 @@ class Pub {
     }
     String? configDir;
     if (Platform.isLinux) {
-      configDir = path.join(
-          Platform.environment['XDG_CONFIG_HOME'] ??
-              Platform.environment['HOME']!,
-          '.pub-cache');
+      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ?? Platform.environment['HOME']!, '.pub-cache');
     } else if (Platform.isWindows) {
       configDir = Platform.environment['APPDATA']!;
     } else if (Platform.isMacOS) {
-      configDir = path.join(
-          Platform.environment['HOME']!, 'Library', 'Application Support');
+      configDir = path.join(Platform.environment['HOME']!, 'Library', 'Application Support');
     } else {
       configDir = path.join(Platform.environment['HOME'] ?? '', '.pub-cache');
     }
@@ -116,23 +115,132 @@ class Pub {
     if (Dart.isWeb) {
       return null;
     }
-    final File file_pubspec =
-        File(path.join(directoryPackage.path, "pubspec.yaml"));
+    final File file_pubspec = File(path.join(directoryPackage.path, "pubspec.yaml"));
     if (file_pubspec.existsSync() == false) {
       return null;
     }
-    final Map yaml_code =
-        (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
-    final Directory directory_pub_dev = Directory(path.join(
-        hosted_directory.path,
-        "pub.dev",
-        "${yaml_code["name"]}-${yaml_code["version"]}"));
+    final Map yaml_code = (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
+    final Directory directory_pub_dev = Directory(path.join(hosted_directory.path, "pub.dev", "${yaml_code["name"]}-${yaml_code["version"]}"));
     if (deleteIfExist && directory_pub_dev.existsSync()) {
       directory_pub_dev.deleteSync(recursive: true);
       directory_pub_dev.createSync(recursive: true);
     }
     directoryPackage.copyTo(directory_pub_dev);
     return directory_pub_dev;
+  }
+
+  File? archiveDirectory({
+    required Directory directoryPackage,
+    String? password,
+    required Directory directoryOutPut,
+    String fileSystemEntityIgnore = "",
+  }) {
+    if (Dart.isWeb) {
+      return null;
+    }
+    final File file_pubspec = File(path.join(directoryPackage.path, "pubspec.yaml"));
+    if (file_pubspec.existsSync() == false) {
+      return null;
+    }
+    final Map yaml_code = (yaml.loadYaml(file_pubspec.readAsStringSync(), recover: true) as Map);
+    return ArchiveGeneralLib.createArchiveZip(
+      directory: directoryPackage,
+      password: password,
+      outPutFile: File(path.join(directoryOutPut.uri.toFilePath(), "${yaml_code["name"]}-${yaml_code["version"]}")),
+      archiveGeneralLibOptions: ArchiveGeneralLibOptions(
+        fileSystemEntityIgnore: """
+.git
+.dart_tool
+$fileSystemEntityIgnore
+""",
+        isUseFileSystemEntityIgnore: true,
+        isVerbose: false,
+      ),
+    );
+  }
+
+  Directory? installFromArchive({
+    required File archivedFile,
+    String? password,
+    bool deleteIfExist = true,
+    String fileSystemEntityIgnore = "",
+  }) {
+    if (Dart.isWeb) {
+      return null;
+    }
+
+    Directory directory_ouput_temp = Directory(path.join(temp_directory.uri.toFilePath(), generateUuid(10)));
+
+    if (directory_ouput_temp.existsSync()) {
+      {
+        int try_count = 0;
+        while (true) {
+          if (++try_count > 10) {
+            throw "Error";
+          }
+          directory_ouput_temp = Directory(path.join(temp_directory.uri.toFilePath(), generateUuid(10)));
+          if (directory_ouput_temp.existsSync() == false) {
+            break;
+          }
+        }
+      }
+    }
+
+    final Directory directory = ArchiveGeneralLib.extractArchiveZip(
+      archivedFile: archivedFile,
+      directoryOutput: directory_ouput_temp,
+      password: password,
+      verify: true,
+      archiveGeneralLibOptions: ArchiveGeneralLibOptions(fileSystemEntityIgnore: """
+.git
+.dart_tool
+$fileSystemEntityIgnore
+""", isUseFileSystemEntityIgnore: true, isVerbose: false),
+    );
+
+    try {
+      final Directory? directoryresult = installFromDirectory(
+        directoryPackage: directory,
+        deleteIfExist: deleteIfExist,
+      );
+
+      directory_ouput_temp.deleteSync(recursive: true);
+      return directoryresult;
+    } catch (e) {
+      directory_ouput_temp.deleteSync(recursive: true);
+      rethrow;
+    }
+  }
+
+  Directory? installFromDirectoryFresh({
+    required Directory directoryPackage,
+    String? password,
+  bool deleteIfExist = true,
+    Directory? directoryOutPut,
+    String fileSystemEntityIgnore = "",
+  }) {
+    final res = archiveDirectory(
+      directoryPackage: directoryPackage,
+      password: password,
+      directoryOutPut: Directory(path.join((directoryOutPut ?? Directory.current).path, "temp")),
+      fileSystemEntityIgnore: fileSystemEntityIgnore,
+    );
+    if (res == null) {
+      return null;
+    }
+    try {
+      final installed_dir = installFromArchive(
+        archivedFile: res,
+        password: password,
+        fileSystemEntityIgnore: fileSystemEntityIgnore,
+        deleteIfExist:deleteIfExist,
+      );
+      res.deleteSync(recursive: true);
+      return installed_dir;
+    } catch (e) {
+      res.deleteSync(recursive: true);
+      rethrow;
+    }
   }
 
   Uri? resolvePackageUri(Uri uri) {
@@ -151,12 +259,7 @@ class Pub {
       return null;
     }
     for (var i = 0; i < path.split(result.toFilePath()).length; i++) {
-      File file_pubspec = File(path.join(
-          Directory(path.join(result.toFilePath(),
-                  List.generate(i, (index) => "..").join(Dart.pathSeparator)))
-              .uri
-              .toFilePath(),
-          "pubspec.yaml"));
+      File file_pubspec = File(path.join(Directory(path.join(result.toFilePath(), List.generate(i, (index) => "..").join(Dart.pathSeparator))).uri.toFilePath(), "pubspec.yaml"));
       if (file_pubspec.existsSync()) {
         return file_pubspec.parent;
       }
