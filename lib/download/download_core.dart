@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 /* <!-- START LICENSE -->
 
 
@@ -36,10 +38,12 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: unused_local_variable, unnecessary_brace_in_string_interps, non_constant_identifier_names, empty_catches, unnecessary_string_interpolations
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:general_lib/general_lib.dart';
+import 'package:general_lib/dart/dart.dart';
+import 'package:general_lib/extension/dynamic.dart';
 import 'package:http/http.dart';
 import "package:path/path.dart" as path;
 import 'package:universal_io/io.dart';
@@ -108,8 +112,7 @@ class DownloadClient {
   static DownloadClientData? getDownloadClientData({
     required Uri uri,
   }) {
-    return download_client_datas
-        .firstWhereOrNull((element) => element.uri == uri);
+    return download_client_datas.firstWhereOrNull((element) => element.uri == uri);
   }
 
   static void deleteDownloadClientData({
@@ -153,6 +156,30 @@ class DownloadClient {
     return int.tryParse(headers['content-length'] ?? "0") ?? 0;
   }
 
+  static String? getContentName({
+    required Map headers,
+  }) {
+    try {
+      final res = (headers["content-disposition"] as String).split(";");
+
+      for (final element in res) {
+        if (element.contains('filename')) {
+          final result = element.substring(element.indexOf("=") + 2, element.length - 1);
+          try {
+            return Uri.decodeFull(result);
+          } catch (e) {
+            try {
+              return json.decode(result);
+            } catch (e) {
+              return result;
+            }
+          }
+        }
+      }
+    } catch (e) {}
+    return null;
+  }
+
   Future<DownloadClientData> downloadRaw({
     required Uri url,
     required Directory? directoryDownload,
@@ -160,25 +187,24 @@ class DownloadClient {
     Map<String, String>? headers,
     required bool isAutoDeleteDownloadClientData,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
     directoryDownload ??= directory_download;
     checkDir(directoryDownload: directoryDownload);
     Response response_head = await http_client.head(url, headers: headers);
+    // response_head.printPretty();
 
     int downloadUntil = getContentLength(headers: response_head.headers);
 
-    String new_file_name = [newFileName, url.pathSegments.lastOrNull]
-            .firstWhereOrNull(
-                (element) => (element != null && element.isNotEmpty)) ??
-        "${url.toString()}";
+    String new_file_name = [newFileName, getContentName(headers: response_head.headers), url.pathSegments.lastOrNull].firstWhereOrNull((element) => (element != null && element.trim().isNotEmpty)) ?? "${url.toString()}";
 
     File file = File(path.join(directoryDownload.path, new_file_name));
 
     int downloadFrom = await Future(() async {
       if (file.existsSync()) {
         return await file.length();
+      } else {
+        await file.create(recursive: true);
       }
       return 0;
     });
@@ -260,8 +286,7 @@ class DownloadClient {
     String? newFileName,
     bool isAutoDeleteDownloadClientData = true,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
     DownloadClientData? downloadClientData = getDownloadClientData(uri: url);
 
