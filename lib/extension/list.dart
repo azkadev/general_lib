@@ -40,6 +40,42 @@ import "dart:math";
 import "map.dart" as mapext;
 import "regexp.dart" as regexp;
 
+extension GeneralLibExtensionListExtension<T> on List<T> {
+  Iterable<T> extensionGeneralLibForEach({
+    required bool isReverse,
+    required T Function(T data, int index, int totalLength, bool isReverse) onData,
+  }) sync* {
+    final int totalLength = length;
+    if (isReverse) {
+      for (int i = totalLength - 1; i >= 0; i--) {
+        yield onData(this[i], i, totalLength, isReverse);
+      }
+    } else {
+      for (int i = 0; i < totalLength; i++) {
+        yield onData(this[i], i, totalLength, isReverse);
+      }
+    }
+    return;
+  }
+
+  Iterable<V> extensionGeneralLibMap<V>({
+    required bool isReverse,
+    required V Function(T data, int index, int totalLength, bool isReverse) onData,
+  }) sync* {
+    final int totalLength = length;
+    if (isReverse) {
+      for (int i = totalLength - 1; i >= 0; i--) {
+        yield onData(this[i], i, totalLength, isReverse);
+      }
+    } else {
+      for (int i = 0; i < totalLength; i++) {
+        yield onData(this[i], i, totalLength, isReverse);
+      }
+    }
+    return;
+  }
+}
+
 extension GeneralLibExtensionList on List {
   List<List<T>> createLimit<T>({
     required int limit,

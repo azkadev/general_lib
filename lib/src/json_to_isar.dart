@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 /* <!-- START LICENSE -->
 
 
@@ -46,6 +48,11 @@ JsonDataScript jsonToIsar(
   String? comment,
   int isarVersion = 3,
 }) {
+  try {
+    if (data["is_test"] is bool == false) {
+      data["is_test"] = false;
+    }
+  } catch (e) {}
   return JsonDataScript(
     className: className,
     datas: [

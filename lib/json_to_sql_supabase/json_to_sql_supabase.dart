@@ -43,6 +43,11 @@ import 'package:general_lib/extension/extension.dart';
 String generateDataSqlJson({
   required Map data,
 }) {
+  try {
+    if (data["is_test"] is bool == false) {
+      data["is_test"] = false;
+    }
+  } catch (e) {}
   String script_data = "";
   data.forEach((key, value) {
     if (RegExp(r"^(@)", caseSensitive: false).hasMatch(key)) {
@@ -119,9 +124,7 @@ ALTER TABLE ${tableName} ADD COLUMN ${key} ${type_data} ${default_data};
     script_data += "${script_data_loop}";
     script_data += "\n";
   });
-  return script_data
-      .replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "")
-      .trim();
+  return script_data.replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "").trim();
 }
 
 // add column in
@@ -185,8 +188,5 @@ alter table {table_name} enable row level security;
   script += "\n\n";
   script += "-- Recommendation";
 
-  return (script
-      .trim()
-      .replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName)
-      .trim());
+  return (script.trim().replaceAll(RegExp(r"({table_name})", caseSensitive: false), tableName).trim());
 }
