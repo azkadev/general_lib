@@ -35,11 +35,21 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 // RegExp
 class RegExpReplace {
-  RegExp from;
-  String Function(Match match) replace;
+  final RegExp from;
+  final String Function(Match match) replace;
 
-  RegExpReplace({
+  const RegExpReplace({
     required this.from,
     required this.replace,
   });
+
+  RegExpReplace copyWith({
+    final RegExp? from,
+    final String Function(Match match)? replace,
+  }) {
+    return RegExpReplace(
+      from: from ?? this.from,
+      replace: replace ?? this.replace,
+    );
+  }
 }

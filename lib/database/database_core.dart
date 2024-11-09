@@ -6,19 +6,15 @@ class DatabaseGeneralLib {
 
   DatabaseMiniGeneralLibrary openDatabaseMini({
     required String key,
-    required DatabaseMiniGeneralLibraryBaseOptions
-        databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
     required Map<dynamic, dynamic> defaultData,
   }) {
-    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld =
-        _stateDbMini[key];
+    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
     if (databaseMiniGeneralLibraryOld == null) {
-      final DatabaseMiniGeneralLibrary newDatabaseMiniGeneralLibrary =
-          DatabaseMiniGeneralLibrary();
+      final DatabaseMiniGeneralLibrary newDatabaseMiniGeneralLibrary = DatabaseMiniGeneralLibrary();
       newDatabaseMiniGeneralLibrary.ensureInitialized(
         pathToFile: key,
-        databaseMiniGeneralLibraryBaseOptions:
-            databaseMiniGeneralLibraryBaseOptions,
+        databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
       );
       newDatabaseMiniGeneralLibrary.initiaLizedSync(
         defaultData: defaultData,
@@ -31,19 +27,15 @@ class DatabaseGeneralLib {
 
   Future<DatabaseMiniGeneralLibrary> openDatabaseMiniAsync({
     required String key,
-    required DatabaseMiniGeneralLibraryBaseOptions
-        databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
     required Map<dynamic, dynamic> defaultData,
   }) async {
-    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld =
-        _stateDbMini[key];
+    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
     if (databaseMiniGeneralLibraryOld == null) {
-      final DatabaseMiniGeneralLibrary newDatabaseMiniGeneralLibrary =
-          DatabaseMiniGeneralLibrary();
+      final DatabaseMiniGeneralLibrary newDatabaseMiniGeneralLibrary = DatabaseMiniGeneralLibrary();
       newDatabaseMiniGeneralLibrary.ensureInitialized(
         pathToFile: key,
-        databaseMiniGeneralLibraryBaseOptions:
-            databaseMiniGeneralLibraryBaseOptions,
+        databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
       );
       await newDatabaseMiniGeneralLibrary.initiaLized(
         defaultData: defaultData,
@@ -57,8 +49,7 @@ class DatabaseGeneralLib {
   bool closeDatabaseMini({
     required String key,
   }) {
-    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld =
-        _stateDbMini[key];
+    final DatabaseMiniGeneralLibrary? databaseMiniGeneralLibraryOld = _stateDbMini[key];
     if (databaseMiniGeneralLibraryOld == null) {
       return true;
     }
