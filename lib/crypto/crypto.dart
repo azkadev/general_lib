@@ -41,15 +41,12 @@ import 'package:encrypt/encrypt.dart';
 import 'package:general_lib/general_lib.dart';
 
 class Crypto {
-  late String defaultKey;
-  late String defaultIv;
-  Crypto({
-    required String key,
-    String iv = "AAAAAAAAAAAAAAAAAAAAAA==",
-  }) {
-    defaultKey = key;
-    defaultIv = iv;
-  }
+  final String key;
+  final String iv;
+  const Crypto({
+    required this.key,
+    this.iv = "AAAAAAAAAAAAAAAAAAAAAA==",
+  });
 
   static String generateKey({
     String scheme = "0123456789abcdefghijklmnopqrstuvwxyz",
@@ -57,11 +54,15 @@ class Crypto {
     return generateUuid(32, text: scheme);
   }
 
-  static Crypto defaultCrypto() {
-    return Crypto(
-      key: "Xv2CgIFX5J0OPr7VxH2E79ec0OarCSeh",
-    );
-  }
+  // static Crypto defaultCrypto() {
+  //   return const Crypto(
+  //     key: "Xv2CgIFX5J0OPr7VxH2E79ec0OarCSeh",
+  //   );
+  // }
+
+  const Crypto.defaultCrypto()
+      : key = "aFWcpMJ8eqcedhWjY2ZjW5ejDGUeBQoK",
+        iv = "WSavXkGwlNwaUwcQAiZtrw==";
 
   static Crypto empty() {
     return Crypto(key: "");
@@ -72,8 +73,8 @@ class Crypto {
     String? newKey,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    newKey ??= defaultKey;
+    iv ??= this.iv;
+    newKey ??= key;
 
     final encrypter = Encrypter(
       AES(
@@ -90,9 +91,8 @@ class Crypto {
     String? newKey,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    newKey ??= defaultKey;
-
+    iv ??= this.iv;
+    newKey ??= key;
     final encrypter = Encrypter(
       AES(
         Key.fromUtf8(newKey),
@@ -120,8 +120,8 @@ class Crypto {
     String? key,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    key ??= defaultKey;
+    iv ??= this.iv;
+    key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
     return encrypter.encryptBytes(data, iv: IV.fromBase64(iv)).bytes;
   }
@@ -131,11 +131,10 @@ class Crypto {
     String? key,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    key ??= defaultKey;
+    iv ??= this.iv;
+    key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
-    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)),
-        iv: IV.fromBase64(iv));
+    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)), iv: IV.fromBase64(iv));
   }
 
   Uint8List encryptsBytes({
@@ -167,8 +166,8 @@ class Crypto {
     String? key,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    key ??= defaultKey;
+    iv ??= this.iv;
+    key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
 
     return encrypter.encrypt(text, iv: IV.fromBase64(iv)).base64;
@@ -179,8 +178,8 @@ class Crypto {
     String? key,
     String? iv,
   }) {
-    iv ??= defaultIv;
-    key ??= defaultKey;
+    iv ??= this.iv;
+    key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
     return encrypter.decrypt64(text, iv: IV.fromBase64(iv));
   }
