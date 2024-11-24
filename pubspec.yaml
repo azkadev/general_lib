@@ -1,16 +1,16 @@
 name: 'general_lib'
 description: 'All in one library for help you make easy app on cross platform and support server side, inclue tcp, fetch, event emitter, websocket, and more.'
-version: '0.0.46'
-environment: 
+version: '0.0.47'
+environment:
   sdk: '>=3.3.3 <4.0.0'
-executables: 
-  general_lib: 'general_lib'
-dev_dependencies: 
+# executables:
+  # general_lib: 'general_lib'
+dev_dependencies:
   lints: '^4.0.0'
   test: 'any'
-dependencies: 
+dependencies:
   collection: '^1.18.0'
-  http: '>=0.13.4 <=5.1.0'
+  http: '^1.2.2'
   path: '^1.9.0'
   universal_io: '^2.2.2'
   encrypt: '^5.0.3'
@@ -21,9 +21,9 @@ dependencies:
   qr: 'any'
   zxing2: '^0.2.0'
   image: '^4.0.17'
-dependency_overrides: 
+dependency_overrides:
   pointycastle: '3.8.0'
-funding: 
+funding:
   - 'https://github.com/sponsors/azkadev'
   - 'https://github.com/sponsors/generalfoss'
 repository: 'https://github.com/azkadev/general_lib'
