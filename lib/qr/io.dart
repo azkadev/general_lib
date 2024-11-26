@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-
 import 'package:qr/qr.dart';
 import 'package:zxing2/qrcode.dart';
 import "package:image/image.dart" as img;
@@ -39,8 +38,10 @@ class QrGeneralLib {
 
     final oddRow = moduleCount.isOdd;
 
-    final borderTop = Iterable<int>.generate(moduleCount + 2).map((e) => blackWhite).join();
-    final borderBottom = Iterable<int>.generate(moduleCount + 2).map((e) => whiteBlack).join();
+    final borderTop =
+        Iterable<int>.generate(moduleCount + 2).map((e) => blackWhite).join();
+    final borderBottom =
+        Iterable<int>.generate(moduleCount + 2).map((e) => whiteBlack).join();
 
     final output = StringBuffer('${borderTop}\n');
 
@@ -48,11 +49,16 @@ class QrGeneralLib {
       output.write(whiteAll);
 
       for (var col = 0; col < moduleCount; col++) {
-        if (!qri.isDark(row, col) && (_checkRow(oddRow, moduleCount, row) || !qri.isDark(row + 1, col))) {
+        if (!qri.isDark(row, col) &&
+            (_checkRow(oddRow, moduleCount, row) ||
+                !qri.isDark(row + 1, col))) {
           output.write(whiteAll);
-        } else if (!qri.isDark(row, col) && (_checkRow(oddRow, moduleCount, row) || qri.isDark(row + 1, col))) {
+        } else if (!qri.isDark(row, col) &&
+            (_checkRow(oddRow, moduleCount, row) || qri.isDark(row + 1, col))) {
           output.write(whiteBlack);
-        } else if (qri.isDark(row, col) && (_checkRow(oddRow, moduleCount, row) || !qri.isDark(row + 1, col))) {
+        } else if (qri.isDark(row, col) &&
+            (_checkRow(oddRow, moduleCount, row) ||
+                !qri.isDark(row + 1, col))) {
           output.write(blackWhite);
         } else {
           output.write(blackAll);
@@ -82,7 +88,7 @@ class QrGeneralLib {
     );
     img.fill(image, color: img.ColorRgba8(255, 255, 255, 0xFF));
 
-    final xs = []; 
+    final xs = [];
     for (var x = 0; x < matrix.width; x++) {
       for (var y = 0; y < matrix.height; y++) {
         if (matrix.get(x, y) == 1) {
@@ -111,7 +117,14 @@ class QrGeneralLib {
     required Uint8List bytes,
   }) {
     final image = img.decodePng(bytes)!;
-    final LuminanceSource source = RGBLuminanceSource(image.width, image.height, image.convert(numChannels: 4).getBytes(order: img.ChannelOrder.rgba).buffer.asInt32List());
+    final LuminanceSource source = RGBLuminanceSource(
+        image.width,
+        image.height,
+        image
+            .convert(numChannels: 4)
+            .getBytes(order: img.ChannelOrder.rgba)
+            .buffer
+            .asInt32List());
     final bitmap = BinaryBitmap(HybridBinarizer(source));
     final reader = QRCodeReader();
     final result = reader.decode(bitmap);

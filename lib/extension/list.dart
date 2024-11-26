@@ -43,7 +43,8 @@ import "regexp.dart" as regexp;
 extension GeneralLibExtensionListExtension<T> on List<T> {
   Iterable<T> extensionGeneralLibForEach({
     required bool isReverse,
-    required T Function(T data, int index, int totalLength, bool isReverse) onData,
+    required T Function(T data, int index, int totalLength, bool isReverse)
+        onData,
   }) sync* {
     final int totalLength = length;
     if (isReverse) {
@@ -60,7 +61,8 @@ extension GeneralLibExtensionListExtension<T> on List<T> {
 
   Iterable<V> extensionGeneralLibMap<V>({
     required bool isReverse,
-    required V Function(T data, int index, int totalLength, bool isReverse) onData,
+    required V Function(T data, int index, int totalLength, bool isReverse)
+        onData,
   }) sync* {
     final int totalLength = length;
     if (isReverse) {

@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-import 'package:general_lib/extension/dynamic.dart';
 import 'package:general_lib/glob/glob.dart';
 import 'package:universal_io/io.dart';
 

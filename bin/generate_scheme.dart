@@ -5,13 +5,13 @@ import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
   print("start");
-  Directory directory_lib_scheme =
+  Directory directoryLibScheme =
       Directory(path.join(Directory.current.uri.toFilePath(), "lib", "scheme"));
-  if (directory_lib_scheme.existsSync()) {
-    directory_lib_scheme.deleteSync(recursive: true);
+  if (directoryLibScheme.existsSync()) {
+    directoryLibScheme.deleteSync(recursive: true);
   }
-  directory_lib_scheme.createSync(recursive: true);
-  await jsonToScripts(schemes, directory: directory_lib_scheme);
+  directoryLibScheme.createSync(recursive: true);
+  await jsonToScripts(schemes, directory: directoryLibScheme);
   print("done");
   exit(0);
 }

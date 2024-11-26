@@ -6,6 +6,7 @@ import 'package:general_lib/glob/glob.dart';
 import 'package:universal_io/io.dart';
 import "package:path/path.dart" as path_package;
 
+/// ArchiveGeneralLibOptions
 class ArchiveGeneralLibOptions {
   final String fileSystemEntityIgnore;
   final bool isUseFileSystemEntityIgnore;
@@ -16,14 +17,17 @@ class ArchiveGeneralLibOptions {
     required this.isVerbose,
   });
 
+  /// copy options
   ArchiveGeneralLibOptions copyWith({
     String? fileSystemEntityIgnore,
     bool? isUseFileSystemEntityIgnore,
     bool? isVerbose,
   }) {
     return ArchiveGeneralLibOptions(
-      fileSystemEntityIgnore: fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
-      isUseFileSystemEntityIgnore: isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
+      fileSystemEntityIgnore:
+          fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
+      isUseFileSystemEntityIgnore:
+          isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
       isVerbose: isVerbose ?? this.isVerbose,
     );
   }
@@ -41,7 +45,9 @@ class ArchiveGeneralLibOptions {
   }
 }
 
-extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile on FileSystemEntity {
+extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
+    on FileSystemEntity {
+  /// archive file
   ArchiveFile toArchiveFile({
     required String name,
   }) {
@@ -49,25 +55,33 @@ extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile on FileSystemE
   }
 }
 
+/// ArchiveGeneralLib
 class ArchiveGeneralLib {
   final Archive archive = Archive();
 
+  /// ArchiveGeneralLib
   ArchiveGeneralLib();
 
+  /// archive directory
   void addFilesByDirectory({
     required Directory directory,
     required Directory directoryBase,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
-    final List<String> fileSystemEntityIgnores = (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob() : [];
+    final List<String> fileSystemEntityIgnores =
+        (archiveGeneralLibOptions.isUseFileSystemEntityIgnore)
+            ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob()
+            : [];
     if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
-      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
+      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(
+          currentPath: directory.uri.toFilePath())) {
         if (fileSystemEntityIgnores.contains(element) == false) {
           fileSystemEntityIgnores.add(element);
         }
       }
     }
-    final List<RegExp> fileSystemEntityIgnoresRegexp = fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
+    final List<RegExp> fileSystemEntityIgnoresRegexp =
+        fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
 
     for (final element in directory.listSync()) {
       if (fileSystemEntityIgnoresRegexp.globContains(element.path)) {
@@ -84,7 +98,8 @@ class ArchiveGeneralLib {
       } else if (element is File) {
         addFile(
           fileSystemEntity: element,
-          name: path_package.relative(element.uri.toFilePath(), from: directoryBase.uri.toFilePath()),
+          name: path_package.relative(element.uri.toFilePath(),
+              from: directoryBase.uri.toFilePath()),
         );
       }
     }
@@ -92,6 +107,7 @@ class ArchiveGeneralLib {
     fileSystemEntityIgnoresRegexp.clear();
   }
 
+  /// add any file
   void addFile({
     required FileSystemEntity fileSystemEntity,
     required String name,
@@ -102,6 +118,7 @@ class ArchiveGeneralLib {
     return;
   }
 
+  /// archive to zip bytes
   List<int>? toZipBytes({
     required String? password,
     int level = Deflate.DEFAULT_COMPRESSION,
@@ -120,7 +137,8 @@ class ArchiveGeneralLib {
       autoClose: autoClose,
     );
   }
- 
+
+  /// decode zip
   Archive zipDecoder({
     required String path,
     required String? password,
@@ -128,17 +146,21 @@ class ArchiveGeneralLib {
   }) {
     final ZipDecoder zipDecoder = ZipDecoder();
 
-    return zipDecoder.decodeBuffer(InputFileStream(path), password: password, verify: verify);
+    return zipDecoder.decodeBuffer(InputFileStream(path),
+        password: password, verify: verify);
   }
 
+  /// close
   void close() {
     archive.clearSync();
   }
 
+  /// close async
   Future<void> closeAsync() async {
     await archive.clear();
   }
 
+  /// create archive zip
   static File createArchiveZip({
     required Directory directory,
     required String? password,
@@ -167,6 +189,7 @@ class ArchiveGeneralLib {
     return outPutFile;
   }
 
+  /// create archive zip async
   static Future<File> createArchiveZipAsync({
     required Directory directory,
     required String? password,
@@ -195,6 +218,7 @@ class ArchiveGeneralLib {
     return outPutFile;
   }
 
+  /// extract archive zip
   static Directory extractArchiveZip({
     required File archivedFile,
     required Directory directoryOutput,
@@ -216,6 +240,7 @@ class ArchiveGeneralLib {
     return directoryOutput;
   }
 
+  /// extract archive zip async
   static Future<Directory> extractArchiveZipAsync({
     required File archivedFile,
     required Directory directoryOutput,

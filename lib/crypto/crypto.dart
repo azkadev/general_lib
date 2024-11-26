@@ -134,7 +134,8 @@ class Crypto {
     iv ??= this.iv;
     key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
-    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)), iv: IV.fromBase64(iv));
+    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)),
+        iv: IV.fromBase64(iv));
   }
 
   Uint8List encryptsBytes({

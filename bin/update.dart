@@ -36,7 +36,7 @@ import 'package:general_lib/extension/dynamic.dart';
 import 'package:general_lib/extension/map.dart';
 
 void main(List<String> args) async {
-  Map default_data = {
+  Map defaultData = {
     "packagex": {
       "date": "spapls",
       "slebew": "sasaplp",
@@ -44,8 +44,8 @@ void main(List<String> args) async {
     }
   }.clone();
 
-  default_data.printPretty();
-  default_data.general_lib_utils_updateMapWithReplace(data: {
+  defaultData.printPretty();
+  defaultData.general_lib_utils_updateMapWithReplace(data: {
     "name": "spaspla",
     "packagex": {
       "slebew": "okok",
@@ -56,5 +56,5 @@ void main(List<String> args) async {
       "dlapp": 0
     }
   }, ignoreKeys: []);
-  default_data.printPretty();
+  defaultData.printPretty();
 }

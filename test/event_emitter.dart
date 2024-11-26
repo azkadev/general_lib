@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:async';
 
 import 'package:general_lib/general_lib.dart';

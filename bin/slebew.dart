@@ -38,8 +38,11 @@ import 'package:general_lib/script_generate/script_generate.dart';
 import 'package:universal_io/io.dart';
 
 void main(List<String> args) async {
-  List<ScriptGenerator> childrends =
-      Directory("example").listSync().toScriptGenerate(isVerbose: true);
+  List<ScriptGenerator> childrends = Directory("example")
+      .listSync()
+      .toScriptGenerate( 
+          scriptGeneratorOptions: ScriptGeneratorOptions(
+              fileSystemEntityIgnore: "", isVerbose: false));
   Stream<ScriptGeneratorStatus> stream =
       childrends.generateToDirectory(directoryBase: Directory("temp/slebew"));
   stream.listen(

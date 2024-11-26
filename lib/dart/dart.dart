@@ -69,7 +69,7 @@ class Dart {
     }
     return Isolate.current;
   }
- 
+
   static bool get isRelease => const bool.fromEnvironment('dart.vm.product');
   static bool get isProfile => const bool.fromEnvironment('dart.vm.profile');
   static bool get isDebug => (!Dart.isRelease && !Dart.isProfile);

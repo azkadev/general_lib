@@ -20,8 +20,10 @@ class HttpClientGeneralLib implements http.Client {
   }
 
   @override
-  Future<http.Response> delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
-    return _client.delete(url, headers: headers, body: body, encoding: encoding);
+  Future<http.Response> delete(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+    return _client.delete(url,
+        headers: headers, body: body, encoding: encoding);
   }
 
   @override
@@ -35,17 +37,20 @@ class HttpClientGeneralLib implements http.Client {
   }
 
   @override
-  Future<http.Response> patch(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+  Future<http.Response> patch(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
     return _client.patch(url, headers: headers, body: body, encoding: encoding);
   }
 
   @override
-  Future<http.Response> post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+  Future<http.Response> post(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
     return _client.post(url, headers: headers, body: body, encoding: encoding);
   }
 
   @override
-  Future<http.Response> put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding}) {
+  Future<http.Response> put(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding}) {
     return _client.put(url, headers: headers, encoding: encoding);
   }
 

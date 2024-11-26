@@ -1,6 +1,4 @@
 import 'package:encrypt/encrypt.dart';
-import 'package:encrypt/encrypt_io.dart';
-import 'package:pointycastle/export.dart' hide Signer hide RSASigner;
 
 void main() async {
   final signer = Signer(RSASigner(RSASignDigest.SHA256));

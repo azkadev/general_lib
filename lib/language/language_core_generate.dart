@@ -48,7 +48,9 @@ Future<Directory> jsonToLanguageScript({
   required Map language_raw,
   required String default_language_code_id,
   required Directory directory,
-  required Future<String?> Function(String origin_data, String language_code_id, String default_language_code_id) onData,
+  required Future<String?> Function(String origin_data, String language_code_id,
+          String default_language_code_id)
+      onData,
   bool is_translate = true,
 }) async {
   if (directory.existsSync() == false) {
@@ -58,7 +60,8 @@ Future<Directory> jsonToLanguageScript({
   final String base_name = path.basename(directory.path);
 
   final List<Map> langugage_data = [];
-  final String language_parameter = "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
+  final String language_parameter =
+      "${base_name.camelCaseClass()}CodeData".toLowerCaseFirstData();
 
   for (var element in language_raw.entries) {
     final String key = element.key;
@@ -71,7 +74,8 @@ Future<Directory> jsonToLanguageScript({
     }
     value.remove("is_skip");
 
-    final String name_extension = "${key.toString().camelCaseClass()}Extension${base_name.camelCaseClass()}";
+    final String name_extension =
+        "${key.toString().camelCaseClass()}Extension${base_name.camelCaseClass()}";
     String script = """
 // ignore_for_file: non_constant_identifier_names
 
@@ -117,7 +121,11 @@ ${script_method}
   }
   langugage_data.add({
     "name": "${base_name}_scheme",
-    "script": langugage_data.map((e) => "export ${json.encode("${e["name"]}.dart")};").toSet().toList().join("\n"),
+    "script": langugage_data
+        .map((e) => "export ${json.encode("${e["name"]}.dart")};")
+        .toSet()
+        .toList()
+        .join("\n"),
   });
 
 //   langugage_data.add({
@@ -194,7 +202,8 @@ ${script_method}
   for (var i = 0; i < langugage_data.length; i++) {
     final Map language_data_raw = langugage_data[i];
 
-    final File file = File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
+    final File file =
+        File(path.join(directory.path, "${language_data_raw["name"]}.dart"));
     await file.writeAsString(language_data_raw["script"]);
   }
 
@@ -231,7 +240,9 @@ Future<String> languageMapToStringScript({
   bool is_translate = true,
   required String default_language_code_id,
   required String base_name,
-  required Future<String?> Function(String origin_data, String language_code_id, String default_language_code_id) onData,
+  required Future<String?> Function(String origin_data, String language_code_id,
+          String default_language_code_id)
+      onData,
   required FutureOr<void> Function(String languageData) onLanguageData,
 }) async {
   String script = "";
@@ -254,7 +265,8 @@ Future<String> languageMapToStringScript({
             continue;
           }
           try {
-            final String? result_translate = await onData(value, language_code_new, default_language_code_id);
+            final String? result_translate = await onData(
+                value, language_code_new, default_language_code_id);
             if (result_translate != value && result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;
@@ -265,7 +277,8 @@ Future<String> languageMapToStringScript({
         }
       }
       script_new += "\n";
-      onLanguageData("final Map _${key_name}_${key}_data = ${json.encode(language_raw_data)};");
+      onLanguageData(
+          "final Map _${key_name}_${key}_data = ${json.encode(language_raw_data)};");
       script_new += """
     /// default return
     /// ```dart
@@ -321,8 +334,12 @@ Future<String> languageMapToStringScript({
             continue;
           }
           try {
-            final String? result_translate = await onData(value[default_language_code_id], language_code_new, default_language_code_id);
-            if (result_translate != value[default_language_code_id] && result_translate != null) {
+            final String? result_translate = await onData(
+                value[default_language_code_id],
+                language_code_new,
+                default_language_code_id);
+            if (result_translate != value[default_language_code_id] &&
+                result_translate != null) {
               if (result_translate.isEmpty) {
                 continue;
               }
@@ -333,7 +350,8 @@ Future<String> languageMapToStringScript({
       }
 
       script_new += "\n";
-      onLanguageData("final Map _${key_name}_${key}_data = ${json.encode(language_raw_data)};");
+      onLanguageData(
+          "final Map _${key_name}_${key}_data = ${json.encode(language_raw_data)};");
 
       script_new += """
     /// default return

@@ -1,10 +1,8 @@
 name: 'general_lib'
 description: 'All in one library for help you make easy app on cross platform and support server side, inclue tcp, fetch, event emitter, websocket, and more.'
-version: '0.0.47'
+version: '0.0.48'
 environment:
   sdk: '>=3.3.3 <4.0.0'
-# executables:
-  # general_lib: 'general_lib'
 dev_dependencies:
   lints: '^4.0.0'
   test: 'any'
@@ -18,7 +16,7 @@ dependencies:
   mason_logger: '^0.3.1'
   yaml: '^3.1.2'
   archive: '^3.6.1'
-  qr: 'any'
+  qr: '^3.0.2'
   zxing2: '^0.2.0'
   image: '^4.0.17'
 dependency_overrides:

@@ -46,36 +46,42 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
         version: 1,
         onUpgradeNeeded: (event) {
           try {
-            final _db = event.target.result;
+            final db = event.target.result;
             // for (final name in boxNames) {
-            _db.createObjectStore(pathToFile, autoIncrement: true);
+            db.createObjectStore(pathToFile, autoIncrement: true);
           } catch (e) {}
           // }
         },
       );
-    } catch (e) { 
-    }
+    } catch (e) {}
     _isInitializedDatabase = true;
     _completerOpenDatabase.complete(true);
   }
 
   @override
-  void ensureInitialized({required String pathToFile, required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions}) {
+  void ensureInitialized(
+      {required String pathToFile,
+      required DatabaseMiniGeneralLibraryBaseOptions
+          databaseMiniGeneralLibraryBaseOptions}) {
     // TODO: implement ensureInitialized
-    super.ensureInitialized(pathToFile: pathToFile, databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions);
+    super.ensureInitialized(
+        pathToFile: pathToFile,
+        databaseMiniGeneralLibraryBaseOptions:
+            databaseMiniGeneralLibraryBaseOptions);
 
     _initWeb();
     _openDatabase();
   }
 
   @override
-  Future<String> readAsync() async { 
+  Future<String> readAsync() async {
     if (await _completerOpenDatabase.future) {}
     if (_isInitializedDatabase) {
-      { 
-        final data = _database.transaction(pathToFile, _DatabaseIndexedOperationType.readonly.name);
+      {
+        final data = _database.transaction(
+            pathToFile, _DatabaseIndexedOperationType.readonly.name);
 
-        final ob = data.objectStore(pathToFile); 
+        final ob = data.objectStore(pathToFile);
         final result = await ob.getObject(pathToFile);
         if (result is String) {
           if (result.isEmpty) {
@@ -100,7 +106,8 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
     if (await _completerOpenDatabase.future) {}
     if (_isInitializedDatabase) {
       {
-        final data = _database.transaction(pathToFile, _DatabaseIndexedOperationType.readwrite.name);
+        final data = _database.transaction(
+            pathToFile, _DatabaseIndexedOperationType.readwrite.name);
         final ob = data.objectStore(pathToFile);
         await ob.put(content, pathToFile);
       }
