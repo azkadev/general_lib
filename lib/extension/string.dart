@@ -199,6 +199,6 @@ extension GeneralLibExtensionString on String {
   String general_lib_utils_crypto_decryptFromBase64({
     required Crypto crypto,
   }) {
-    return crypto.decrypt(data_base64: this);
+    return crypto.decrypt(data: this);
   }
 }

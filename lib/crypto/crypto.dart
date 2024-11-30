@@ -87,7 +87,7 @@ class Crypto {
   }
 
   String decrypt({
-    required String data_base64,
+    required String data,
     String? newKey,
     String? iv,
   }) {
@@ -100,7 +100,7 @@ class Crypto {
       ),
     );
 
-    return encrypter.decrypt64(data_base64, iv: IV.fromBase64(iv));
+    return encrypter.decrypt64(data, iv: IV.fromBase64(iv));
   }
 
   String encryptMapToBase64({
