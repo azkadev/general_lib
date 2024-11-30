@@ -48,15 +48,15 @@ enum NetworkClientConnectionType {
 
 enum GeneralLibSchemeType {
   database,
-  isar,
+  local,
   scheme;
 
   String toSpesialType() {
     if (this == database) {
       return "Database";
     }
-    if (this == isar) {
-      return "IsarDatabase";
+    if (this == local) {
+      return "LocalDatabase";
     }
     return "";
   }
