@@ -15,10 +15,10 @@ dependencies:
   stack_trace: '>=1.10.0 <=5.0.0'
   mason_logger: '^0.3.1'
   yaml: '^3.1.2'
-  archive: '^3.6.1'
+  archive: '>=3.6.1 <=10.0.1'
   qr: '^3.0.2'
   zxing2: '^0.2.0'
-  image: '^4.0.17'
+  image: '^4.3.0'
 dependency_overrides:
   pointycastle: '3.8.0'
   mime: '^2.0.0'
