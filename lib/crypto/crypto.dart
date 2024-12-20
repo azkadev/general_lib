@@ -68,6 +68,41 @@ class Crypto {
     return Crypto(key: "");
   }
 
+  static void cryptoExchanges<JSCDATA extends JsonScheme>({
+    required JSCDATA jsonSceheme,
+    required Set<String> keys,
+    required void Function(String key, dynamic defaultValue) changeValue,
+    bool isThrowOnError = false,
+  }) {
+    for (final String key in keys) {
+      Crypto.cryptoExchange(
+        defaultValue: jsonSceheme[key],
+        isThrowOnError: isThrowOnError,
+        changeValue: (defaultValue) {
+          changeValue(key, defaultValue);
+        },
+      );
+    }
+    return;
+  }
+
+  static void cryptoExchange<DV>({
+    required DV defaultValue,
+    required void Function(DV defaultValue) changeValue,
+    bool isThrowOnError = false,
+  }) {
+    if (defaultValue == null) {
+      return;
+    }
+    try {
+      changeValue(defaultValue);
+    } catch (e) {
+      if (isThrowOnError) {
+        rethrow;
+      }
+    }
+  }
+
   String encrypt({
     required String data,
     String? newKey,
