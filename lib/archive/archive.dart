@@ -24,10 +24,8 @@ class ArchiveGeneralLibOptions {
     bool? isVerbose,
   }) {
     return ArchiveGeneralLibOptions(
-      fileSystemEntityIgnore:
-          fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
-      isUseFileSystemEntityIgnore:
-          isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
+      fileSystemEntityIgnore: fileSystemEntityIgnore ?? this.fileSystemEntityIgnore,
+      isUseFileSystemEntityIgnore: isUseFileSystemEntityIgnore ?? this.isUseFileSystemEntityIgnore,
       isVerbose: isVerbose ?? this.isVerbose,
     );
   }
@@ -45,13 +43,15 @@ class ArchiveGeneralLibOptions {
   }
 }
 
-extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
-    on FileSystemEntity {
+extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile on FileSystemEntity {
   /// archive file
   ArchiveFile toArchiveFile({
     required String name,
   }) {
-    return ArchiveFile.stream(name, statSync().size, InputFileStream(path));
+    return ArchiveFile.stream(
+      name, 
+      InputFileStream(path),
+    );
   }
 }
 
@@ -68,20 +68,15 @@ class ArchiveGeneralLib {
     required Directory directoryBase,
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
-    final List<String> fileSystemEntityIgnores =
-        (archiveGeneralLibOptions.isUseFileSystemEntityIgnore)
-            ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob()
-            : [];
+    final List<String> fileSystemEntityIgnores = (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) ? archiveGeneralLibOptions.fileSystemEntityIgnore.toGlob() : [];
     if (archiveGeneralLibOptions.isUseFileSystemEntityIgnore) {
-      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(
-          currentPath: directory.uri.toFilePath())) {
+      for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
         if (fileSystemEntityIgnores.contains(element) == false) {
           fileSystemEntityIgnores.add(element);
         }
       }
     }
-    final List<RegExp> fileSystemEntityIgnoresRegexp =
-        fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
+    final List<RegExp> fileSystemEntityIgnoresRegexp = fileSystemEntityIgnores.map((e) => RegExp(e)).toList();
 
     for (final element in directory.listSync()) {
       if (fileSystemEntityIgnoresRegexp.globContains(element.path)) {
@@ -98,8 +93,7 @@ class ArchiveGeneralLib {
       } else if (element is File) {
         addFile(
           fileSystemEntity: element,
-          name: path_package.relative(element.uri.toFilePath(),
-              from: directoryBase.uri.toFilePath()),
+          name: path_package.relative(element.uri.toFilePath(), from: directoryBase.uri.toFilePath()),
         );
       }
     }
@@ -121,8 +115,8 @@ class ArchiveGeneralLib {
   /// archive to zip bytes
   List<int>? toZipBytes({
     required String? password,
-    int level = Deflate.DEFAULT_COMPRESSION,
-    OutputStreamBase? output,
+    int level = DeflateLevel.bestSpeed,
+    OutputStream? output,
     DateTime? modified,
     bool autoClose = true,
   }) {
@@ -145,9 +139,7 @@ class ArchiveGeneralLib {
     required bool verify,
   }) {
     final ZipDecoder zipDecoder = ZipDecoder();
-
-    return zipDecoder.decodeBuffer(InputFileStream(path),
-        password: password, verify: verify);
+    return zipDecoder.decodeStream(InputFileStream(path), password: password, verify: verify);
   }
 
   /// close
@@ -249,14 +241,13 @@ class ArchiveGeneralLib {
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) async {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
-    await extractArchiveToDiskAsync(
+     await extractArchiveToDisk(
       archiveGeneralLib.zipDecoder(
         path: archivedFile.path,
         password: password,
         verify: verify,
       ),
-      directoryOutput.uri.toFilePath(),
-      asyncWrite: true,
+      directoryOutput.uri.toFilePath(), 
     );
     await archiveGeneralLib.closeAsync();
     return directoryOutput;
