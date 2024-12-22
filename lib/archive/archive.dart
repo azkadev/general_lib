@@ -6,8 +6,6 @@ import 'package:general_lib/glob/glob.dart';
 import 'package:universal_io/io.dart';
 import "package:path/path.dart" as path_package;
 
-
-
 /// ArchiveGeneralLibOptions
 class ArchiveGeneralLibOptions {
   final String fileSystemEntityIgnore;
