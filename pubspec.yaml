@@ -1,8 +1,8 @@
 name: 'general_lib'
 description: 'All in one library for help you make easy app on cross platform and support server side, inclue tcp, fetch, event emitter, websocket, and more.'
-version: '0.0.50'
+version: '0.0.51'
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: '>=3.6.0 <4.0.0'
 dev_dependencies:
   lints: '^5.0.0'
   test: 'any'

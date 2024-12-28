@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
-
 void main(List<String> args) {
   Map<String, dynamic> kosnol = {
     "sapslapslap": "Saplsap",

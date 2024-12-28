@@ -42,7 +42,7 @@ import 'package:general_lib/extension/extension.dart';
 
 String generateDataSqlJson({
   required Map data,
-}) { 
+}) {
   String script_data = "";
   data.forEach((key, value) {
     if (RegExp(r"^(@)", caseSensitive: false).hasMatch(key)) {

@@ -47,7 +47,7 @@ JsonDataScript jsonToIsar(
   bool isUseClassName = false,
   String? comment,
   int isarVersion = 3,
-}) { 
+}) {
   return JsonDataScript(
     className: className,
     datas: [

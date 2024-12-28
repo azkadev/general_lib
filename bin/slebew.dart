@@ -40,7 +40,7 @@ import 'package:universal_io/io.dart';
 void main(List<String> args) async {
   List<ScriptGenerator> childrends = Directory("example")
       .listSync()
-      .toScriptGenerate( 
+      .toScriptGenerate(
           scriptGeneratorOptions: ScriptGeneratorOptions(
               fileSystemEntityIgnore: "", isVerbose: false));
   Stream<ScriptGeneratorStatus> stream =
