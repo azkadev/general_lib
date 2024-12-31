@@ -69,7 +69,6 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
   );
 }
 
-@deprecated
 JsonDataScript jsonToIsar(
   Map<String, dynamic> data, {
   String packageName = "database_universe",

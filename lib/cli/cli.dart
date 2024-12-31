@@ -35,7 +35,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 import 'dart:async';
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 import 'dart:isolate';
 
 import 'package:general_lib/extension/date_time.dart';

@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 import 'dart:typed_data';
 
 class GeneralSocketMessageData {

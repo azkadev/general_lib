@@ -37,7 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 
 import 'package:general_lib/archive/archive.dart';
 import 'package:general_lib/dart/dart.dart';
@@ -45,7 +45,6 @@ import 'package:general_lib/dart/resolve_package_uri/resolve_package_uri.dart';
 import 'package:general_lib/extension/directory.dart';
 import 'package:general_lib/general_lib_core.dart';
 // import 'package:general_lib/general_lib.d/art';
-import 'package:io_universe/io_universe.dart';
 import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
 

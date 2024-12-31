@@ -16,7 +16,7 @@ include: package:lints/recommended.yaml
 analyzer:
   exclude:
     - example/
-    - bin/
+    - dev/
 
 # Uncomment the following section to specify additional rules.
 

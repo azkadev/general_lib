@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 
 import 'package:general_lib/general_lib.dart';
 import 'socket_data.dart';

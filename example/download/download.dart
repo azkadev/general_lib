@@ -35,7 +35,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 import 'dart:convert';
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 
 import 'package:general_lib/download/download_core.dart';
 import 'package:general_lib/extension/dynamic.dart';
@@ -57,7 +57,7 @@ void main() async {
     String text = utf8.decode(event).trim();
     print("COMMAND: ${text}");
     if (text == "status") {
-      print(DownloadClient.download_client_datas);
+      print(download.downloadClientDatas);
     }
     if (text == "download") {
       int interval_count = 4;

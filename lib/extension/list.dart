@@ -312,7 +312,6 @@ extension GeneralLibExtensionList on List {
 
 extension GeneralLibExtensionListd<T> on List<T> {
   /// sas
-  /// sas<T>
   T random({
     required T Function() onNotFound,
   }) {

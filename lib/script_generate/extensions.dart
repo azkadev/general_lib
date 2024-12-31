@@ -350,7 +350,7 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
     final String script_dart_generate = """
 // ignore_for_file: non_constant_identifier_names
 
-// import 'dart:io';
+// import 'io_universe/io_universe.dart';
 import 'package:general_lib/script_generate/script_generate.dart';
 import 'package:io_universe/io_universe.dart';
 

@@ -1,16 +1,22 @@
-import 'dart:io';
+import 'package:io_universe/io_universe.dart';
 
 import 'package:archive/archive_io.dart';
 import 'package:general_lib/file_system_entity/file_system_entity.dart';
 import 'package:general_lib/glob/glob.dart';
-import 'package:io_universe/io_universe.dart';
 import "package:path/path.dart" as path_package;
 
 /// ArchiveGeneralLibOptions
 class ArchiveGeneralLibOptions {
+  /// archive
   final String fileSystemEntityIgnore;
+
+  /// archive
   final bool isUseFileSystemEntityIgnore;
+
+  /// archive
   final bool isVerbose;
+
+  /// ArchiveGeneralLibOptions
   ArchiveGeneralLibOptions({
     required this.fileSystemEntityIgnore,
     required this.isUseFileSystemEntityIgnore,
@@ -32,6 +38,7 @@ class ArchiveGeneralLibOptions {
     );
   }
 
+  /// archive
   static ArchiveGeneralLibOptions empty({
     String fileSystemEntityIgnore = "",
     bool isUseFileSystemEntityIgnore = true,
@@ -45,6 +52,7 @@ class ArchiveGeneralLibOptions {
   }
 }
 
+/// archive
 extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
     on FileSystemEntity {
   /// archive file
