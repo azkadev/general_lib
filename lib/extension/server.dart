@@ -34,7 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 // ignore_for_file: empty_catches, non_constant_identifier_names
 
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 extension HttpHeadersGetRangeExtensions on HttpHeaders {
   (num from, num to) general_lib_utils_range() {
@@ -53,10 +53,7 @@ extension StringGetRangeExtensions on String {
       if (regExpMatch == null) {
         return (0, 0);
       }
-      return (
-        num.tryParse(regExpMatch.group(2) ?? "0") ?? 0,
-        num.tryParse(regExpMatch.group(3) ?? "0") ?? 0
-      );
+      return (num.tryParse(regExpMatch.group(2) ?? "0") ?? 0, num.tryParse(regExpMatch.group(3) ?? "0") ?? 0);
     } catch (e) {}
     // bytes=0-227836;
     return (0, 0);

@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:general_lib/glob/glob.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) {
   List<RegExp> ignores = ignore.toGlobRegExp();

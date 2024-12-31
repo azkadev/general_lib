@@ -1,9 +1,8 @@
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 import 'core/base.dart';
 
-class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase
-    implements DatabaseMiniGeneralLibraryBaseAbstract {
+class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibraryBaseAbstract {
   DatabaseMiniGeneralLibrary();
 
   File get _file {

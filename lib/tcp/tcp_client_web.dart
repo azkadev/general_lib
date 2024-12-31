@@ -39,7 +39,7 @@ import 'dart:typed_data';
 
 import 'package:general_lib/scheme/socket_connection.dart';
 import 'package:general_lib/tcp/tcp_client_data.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 class TcpSocketClient implements TcpSocketClientData {
   @override
@@ -78,26 +78,17 @@ class TcpSocketClient implements TcpSocketClientData {
   }
 
   @override
-  Future<void> connect(
-      {required FutureOr<void> Function(Uint8List data) onSocketData,
-      required FutureOr<void> Function(SocketConnection socketConnection)
-          onSocketConnection,
-      Duration delayDuration = const Duration(milliseconds: 500)}) async {
+  Future<void> connect({required FutureOr<void> Function(Uint8List data) onSocketData, required FutureOr<void> Function(SocketConnection socketConnection) onSocketConnection, Duration delayDuration = const Duration(milliseconds: 500)}) async {
     return;
   }
 
   @override
-  Future<void> send(
-      {required List<int> value,
-      Duration durationTimeOut = const Duration(minutes: 1),
-      Duration durationDelay = const Duration(milliseconds: 1)}) async {
+  Future<void> send({required List<int> value, Duration durationTimeOut = const Duration(minutes: 1), Duration durationDelay = const Duration(milliseconds: 1)}) async {
     return;
   }
 
   @override
-  void sendSync(
-      {required List<int> value,
-      Duration durationTimeOut = const Duration(minutes: 1)}) {
+  void sendSync({required List<int> value, Duration durationTimeOut = const Duration(minutes: 1)}) {
     return;
   }
 }

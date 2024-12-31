@@ -37,7 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:convert';
 
 import 'package:general_lib/execute/execute.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   print("start");

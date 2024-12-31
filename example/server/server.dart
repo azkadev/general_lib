@@ -39,13 +39,12 @@ import 'dart:typed_data';
 import 'package:general_lib/extension/server.dart';
 import 'package:path/path.dart';
 import 'package:server_universe/native.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   ServerUniverseNative app = ServerUniverseNative();
 
-  File file = File(
-      '/home/galaxeus/Documents/galaxeus/app/general_project/library/general_lib/examples/sma.mp3');
+  File file = File('/home/galaxeus/Documents/galaxeus/app/general_project/library/general_lib/examples/sma.mp3');
 
   app.all('/download/*', (req, res) {
     if (!["get", "head"].contains(req.method.toLowerCase())) {

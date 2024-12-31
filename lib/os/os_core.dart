@@ -38,7 +38,7 @@ import 'dart:convert';
 
 import 'package:general_lib/dart/dart.dart';
 import "package:path/path.dart" as path;
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 class OperatingSystem {
   OperatingSystem();
@@ -46,13 +46,11 @@ class OperatingSystem {
   static Directory get app_directory {
     String? configDir;
     if (Platform.isLinux) {
-      configDir = Platform.environment['XDG_CONFIG_HOME'] ??
-          path.join(Platform.environment['HOME']!, '.config');
+      configDir = Platform.environment['XDG_CONFIG_HOME'] ?? path.join(Platform.environment['HOME']!, '.config');
     } else if (Platform.isWindows) {
       configDir = Platform.environment['APPDATA']!;
     } else if (Platform.isMacOS) {
-      configDir = path.join(
-          Platform.environment['HOME']!, 'Library', 'Application Support');
+      configDir = path.join(Platform.environment['HOME']!, 'Library', 'Application Support');
     } else {
       configDir = path.join(Platform.environment['HOME'] ?? '', '.config');
     }
@@ -61,8 +59,7 @@ class OperatingSystem {
   }
 
   static Directory get home_directory {
-    return Directory(Platform.environment['XDG_CONFIG_HOME'] ??
-        path.join(Platform.environment['HOME']!));
+    return Directory(Platform.environment['XDG_CONFIG_HOME'] ?? path.join(Platform.environment['HOME']!));
   }
 
   static String? getEnvironment(String key, [String? defaultValue]) {
@@ -87,9 +84,7 @@ class OperatingSystem {
         String readFile = await file.readAsString();
         List<String> bashrcs = readFile.split("\n");
 
-        RegExp regExp = RegExp(
-            "export([ ]+)${key}=${RegExp.escape(json.encode(value))}",
-            caseSensitive: false);
+        RegExp regExp = RegExp("export([ ]+)${key}=${RegExp.escape(json.encode(value))}", caseSensitive: false);
         bool is_not_found_path = true;
         for (var i = 0; i < bashrcs.length; i++) {
           String bashrc = bashrcs[i];

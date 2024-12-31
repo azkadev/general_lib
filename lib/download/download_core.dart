@@ -46,7 +46,7 @@ import 'package:general_lib/dart/dart.dart';
 import 'package:general_lib/extension/dynamic.dart';
 import 'package:http/http.dart';
 import "package:path/path.dart" as path;
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 enum DownloadFileCategory {
   application,
@@ -106,48 +106,39 @@ class DownloadClientData {
 }
 
 class DownloadClient {
-  Client http_client = Client();
-  Directory directory_download = Directory("");
-  static List<DownloadClientData> download_client_datas = [];
-  static DownloadClientData? getDownloadClientData({
-    required Uri uri,
-  }) {
-    return download_client_datas
-        .firstWhereOrNull((element) => element.uri == uri);
-  }
-
-  static void deleteDownloadClientData({
-    required Uri uri,
-  }) {
-    // download_client_datas.remo;
-    download_client_datas.removeWhere((element) => element.uri == uri);
-  }
+  final Client httpClient;
+  Directory directoryDownload = Directory("");
 
   DownloadClient({
     Client? httpClient,
     Directory? directoryDownload,
-  }) {
-    if (httpClient != null) {
-      http_client = httpClient;
-    }
+  })  : httpClient = httpClient ?? Client(),
+        directoryDownload = directoryDownload ?? Directory(path.join(Directory.current.path, "temp")) {
+    checkDir(directoryDownload: this.directoryDownload);
+  }
 
-    directoryDownload ??= Directory(
-      path.join(
-        Directory.current.path,
-        "temp",
-      ),
-    );
-    directory_download = directoryDownload;
-    checkDir(directoryDownload: directory_download);
+  final List<DownloadClientData> downloadClientDatas = [];
+  DownloadClientData? getDownloadClientData({
+    required Uri uri,
+  }) {
+    return downloadClientDatas.firstWhereOrNull((element) => element.uri == uri);
+  }
+
+  void deleteDownloadClientData({
+    required Uri uri,
+  }) {
+    // download_client_datas.remo;
+    downloadClientDatas.removeWhere((element) => element.uri == uri);
   }
 
   void checkDir({
     required Directory directoryDownload,
   }) {
-    if (Dart.isWeb == false) {
-      if (!directoryDownload.existsSync()) {
-        directoryDownload.createSync(recursive: true);
-      }
+    if (Dart.isWeb) {
+      return;
+    }
+    if (directoryDownload.existsSync() == false) {
+      directoryDownload.createSync(recursive: true);
     }
   }
 
@@ -165,8 +156,7 @@ class DownloadClient {
 
       for (final element in res) {
         if (element.contains('filename')) {
-          final result =
-              element.substring(element.indexOf("=") + 2, element.length - 1);
+          final result = element.substring(element.indexOf("=") + 2, element.length - 1);
           try {
             return Uri.decodeFull(result);
           } catch (e) {
@@ -189,23 +179,16 @@ class DownloadClient {
     Map<String, String>? headers,
     required bool isAutoDeleteDownloadClientData,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
-    directoryDownload ??= directory_download;
+    directoryDownload ??= this.directoryDownload;
     checkDir(directoryDownload: directoryDownload);
-    Response response_head = await http_client.head(url, headers: headers);
+    Response response_head = await httpClient.head(url, headers: headers);
     // response_head.printPretty();
 
     int downloadUntil = getContentLength(headers: response_head.headers);
 
-    String new_file_name = [
-          newFileName,
-          getContentName(headers: response_head.headers),
-          url.pathSegments.lastOrNull
-        ].firstWhereOrNull(
-            (element) => (element != null && element.trim().isNotEmpty)) ??
-        "${url.toString()}";
+    String new_file_name = [newFileName, getContentName(headers: response_head.headers), url.pathSegments.lastOrNull].firstWhereOrNull((element) => (element != null && element.trim().isNotEmpty)) ?? "${url.toString()}";
 
     File file = File(path.join(directoryDownload.path, new_file_name));
 
@@ -250,7 +233,7 @@ class DownloadClient {
 
     request.headers.addAll(headers ?? {});
 
-    StreamedResponse streamedResponse = await http_client.send(request);
+    StreamedResponse streamedResponse = await httpClient.send(request);
 
     RandomAccessFile randomAccessFile = await file.open(mode: FileMode.append);
 
@@ -295,8 +278,7 @@ class DownloadClient {
     String? newFileName,
     bool isAutoDeleteDownloadClientData = true,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
     DownloadClientData? downloadClientData = getDownloadClientData(uri: url);
 
@@ -310,7 +292,7 @@ class DownloadClient {
         onDone: onDone,
       );
 
-      download_client_datas.add(downloadClientData);
+      downloadClientDatas.add(downloadClientData);
       return downloadClientData;
     } else {
       if (downloadClientData.is_complete()) {

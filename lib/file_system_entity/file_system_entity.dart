@@ -37,7 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:convert';
 
 import 'package:general_lib/general_lib.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
@@ -70,8 +70,7 @@ class FileSystemEntityIgnore {
 
 extension ExtensionOnStorTtpe on List<FileSystemEntity> {
   List<FileSystemEntity> local_sort({
-    SortFileSystemEntityType sortFileSystemEntityType =
-        SortFileSystemEntityType.type,
+    SortFileSystemEntityType sortFileSystemEntityType = SortFileSystemEntityType.type,
   }) {
     switch (sortFileSystemEntityType) {
       case SortFileSystemEntityType.name:
@@ -131,11 +130,7 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
           fileSystemEntity: fileSystemEntity,
           state_data: {},
           fileSystemEntityType: fileSystemEntity.statSync().type,
-          children: fileSystemEntity
-              .listSync()
-              .clone<FileSystemEntity>()
-              .local_sort()
-              .toTree(),
+          children: fileSystemEntity.listSync().clone<FileSystemEntity>().local_sort().toTree(),
         ));
       } else {
         sles.add(FileSystemEntityChildren(

@@ -1,13 +1,11 @@
 import 'package:general_lib/archive/archive.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 import "package:path/path.dart" as path;
 
 void main(List<String> args) async {
   print("start");
-  File fileArchived =
-      File(path.join(Directory.current.path, "temp", "slebew.zip"));
-  Directory directoryOutput =
-      Directory(path.join(Directory.current.path, "temp", "azka"));
+  File fileArchived = File(path.join(Directory.current.path, "temp", "slebew.zip"));
+  Directory directoryOutput = Directory(path.join(Directory.current.path, "temp", "azka"));
   String? password;
   if (directoryOutput.existsSync()) {
     directoryOutput.deleteSync(recursive: true);

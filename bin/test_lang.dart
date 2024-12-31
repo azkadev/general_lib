@@ -37,17 +37,15 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'package:general_lib/general_lib.dart';
 import "package:path/path.dart" as path;
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   await jsonToLanguageScript(
     language_raw: language_raw,
     default_language_code_id: "id",
-    directory:
-        Directory(path.join(Directory.current.path, "lib", "test", "bahasa")),
+    directory: Directory(path.join(Directory.current.path, "lib", "test", "bahasa")),
     is_translate: false,
-    onData:
-        (String origin_data, language_code_id, default_language_code_id) async {
+    onData: (String origin_data, language_code_id, default_language_code_id) async {
       return null;
     },
   );
@@ -71,8 +69,7 @@ Mulai Dari 👇️
 
 Untuk cara pakainya agak ribet kalian harus masuk ke masing masing mode ya 😊️
 """,
-    "not_admin_update_msg":
-        "Hei {from_mention}, Maaf anda bukan admin disini tolong tambahkan saya ke group anda sendiri ya!",
+    "not_admin_update_msg": "Hei {from_mention}, Maaf anda bukan admin disini tolong tambahkan saya ke group anda sendiri ya!",
   },
 };
 

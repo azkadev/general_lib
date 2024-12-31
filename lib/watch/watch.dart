@@ -37,7 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:general_lib/file_system_entity/file_system_entity.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
@@ -57,8 +57,7 @@ extension DirectoryWatchGeneralLibExtension on Directory {
 }
 
 /// watch recursive
-extension ListFileSystemEntityWatchGeneralLibExtension
-    on List<FileSystemEntity> {
+extension ListFileSystemEntityWatchGeneralLibExtension on List<FileSystemEntity> {
   /// watch recursive
   void watchRecursive({
     required void Function(FileSystemEvent fileSystemEvent) onData,

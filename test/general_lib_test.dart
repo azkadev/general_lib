@@ -37,12 +37,11 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'package:general_lib/general_lib.dart';
 import 'package:test/test.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 import "package:path/path.dart" as path;
 
 void main() {
-  Directory directory_temp =
-      Directory(path.join(Directory.current.uri.toFilePath(), "temp", "test"));
+  Directory directory_temp = Directory(path.join(Directory.current.uri.toFilePath(), "temp", "test"));
   if (directory_temp.existsSync()) {
     directory_temp.deleteSync(recursive: true);
   }
@@ -56,9 +55,7 @@ void main() {
           "soke": "soak",
           "dia": 01,
         },
-      ],
-          directory:
-              Directory(path.join(directory_temp.uri.toFilePath(), "scheme")));
+      ], directory: Directory(path.join(directory_temp.uri.toFilePath(), "scheme")));
       expect(true, directory.existsSync());
       Process.runSync("dart", ["format", directory.uri.toFilePath()]);
       return;

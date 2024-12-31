@@ -32,7 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 /// flutter command line in class dart
 class Flutter {

@@ -5,17 +5,15 @@ import 'dart:convert';
 import 'package:general_lib/database/database.dart';
 import 'package:general_lib/database/database_core.dart';
 import 'package:general_lib/general_lib.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   print("start");
   final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
-  final DatabaseMiniGeneralLibrary database =
-      databaseGeneralLib.openDatabaseMini(
+  final DatabaseMiniGeneralLibrary database = databaseGeneralLib.openDatabaseMini(
     key: "temp/slewp",
     defaultData: {},
-    databaseMiniGeneralLibraryBaseOptions:
-        DatabaseMiniGeneralLibraryBaseOptions(
+    databaseMiniGeneralLibraryBaseOptions: DatabaseMiniGeneralLibraryBaseOptions(
       crypto: Crypto.defaultCrypto(),
       isUseCrypto: true,
       isIgnoreError: true,
@@ -31,13 +29,12 @@ void main(List<String> args) async {
       },
     },
   );
-  String key_one =
-      "spaslpalps.as.apd.pe.pf.pg.p.gp.p45.hgp5.phg.p.pth.p54h.p54hp5.hp54php.554p.h54php54h.p54h.p54ph.5php.54h.pd";
-  final Slebew? result = await database.get(key: key_one);
+  String keyOne = "spaslpalps.as.apd.pe.pf.pg.p.gp.p45.hgp5.phg.p.pth.p54h.p54hp5.hp54php.554p.h54php54h.p54h.p54ph.5php.54h.pd";
+  final Slebew? result = await database.get(key: keyOne);
 
-  Map? resultData = database.get<Map>(key: key_one).sync();
+  Map? resultData = database.get<Map>(key: keyOne).sync();
   if (resultData == null) {
-    await database.set(key: key_one, value: {"konyol": "anj"});
+    await database.set(key: keyOne, value: {"konyol": "anj"});
   }
   // database["skonaoskao"] = Platform.environment;
   await database.set(key: "anuy", value: DateTime.now());
@@ -150,21 +147,21 @@ class Slebew extends JsonScheme {
     num? dia,
   }) {
     // Slebew slebew = Slebew({
-    final Map slebew_data_create_json = {
+    final Map slebewDataCreateJson = {
       "@type": special_type,
       "soke": soke,
       "dia": dia,
     };
 
-    slebew_data_create_json.removeWhere((key, value) => value == null);
+    slebewDataCreateJson.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
-        if (slebew_data_create_json.containsKey(key) == false) {
-          slebew_data_create_json[key] = value;
+        if (slebewDataCreateJson.containsKey(key) == false) {
+          slebewDataCreateJson[key] = value;
         }
       });
     }
-    return Slebew(slebew_data_create_json);
+    return Slebew(slebewDataCreateJson);
   }
 }

@@ -39,7 +39,7 @@ import 'dart:typed_data';
 
 import 'package:general_lib/scheme/socket_connection.dart';
 // import 'package:general_lib/scheme/scheme.dart';
-import 'package:universal_io/io.dart';
+import 'package:io_universe/io_universe.dart';
 
 abstract class TcpSocketClientData {
   late Socket socket;
@@ -65,8 +65,7 @@ abstract class TcpSocketClientData {
     // void Function(dynamic data)? onDataUpdate,
     // void Function(Map data)? onSocketConnection,
     required FutureOr<void> Function(Uint8List data) onSocketData,
-    required FutureOr<void> Function(SocketConnection socketConnection)
-        onSocketConnection,
+    required FutureOr<void> Function(SocketConnection socketConnection) onSocketConnection,
     Duration delayDuration = const Duration(milliseconds: 500),
   }) async {
     return;
