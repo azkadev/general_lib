@@ -86,7 +86,8 @@ class Dart {
   static bool get isCli => executable_type == ExecutableType.cli;
 
   static bool get isMobile => Dart.isAndroid || Dart.isIOS;
-  static bool get isDesktop => Dart.isLinux || Dart.isMacOS || Dart.isWindows || Dart.isFuchsia;
+  static bool get isDesktop =>
+      Dart.isLinux || Dart.isMacOS || Dart.isWindows || Dart.isFuchsia;
 
   static Map<String, String> get environment => Platform.environment;
 
@@ -115,19 +116,23 @@ class Dart {
   static Pub get pub => Pub();
 
   static Future<String?> networkLocalIpAddres() async {
-    final interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4, includeLinkLocal: true);
+    final interfaces = await NetworkInterface.list(
+        type: InternetAddressType.IPv4, includeLinkLocal: true);
     try {
-      NetworkInterface? interface = interfaces.singleWhereOrNull((element) => RegExp("^(wl)", caseSensitive: false).hasMatch(element.name));
+      NetworkInterface? interface = interfaces.singleWhereOrNull((element) =>
+          RegExp("^(wl)", caseSensitive: false).hasMatch(element.name));
       if (interface != null) {
         return interface.addresses.first.address;
       }
       try {
-        NetworkInterface interface = interfaces.firstWhere((element) => element.name == "eth0");
+        NetworkInterface interface =
+            interfaces.firstWhere((element) => element.name == "eth0");
         return interface.addresses.first.address;
       } catch (e) {
         // Try any other connection next
         try {
-          NetworkInterface interface = interfaces.firstWhere((element) => !(["wlan0"].contains(element.name)));
+          NetworkInterface interface = interfaces
+              .firstWhere((element) => !(["wlan0"].contains(element.name)));
           return interface.addresses.first.address;
         } catch (ex) {
           return null;
@@ -135,12 +140,14 @@ class Dart {
       }
     } catch (ex) {
       try {
-        NetworkInterface interface = interfaces.firstWhere((element) => element.name == "eth0");
+        NetworkInterface interface =
+            interfaces.firstWhere((element) => element.name == "eth0");
         return interface.addresses.first.address;
       } catch (e) {
         // Try any other connection next
         try {
-          NetworkInterface interface = interfaces.firstWhere((element) => !(["wlan0"].contains(element.name)));
+          NetworkInterface interface = interfaces
+              .firstWhere((element) => !(["wlan0"].contains(element.name)));
           return interface.addresses.first.address;
         } catch (ex) {
           return null;
@@ -163,11 +170,13 @@ class Dart {
     }
     String? configDir;
     if (Platform.isLinux) {
-      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ?? Platform.environment['HOME']!);
+      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ??
+          Platform.environment['HOME']!);
     } else if (Platform.isWindows) {
       configDir = Platform.environment['APPDATA']!;
     } else if (Platform.isMacOS) {
-      configDir = path.join(Platform.environment['HOME']!, 'Library', 'Application Support');
+      configDir = path.join(
+          Platform.environment['HOME']!, 'Library', 'Application Support');
     } else {
       configDir = path.join(Platform.environment['HOME'] ?? '');
     }

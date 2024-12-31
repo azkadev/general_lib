@@ -57,7 +57,8 @@ extension DirectoryWatchGeneralLibExtension on Directory {
 }
 
 /// watch recursive
-extension ListFileSystemEntityWatchGeneralLibExtension on List<FileSystemEntity> {
+extension ListFileSystemEntityWatchGeneralLibExtension
+    on List<FileSystemEntity> {
   /// watch recursive
   void watchRecursive({
     required void Function(FileSystemEvent fileSystemEvent) onData,

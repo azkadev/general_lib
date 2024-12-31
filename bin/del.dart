@@ -40,7 +40,8 @@ import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   print("ALL");
-  Directory directory_template = Directory(join(Directory.current.path, "template"));
+  Directory directory_template =
+      Directory(join(Directory.current.path, "template"));
 
   await directory_template.recursive(
     onData: (fileSystemEntity) async {

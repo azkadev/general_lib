@@ -10,10 +10,12 @@ import 'package:io_universe/io_universe.dart';
 void main(List<String> args) async {
   print("start");
   final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
-  final DatabaseMiniGeneralLibrary database = databaseGeneralLib.openDatabaseMini(
+  final DatabaseMiniGeneralLibrary database =
+      databaseGeneralLib.openDatabaseMini(
     key: "temp/slewp",
     defaultData: {},
-    databaseMiniGeneralLibraryBaseOptions: DatabaseMiniGeneralLibraryBaseOptions(
+    databaseMiniGeneralLibraryBaseOptions:
+        DatabaseMiniGeneralLibraryBaseOptions(
       crypto: Crypto.defaultCrypto(),
       isUseCrypto: true,
       isIgnoreError: true,
@@ -29,7 +31,8 @@ void main(List<String> args) async {
       },
     },
   );
-  String keyOne = "spaslpalps.as.apd.pe.pf.pg.p.gp.p45.hgp5.phg.p.pth.p54h.p54hp5.hp54php.554p.h54php54h.p54h.p54ph.5php.54h.pd";
+  String keyOne =
+      "spaslpalps.as.apd.pe.pf.pg.p.gp.p45.hgp5.phg.p.pth.p54h.p54hp5.hp54php.554p.h54php54h.p54h.p54ph.5php.54h.pd";
   final Slebew? result = await database.get(key: keyOne);
 
   Map? resultData = database.get<Map>(key: keyOne).sync();

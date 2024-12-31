@@ -40,8 +40,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:convert';
 import 'package:general_lib/general_lib.dart';
 
-JsonDataScript jsonToIsar(
+JsonDataScript jsonToDatabaseUniverse(
   Map<String, dynamic> data, {
+  String packageName = "database_universe",
   String className = "Root",
   bool isMain = true,
   bool isUseClassName = false,
@@ -58,6 +59,37 @@ JsonDataScript jsonToIsar(
         isUseClassName: isUseClassName,
         comment: comment,
         isarVersion: isarVersion,
+        packageName: packageName,
+      ),
+      """
+part "${className.snakeCaseClass().toLowerCase()}.dart";
+"""
+    ],
+    is_isar: true,
+  );
+}
+
+@deprecated
+JsonDataScript jsonToIsar(
+  Map<String, dynamic> data, {
+  String packageName = "database_universe",
+  String className = "Root",
+  bool isMain = true,
+  bool isUseClassName = false,
+  String? comment,
+  int isarVersion = 3,
+}) {
+  return JsonDataScript(
+    className: className,
+    datas: [
+      jsonToIsarDynamic(
+        data,
+        className: className,
+        isMain: isMain,
+        isUseClassName: isUseClassName,
+        comment: comment,
+        isarVersion: isarVersion,
+        packageName: packageName,
       ),
       """
 part "${className.snakeCaseClass().toLowerCase()}.dart";
@@ -69,6 +101,7 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
 
 String jsonToIsarDynamic(
   Map<String, dynamic> data, {
+  required String packageName,
   String className = "Root",
   bool isMain = true,
   bool isUseClassName = false,
@@ -85,7 +118,7 @@ ${((isMain) ? """
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 import 'dart:convert';
-import 'package:isar/isar.dart';
+import 'package:${packageName}/${packageName}.dart';
 part "${className.snakeCaseClass().toLowerCase()}.g.dart";
 
 @collection""" : "@embedded")} 
@@ -572,10 +605,7 @@ String textToFunctionIsar({
     nameClass = "${className}${key.camelCaseClass()}";
   }
 
-  String nameMethod = key
-      .replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_")
-      .replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_")
-      .replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
+  String nameMethod = key.replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_").replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_").replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
   if (RegExp(r"^(do|is|in)$", caseSensitive: false).hasMatch(nameMethod)) {
     nameMethod += "_";
   }

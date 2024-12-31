@@ -84,7 +84,8 @@ class TcpSocketClient implements TcpSocketClientData {
     // void Function(dynamic data)? onDataUpdate,
     // void Function(Map data)? onSocketConnection,
     required FutureOr<void> Function(Uint8List data) onSocketData,
-    required FutureOr<void> Function(SocketConnection socketConnection) onSocketConnection,
+    required FutureOr<void> Function(SocketConnection socketConnection)
+        onSocketConnection,
     Duration delayDuration = const Duration(milliseconds: 500),
   }) async {
     while (true) {
@@ -124,7 +125,9 @@ class TcpSocketClient implements TcpSocketClientData {
                   return;
                 }
                 try {
-                  await connect(onSocketData: onSocketData, onSocketConnection: onSocketConnection);
+                  await connect(
+                      onSocketData: onSocketData,
+                      onSocketConnection: onSocketConnection);
                 } catch (e) {}
               });
             },
@@ -177,7 +180,11 @@ class TcpSocketClient implements TcpSocketClientData {
     while (true) {
       await Future.delayed(Duration(microseconds: 10));
       if (dateTime.isBefore(DateTime.now())) {
-        throw SocketError({"@type": "socketError", "message": "send_data_time_out", "description": "Send Data time out "});
+        throw SocketError({
+          "@type": "socketError",
+          "message": "send_data_time_out",
+          "description": "Send Data time out "
+        });
       }
 
       if (isConnect) {
@@ -196,7 +203,11 @@ class TcpSocketClient implements TcpSocketClientData {
     while (true) {
       sleep(Duration(microseconds: 10));
       if (dateTime.isBefore(DateTime.now())) {
-        throw SocketError({"@type": "socketError", "message": "send_data_time_out", "description": "Send Data time out "});
+        throw SocketError({
+          "@type": "socketError",
+          "message": "send_data_time_out",
+          "description": "Send Data time out "
+        });
       }
 
       if (isConnect) {

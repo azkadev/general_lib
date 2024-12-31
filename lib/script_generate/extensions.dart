@@ -44,9 +44,11 @@ import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
-typedef OnWrittingScriptGenerator = FutureOr<String> Function(ScriptGenerator scriptGenerator, File file);
+typedef OnWrittingScriptGenerator = FutureOr<String> Function(
+    ScriptGenerator scriptGenerator, File file);
 
-extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSystemEntity> {
+extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity
+    on List<FileSystemEntity> {
   List<ScriptGenerator> toScriptGenerate({
     Directory? directoryBase,
     required ScriptGeneratorOptions scriptGeneratorOptions,
@@ -70,32 +72,40 @@ extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSys
       return Directory.current;
     }();
 
-    final List<String> file_system_entity_ignores = scriptGeneratorOptions.fileSystemEntityIgnore.toGlob();
+    final List<String> file_system_entity_ignores =
+        scriptGeneratorOptions.fileSystemEntityIgnore.toGlob();
 
-    for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(currentPath: directory.uri.toFilePath())) {
+    for (final element in FileSystemEntityIgnore.getFileIgnoresByDirectory(
+        currentPath: directory.uri.toFilePath())) {
       if (file_system_entity_ignores.contains(element) == false) {
         file_system_entity_ignores.add(element);
       }
     }
-    final List<RegExp> file_system_entity_ignores_regexp = file_system_entity_ignores.map((e) => RegExp(e)).toList();
+    final List<RegExp> file_system_entity_ignores_regexp =
+        file_system_entity_ignores.map((e) => RegExp(e)).toList();
 
     for (var i = 0; i < length; i++) {
       final FileSystemEntity fileSystemEntity = this[i];
-      if (file_system_entity_ignores_regexp.globContains(fileSystemEntity.path)) {
+      if (file_system_entity_ignores_regexp
+          .globContains(fileSystemEntity.path)) {
         continue;
       }
       if (fileSystemEntity is File) {
-        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
+        final String base_name =
+            path.basename(fileSystemEntity.uri.toFilePath());
         if (["pubspec.lock"].contains(base_name.toLowerCase().trim())) {
           if (scriptGeneratorOptions.isVerbose) {
-            print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print(
+                "SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
-        final List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
+        final List<String> paths_folders =
+            path.split(fileSystemEntity.uri.toFilePath());
         if (paths_folders.contains(".dart_tool")) {
           if (scriptGeneratorOptions.isVerbose) {
-            print("SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print(
+                "SKIP ON FILE: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
@@ -117,8 +127,10 @@ extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSys
           children: [],
         ));
       } else if (fileSystemEntity is Directory) {
-        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
-        final List<String> paths_folders = path.split(fileSystemEntity.uri.toFilePath());
+        final String base_name =
+            path.basename(fileSystemEntity.uri.toFilePath());
+        final List<String> paths_folders =
+            path.split(fileSystemEntity.uri.toFilePath());
         if (RegExp(r"^([.])", caseSensitive: false).hasMatch(base_name)) {
           if ([".github", ".idea"].contains(base_name) == false) {
             continue;
@@ -126,7 +138,8 @@ extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSys
         }
         if (paths_folders.contains(".dart_tool")) {
           if (scriptGeneratorOptions.isVerbose) {
-            print("SKIP ON DIR: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
+            print(
+                "SKIP ON DIR: ${fileSystemEntity.statSync().type} ${path.relative(fileSystemEntity.uri.toFilePath(), from: directory.path)}");
           }
           continue;
         }
@@ -145,7 +158,8 @@ extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity on List<FileSys
               ),
         ));
       } else {
-        final String base_name = path.basename(fileSystemEntity.uri.toFilePath());
+        final String base_name =
+            path.basename(fileSystemEntity.uri.toFilePath());
         if (RegExp(r"^([.])", caseSensitive: false).hasMatch(base_name)) {
           continue;
         }
@@ -190,10 +204,17 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
     /// loop
     for (final ScriptGenerator scriptGenerator in this) {
       ///
-      if (scriptGenerator.file_system_entity_type == FileSystemEntityType.file) {
+      if (scriptGenerator.file_system_entity_type ==
+          FileSystemEntityType.file) {
         /// parse_path
         final String path_origin_file = () {
-          if ((path.basename(scriptGenerator.directory_base.uri.toFilePath()).toLowerCase() == path.basenameWithoutExtension(scriptGenerator.file_system_entity.uri.toFilePath()).toLowerCase())) {
+          if ((path
+                  .basename(scriptGenerator.directory_base.uri.toFilePath())
+                  .toLowerCase() ==
+              path
+                  .basenameWithoutExtension(
+                      scriptGenerator.file_system_entity.uri.toFilePath())
+                  .toLowerCase())) {
             String result_path = "";
             if (scriptGenerator.is_generate) {
               result_path = scriptGenerator.file_system_entity.uri.toFilePath();
@@ -207,7 +228,8 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
             // return result_path.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name);
             return ScriptGenerator.replacerData(
               value: result_path,
-              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path
+                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(result_path),
@@ -228,7 +250,8 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
             // return result_path.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name);
             return ScriptGenerator.replacerData(
               value: result_path,
-              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path
+                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(result_path),
@@ -238,7 +261,8 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
         }();
         // end parse
 
-        final File file = File(path.join(directory_base.uri.toFilePath(), path_origin_file));
+        final File file =
+            File(path.join(directory_base.uri.toFilePath(), path_origin_file));
         yield ScriptGeneratorStatus(
           file_system_entity: file,
           text: "Check Parent Directory",
@@ -252,15 +276,18 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
             text: "Parent Exist",
           );
         }
-        final OnWrittingScriptGenerator? onWrittingScriptGenerator_script = onWritting;
+        final OnWrittingScriptGenerator? onWrittingScriptGenerator_script =
+            onWritting;
         if (onWrittingScriptGenerator_script != null) {
-          await file.writeAsString((await onWrittingScriptGenerator_script(scriptGenerator, file)));
+          await file.writeAsString(
+              (await onWrittingScriptGenerator_script(scriptGenerator, file)));
         } else {
           // await file.writeAsString(scriptGenerator.value.replaceAll(path.basename(scriptGenerator.directory_base.uri.toFilePath()), base_name));
           await file.writeAsString(
             ScriptGenerator.replacerData(
               value: scriptGenerator.value,
-              originProjectName: path.basename(scriptGenerator.directory_base.uri.toFilePath()),
+              originProjectName: path
+                  .basename(scriptGenerator.directory_base.uri.toFilePath()),
               newProjectName: base_name,
               isSkipAutoRename: isSkipAutoRename,
               name: path.basename(file.path),
@@ -268,7 +295,8 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
             ),
           );
         }
-      } else if (scriptGenerator.file_system_entity_type == FileSystemEntityType.directory) {
+      } else if (scriptGenerator.file_system_entity_type ==
+          FileSystemEntityType.directory) {
         yield ScriptGeneratorStatus(
           file_system_entity: scriptGenerator.file_system_entity,
           text: "Generate Children",

@@ -38,8 +38,13 @@ import 'package:general_lib/script_generate/script_generate.dart';
 import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
-  List<ScriptGenerator> childrends = Directory("example").listSync().toScriptGenerate(scriptGeneratorOptions: ScriptGeneratorOptions(fileSystemEntityIgnore: "", isVerbose: false));
-  Stream<ScriptGeneratorStatus> stream = childrends.generateToDirectory(directoryBase: Directory("temp/slebew"));
+  List<ScriptGenerator> childrends = Directory("example")
+      .listSync()
+      .toScriptGenerate(
+          scriptGeneratorOptions: ScriptGeneratorOptions(
+              fileSystemEntityIgnore: "", isVerbose: false));
+  Stream<ScriptGeneratorStatus> stream =
+      childrends.generateToDirectory(directoryBase: Directory("temp/slebew"));
   stream.listen(
     (event) {
       print(event);

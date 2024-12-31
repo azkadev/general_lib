@@ -113,7 +113,8 @@ class DownloadClient {
     Client? httpClient,
     Directory? directoryDownload,
   })  : httpClient = httpClient ?? Client(),
-        directoryDownload = directoryDownload ?? Directory(path.join(Directory.current.path, "temp")) {
+        directoryDownload = directoryDownload ??
+            Directory(path.join(Directory.current.path, "temp")) {
     checkDir(directoryDownload: this.directoryDownload);
   }
 
@@ -121,7 +122,8 @@ class DownloadClient {
   DownloadClientData? getDownloadClientData({
     required Uri uri,
   }) {
-    return downloadClientDatas.firstWhereOrNull((element) => element.uri == uri);
+    return downloadClientDatas
+        .firstWhereOrNull((element) => element.uri == uri);
   }
 
   void deleteDownloadClientData({
@@ -156,7 +158,8 @@ class DownloadClient {
 
       for (final element in res) {
         if (element.contains('filename')) {
-          final result = element.substring(element.indexOf("=") + 2, element.length - 1);
+          final result =
+              element.substring(element.indexOf("=") + 2, element.length - 1);
           try {
             return Uri.decodeFull(result);
           } catch (e) {
@@ -179,7 +182,8 @@ class DownloadClient {
     Map<String, String>? headers,
     required bool isAutoDeleteDownloadClientData,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
+        onDone,
   }) async {
     directoryDownload ??= this.directoryDownload;
     checkDir(directoryDownload: directoryDownload);
@@ -188,7 +192,13 @@ class DownloadClient {
 
     int downloadUntil = getContentLength(headers: response_head.headers);
 
-    String new_file_name = [newFileName, getContentName(headers: response_head.headers), url.pathSegments.lastOrNull].firstWhereOrNull((element) => (element != null && element.trim().isNotEmpty)) ?? "${url.toString()}";
+    String new_file_name = [
+          newFileName,
+          getContentName(headers: response_head.headers),
+          url.pathSegments.lastOrNull
+        ].firstWhereOrNull(
+            (element) => (element != null && element.trim().isNotEmpty)) ??
+        "${url.toString()}";
 
     File file = File(path.join(directoryDownload.path, new_file_name));
 
@@ -278,7 +288,8 @@ class DownloadClient {
     String? newFileName,
     bool isAutoDeleteDownloadClientData = true,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
+        onDone,
   }) async {
     DownloadClientData? downloadClientData = getDownloadClientData(uri: url);
 

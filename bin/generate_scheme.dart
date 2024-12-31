@@ -5,7 +5,8 @@ import 'package:io_universe/io_universe.dart';
 
 void main(List<String> args) async {
   print("start");
-  Directory directoryLibScheme = Directory(path.join(Directory.current.uri.toFilePath(), "lib", "scheme"));
+  Directory directoryLibScheme =
+      Directory(path.join(Directory.current.uri.toFilePath(), "lib", "scheme"));
   if (directoryLibScheme.existsSync()) {
     directoryLibScheme.deleteSync(recursive: true);
   }
