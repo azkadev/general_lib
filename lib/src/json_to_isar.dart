@@ -40,6 +40,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'dart:convert';
 import 'package:general_lib/general_lib.dart';
 
+/// GeneralLibrary
 JsonDataScript jsonToDatabaseUniverse(
   Map<String, dynamic> data, {
   String packageName = "database_universe",
@@ -69,6 +70,7 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
   );
 }
 
+/// GeneralLibrary
 JsonDataScript jsonToIsar(
   Map<String, dynamic> data, {
   String packageName = "database_universe",
@@ -98,6 +100,7 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
   );
 }
 
+/// GeneralLibrary
 String jsonToIsarDynamic(
   Map<String, dynamic> data, {
   required String packageName,
@@ -581,6 +584,7 @@ class ${className} {
   return classMessage;
 }
 
+/// GeneralLibrary
 String textToFunctionIsar({
   required String key,
   required value,

@@ -2,23 +2,21 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class LanguageCodeDataDetail extends JsonScheme {
-  LanguageCodeDataDetail(super.rawData);
 
+/// Generated 
+class LanguageCodeDataDetail extends JsonScheme {
+
+  /// Generated
+  LanguageCodeDataDetail(super.rawData);
+  
   /// return default data
-  ///
+  /// 
   static Map get defaultData {
-    return {
-      "@type": "languageCodeDataDetail",
-      "name": "Zimbabwe",
-      "flag": "🇿🇼",
-      "code": "ZW",
-      "dial_code": "+263"
-    };
+    return {"@type":"languageCodeDataDetail","name":"Zimbabwe","flag":"🇿🇼","code":"ZW","dial_code":"+263"};
   }
 
-  /// check data
-  /// if raw data
+  /// check data 
+  /// if raw data 
   /// - rawData["@type"] == languageCodeDataDetail
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -32,15 +30,20 @@ class LanguageCodeDataDetail extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
+  
+
   /// create [LanguageCodeDataDetail]
-  /// Empty
+  /// Empty  
   static LanguageCodeDataDetail empty() {
     return LanguageCodeDataDetail({});
   }
 
+  
+
+  /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false) {
+      if (rawData["@type"] is String == false){
         return null;
       }
       return rawData["@type"] as String;
@@ -49,13 +52,16 @@ class LanguageCodeDataDetail extends JsonScheme {
     }
   }
 
+  /// Generated
   set special_type(String? value) {
     rawData["@type"] = value;
   }
 
+
+  /// Generated
   String? get name {
     try {
-      if (rawData["name"] is String == false) {
+      if (rawData["name"] is String == false){
         return null;
       }
       return rawData["name"] as String;
@@ -64,13 +70,16 @@ class LanguageCodeDataDetail extends JsonScheme {
     }
   }
 
+  /// Generated
   set name(String? value) {
     rawData["name"] = value;
   }
 
+
+  /// Generated
   String? get flag {
     try {
-      if (rawData["flag"] is String == false) {
+      if (rawData["flag"] is String == false){
         return null;
       }
       return rawData["flag"] as String;
@@ -79,13 +88,16 @@ class LanguageCodeDataDetail extends JsonScheme {
     }
   }
 
+  /// Generated
   set flag(String? value) {
     rawData["flag"] = value;
   }
 
+
+  /// Generated
   String? get code {
     try {
-      if (rawData["code"] is String == false) {
+      if (rawData["code"] is String == false){
         return null;
       }
       return rawData["code"] as String;
@@ -94,13 +106,16 @@ class LanguageCodeDataDetail extends JsonScheme {
     }
   }
 
+  /// Generated
   set code(String? value) {
     rawData["code"] = value;
   }
 
+
+  /// Generated
   String? get dial_code {
     try {
-      if (rawData["dial_code"] is String == false) {
+      if (rawData["dial_code"] is String == false){
         return null;
       }
       return rawData["dial_code"] as String;
@@ -109,29 +124,36 @@ class LanguageCodeDataDetail extends JsonScheme {
     }
   }
 
+  /// Generated
   set dial_code(String? value) {
     rawData["dial_code"] = value;
   }
 
+
+  /// Generated
   static LanguageCodeDataDetail create({
-    bool schemeUtilsIsSetDefaultData = false,
+              bool schemeUtilsIsSetDefaultData = false,
+
     String special_type = "languageCodeDataDetail",
     String? name,
     String? flag,
     String? code,
     String? dial_code,
-  }) {
+})  {
     // LanguageCodeDataDetail languageCodeDataDetail = LanguageCodeDataDetail({
-    final Map languageCodeDataDetail_data_create_json = {
+final Map languageCodeDataDetail_data_create_json = {
+  
       "@type": special_type,
       "name": name,
       "flag": flag,
       "code": code,
       "dial_code": dial_code,
-    };
 
-    languageCodeDataDetail_data_create_json
-        .removeWhere((key, value) => value == null);
+
+};
+
+
+          languageCodeDataDetail_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -140,6 +162,8 @@ class LanguageCodeDataDetail extends JsonScheme {
         }
       });
     }
-    return LanguageCodeDataDetail(languageCodeDataDetail_data_create_json);
-  }
+return LanguageCodeDataDetail(languageCodeDataDetail_data_create_json);
+
+
+      }
 }

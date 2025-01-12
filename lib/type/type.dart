@@ -1,14 +1,24 @@
+/// GeneralLib
 enum GeneralLibClientType {
+  /// GeneralLib
   unknown(title: "All"),
+
+  /// GeneralLib
   bot(title: "Bot"),
+
+  /// GeneralLib
   userbot(title: "Userbot"),
+
+  /// GeneralLib
   normal(title: "Normal");
 
+  /// GeneralLib
   final String title;
   const GeneralLibClientType({
     required this.title,
   });
 
+  /// GeneralLib
   static GeneralLibClientType getFromText({
     required String text,
   }) {
@@ -20,6 +30,7 @@ enum GeneralLibClientType {
     return GeneralLibClientType.unknown;
   }
 
+  /// GeneralLib
   static GeneralLibClientType getFromTextOrDefault({
     required String text,
     required GeneralLibClientType Function() onDefault,
@@ -32,15 +43,24 @@ enum GeneralLibClientType {
   }
 }
 
+/// GeneralLib
 enum GeneralLibClientUseType {
+  /// GeneralLib
   unknown(title: "All"),
+
+  /// GeneralLib
   paid(title: "Paid"),
+
+  /// GeneralLib
   free(title: "Free");
 
+  /// GeneralLib
   final String title;
   const GeneralLibClientUseType({
     required this.title,
   });
+
+  /// GeneralLib
   static GeneralLibClientUseType getFromText({
     required String text,
   }) {
@@ -52,12 +72,12 @@ enum GeneralLibClientUseType {
     return GeneralLibClientUseType.unknown;
   }
 
+  /// GeneralLib
   static GeneralLibClientUseType getFromTextOrDefault({
     required String text,
     required GeneralLibClientUseType Function() onDefault,
   }) {
-    final GeneralLibClientUseType generalLibClientUseType =
-        getFromText(text: text);
+    final GeneralLibClientUseType generalLibClientUseType = getFromText(text: text);
     if (generalLibClientUseType == GeneralLibClientUseType.unknown) {
       return onDefault();
     }

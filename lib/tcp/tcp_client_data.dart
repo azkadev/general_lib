@@ -41,16 +41,36 @@ import 'package:general_lib/scheme/socket_connection.dart';
 // import 'package:general_lib/scheme/scheme.dart';
 import 'package:io_universe/io_universe.dart';
 
+/// GeneralLib
 abstract class TcpSocketClientData {
+  /// GeneralLib
   late Socket socket;
+
+  /// GeneralLib
   dynamic host;
+
+  /// GeneralLib
   int port;
+
+  /// GeneralLib
   dynamic sourceAddress;
+
+  /// GeneralLib
   int sourcePort = 0;
+
+  /// GeneralLib
   Duration? timeout;
+
+  /// GeneralLib
   bool isConnect = false;
+
+  /// GeneralLib
   Map connect_data = {};
+
+  /// GeneralLib
   late Duration ping_interval;
+
+  /// GeneralLib
   TcpSocketClientData({
     required this.host,
     required this.port,
@@ -61,17 +81,18 @@ abstract class TcpSocketClientData {
     Duration? pingInterval,
   });
 
+  /// GeneralLib
   Future<void> connect({
     // void Function(dynamic data)? onDataUpdate,
     // void Function(Map data)? onSocketConnection,
     required FutureOr<void> Function(Uint8List data) onSocketData,
-    required FutureOr<void> Function(SocketConnection socketConnection)
-        onSocketConnection,
+    required FutureOr<void> Function(SocketConnection socketConnection) onSocketConnection,
     Duration delayDuration = const Duration(milliseconds: 500),
   }) async {
     return;
   }
 
+  /// GeneralLib
   Future<void> send({
     required List<int> value,
     Duration durationTimeOut = const Duration(minutes: 1),
@@ -80,6 +101,7 @@ abstract class TcpSocketClientData {
     return;
   }
 
+  /// GeneralLib
   void sendSync({
     required List<int> value,
     Duration durationTimeOut = const Duration(minutes: 1),

@@ -32,6 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+/// GeneralLib
 String convertToAgo(int? timestamp) {
   try {
     Duration diff = DateTime.now().difference(
@@ -57,7 +58,7 @@ String convertToAgo(int? timestamp) {
     return 'just now';
   }
 }
-
+/// GeneralLib
 String convertToAgoFromDateTime(DateTime dateTime) {
   try {
     Duration diff = DateTime.now().difference(

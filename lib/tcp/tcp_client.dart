@@ -43,7 +43,7 @@ import 'package:general_lib/scheme/socket_error.dart';
 import 'package:general_lib/tcp/tcp_client_data.dart';
 // import 'package:general_lib/scheme/scheme.dart';
 import 'package:io_universe/io_universe.dart';
-
+/// GeneralLib
 class TcpSocketClient implements TcpSocketClientData {
   @override
   late Socket socket;
@@ -63,6 +63,7 @@ class TcpSocketClient implements TcpSocketClientData {
   Map connect_data = {};
   @override
   late Duration ping_interval;
+  /// GeneralLib
   TcpSocketClient({
     required this.host,
     required this.port,

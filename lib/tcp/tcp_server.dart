@@ -36,12 +36,18 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'package:io_universe/io_universe.dart';
 
+/// GeneralLib
 class TcpSocketServer {
+  /// GeneralLib
   late ServerSocket server;
+
+  /// GeneralLib
   late SecureServerSocket server_secure;
 
+  /// GeneralLib
   TcpSocketServer();
 
+  /// GeneralLib
   Future<ServerSocket> listen({
     required String host,
     required int port,
@@ -69,6 +75,7 @@ class TcpSocketServer {
     return server;
   }
 
+  /// GeneralLib
   Future<SecureServerSocket> listenSecure({
     required String host,
     required int port,

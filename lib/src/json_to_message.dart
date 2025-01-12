@@ -34,6 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 // ignore_for_file: unnecessary_brace_in_string_interps, empty_catches
 
+/// GeneralLibrary
 String jsonToMessage(
   Map data, {
   bool isHtml = false,
@@ -111,19 +112,16 @@ String jsonToMessage(
         }
         if (key == "first_name") {
           if (data["last_name"] is String) {
-            loopData = (data[key] + " " + data["last_name"]);
+            loopData = "${data[key]} ${data["last_name"]}".trim(); 
           }
           if (isHtml) {
-            loopData = (parseHtmlLink(
-                data[key].toString(), "tg://user?id=${data["id"].toString()}"));
+            loopData = (parseHtmlLink(data[key].toString(), "tg://user?id=${data["id"].toString()}"));
           }
         }
         if (key == "language_code") {
-          loopData = (jsonFullMedia["language_code_${data[key]}"] ??
-              loopData.toString());
+          loopData = (jsonFullMedia["language_code_${data[key]}"] ?? loopData.toString());
         }
-        message +=
-            "\n${space}${(jsonFullMedia[key] != null) ? jsonFullMedia[key] : key}: $loopData";
+        message += "\n${space}${(jsonFullMedia[key] != null) ? jsonFullMedia[key] : key}: $loopData";
       }
     } catch (e) {}
   });

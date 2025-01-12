@@ -33,15 +33,18 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 import 'dart:convert';
-
+/// GeneralLib
 class SizeAspectRatio {
+  /// GeneralLib
   int width;
+  /// GeneralLib
   int height;
+  /// GeneralLib
   SizeAspectRatio({
     required this.width,
     required this.height,
   });
-
+/// GeneralLib
   factory SizeAspectRatio.resize(
     int width,
     int height,
@@ -60,7 +63,7 @@ class SizeAspectRatio {
       height: finalHeight,
     );
   }
-
+/// GeneralLib
   SizeAspectRatio resize(
     int maxWidth,
     int maxHeight,
@@ -77,7 +80,7 @@ class SizeAspectRatio {
       height: finalHeight,
     );
   }
-
+/// GeneralLib
   void operator []=(key, value) {
     if (key == "width") {
       width = value;
@@ -87,7 +90,7 @@ class SizeAspectRatio {
     }
     return;
   }
-
+/// GeneralLib
   int? operator [](key) {
     if (key == "width") {
       return width;

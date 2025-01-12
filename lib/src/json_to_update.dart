@@ -32,6 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+/// GeneralLib
 Map jsonUpdate({required Map data, required Map newData}) {
   newData.forEach((key, value) {
     if (value is Map) {

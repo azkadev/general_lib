@@ -34,23 +34,28 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'dart:convert';
 
+/// GeneralLibrary
 class SizeAspectRatio {
+  /// GeneralLibrary
   int width;
+
+  /// GeneralLibrary
   int height;
+
+  /// GeneralLibrary
   SizeAspectRatio({
     required this.width,
     required this.height,
   });
 
+  /// GeneralLibrary
   factory SizeAspectRatio.resize(
     int width,
     int height,
     int maxWidth,
     int maxHeight,
   ) {
-    double scaleFactor = (maxWidth / width > maxHeight / height)
-        ? maxHeight / height
-        : maxWidth / width;
+    double scaleFactor = (maxWidth / width > maxHeight / height) ? maxHeight / height : maxWidth / width;
     int newWidth = (width * scaleFactor).round();
     int newHeight = (height * scaleFactor).round();
     int finalWidth = newWidth.clamp(0, maxWidth);
@@ -61,13 +66,12 @@ class SizeAspectRatio {
     );
   }
 
+  /// GeneralLibrary
   SizeAspectRatio resize(
     int maxWidth,
     int maxHeight,
   ) {
-    double scaleFactor = (maxWidth / width > maxHeight / height)
-        ? maxHeight / height
-        : maxWidth / width;
+    double scaleFactor = (maxWidth / width > maxHeight / height) ? maxHeight / height : maxWidth / width;
     int newWidth = (width * scaleFactor).round();
     int newHeight = (height * scaleFactor).round();
     int finalWidth = newWidth.clamp(0, maxWidth);
@@ -78,6 +82,7 @@ class SizeAspectRatio {
     );
   }
 
+  /// GeneralLibrary
   void operator []=(key, value) {
     if (key == "width") {
       width = value;
@@ -88,6 +93,7 @@ class SizeAspectRatio {
     return;
   }
 
+  /// GeneralLibrary
   int? operator [](key) {
     if (key == "width") {
       return width;

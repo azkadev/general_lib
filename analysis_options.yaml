@@ -19,6 +19,9 @@ analyzer:
     - dev/
     - test/
 
+linter:
+  rules:
+    - public_member_api_docs
 # Uncomment the following section to specify additional rules.
 
 # linter:

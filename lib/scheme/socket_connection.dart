@@ -2,17 +2,21 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class SocketConnection extends JsonScheme {
-  SocketConnection(super.rawData);
 
+/// Generated 
+class SocketConnection extends JsonScheme {
+
+  /// Generated
+  SocketConnection(super.rawData);
+  
   /// return default data
-  ///
+  /// 
   static Map get defaultData {
-    return {"@type": "socketConnection", "status": "connect"};
+    return {"@type":"socketConnection","status":"connect"};
   }
 
-  /// check data
-  /// if raw data
+  /// check data 
+  /// if raw data 
   /// - rawData["@type"] == socketConnection
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -26,15 +30,20 @@ class SocketConnection extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
+  
+
   /// create [SocketConnection]
-  /// Empty
+  /// Empty  
   static SocketConnection empty() {
     return SocketConnection({});
   }
 
+  
+
+  /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false) {
+      if (rawData["@type"] is String == false){
         return null;
       }
       return rawData["@type"] as String;
@@ -43,13 +52,16 @@ class SocketConnection extends JsonScheme {
     }
   }
 
+  /// Generated
   set special_type(String? value) {
     rawData["@type"] = value;
   }
 
+
+  /// Generated
   String? get status {
     try {
-      if (rawData["status"] is String == false) {
+      if (rawData["status"] is String == false){
         return null;
       }
       return rawData["status"] as String;
@@ -58,23 +70,30 @@ class SocketConnection extends JsonScheme {
     }
   }
 
+  /// Generated
   set status(String? value) {
     rawData["status"] = value;
   }
 
+
+  /// Generated
   static SocketConnection create({
-    bool schemeUtilsIsSetDefaultData = false,
+              bool schemeUtilsIsSetDefaultData = false,
+
     String special_type = "socketConnection",
     String? status,
-  }) {
+})  {
     // SocketConnection socketConnection = SocketConnection({
-    final Map socketConnection_data_create_json = {
+final Map socketConnection_data_create_json = {
+  
       "@type": special_type,
       "status": status,
-    };
 
-    socketConnection_data_create_json
-        .removeWhere((key, value) => value == null);
+
+};
+
+
+          socketConnection_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -83,6 +102,8 @@ class SocketConnection extends JsonScheme {
         }
       });
     }
-    return SocketConnection(socketConnection_data_create_json);
-  }
+return SocketConnection(socketConnection_data_create_json);
+
+
+      }
 }

@@ -2,25 +2,21 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class DurationData extends JsonScheme {
-  DurationData(super.rawData);
 
+/// Generated 
+class DurationData extends JsonScheme {
+
+  /// Generated
+  DurationData(super.rawData);
+  
   /// return default data
-  ///
+  /// 
   static Map get defaultData {
-    return {
-      "@type": "durationData",
-      "days": 0,
-      "hours": 0,
-      "minutes": 0,
-      "seconds": 0,
-      "milliseconds": 0,
-      "microseconds": 0
-    };
+    return {"@type":"durationData","days":0,"hours":0,"minutes":0,"seconds":0,"milliseconds":0,"microseconds":0};
   }
 
-  /// check data
-  /// if raw data
+  /// check data 
+  /// if raw data 
   /// - rawData["@type"] == durationData
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -34,15 +30,20 @@ class DurationData extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
+  
+
   /// create [DurationData]
-  /// Empty
+  /// Empty  
   static DurationData empty() {
     return DurationData({});
   }
 
+  
+
+  /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false) {
+      if (rawData["@type"] is String == false){
         return null;
       }
       return rawData["@type"] as String;
@@ -51,13 +52,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set special_type(String? value) {
     rawData["@type"] = value;
   }
 
+
+  /// Generated
   num? get days {
     try {
-      if (rawData["days"] is num == false) {
+      if (rawData["days"] is num == false){
         return null;
       }
       return rawData["days"] as num;
@@ -66,13 +70,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set days(num? value) {
     rawData["days"] = value;
   }
 
+
+  /// Generated
   num? get hours {
     try {
-      if (rawData["hours"] is num == false) {
+      if (rawData["hours"] is num == false){
         return null;
       }
       return rawData["hours"] as num;
@@ -81,13 +88,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set hours(num? value) {
     rawData["hours"] = value;
   }
 
+
+  /// Generated
   num? get minutes {
     try {
-      if (rawData["minutes"] is num == false) {
+      if (rawData["minutes"] is num == false){
         return null;
       }
       return rawData["minutes"] as num;
@@ -96,13 +106,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set minutes(num? value) {
     rawData["minutes"] = value;
   }
 
+
+  /// Generated
   num? get seconds {
     try {
-      if (rawData["seconds"] is num == false) {
+      if (rawData["seconds"] is num == false){
         return null;
       }
       return rawData["seconds"] as num;
@@ -111,13 +124,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set seconds(num? value) {
     rawData["seconds"] = value;
   }
 
+
+  /// Generated
   num? get milliseconds {
     try {
-      if (rawData["milliseconds"] is num == false) {
+      if (rawData["milliseconds"] is num == false){
         return null;
       }
       return rawData["milliseconds"] as num;
@@ -126,13 +142,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set milliseconds(num? value) {
     rawData["milliseconds"] = value;
   }
 
+
+  /// Generated
   num? get microseconds {
     try {
-      if (rawData["microseconds"] is num == false) {
+      if (rawData["microseconds"] is num == false){
         return null;
       }
       return rawData["microseconds"] as num;
@@ -141,12 +160,16 @@ class DurationData extends JsonScheme {
     }
   }
 
+  /// Generated
   set microseconds(num? value) {
     rawData["microseconds"] = value;
   }
 
+
+  /// Generated
   static DurationData create({
-    bool schemeUtilsIsSetDefaultData = false,
+              bool schemeUtilsIsSetDefaultData = false,
+
     String special_type = "durationData",
     num? days,
     num? hours,
@@ -154,9 +177,10 @@ class DurationData extends JsonScheme {
     num? seconds,
     num? milliseconds,
     num? microseconds,
-  }) {
+})  {
     // DurationData durationData = DurationData({
-    final Map durationData_data_create_json = {
+final Map durationData_data_create_json = {
+  
       "@type": special_type,
       "days": days,
       "hours": hours,
@@ -164,9 +188,12 @@ class DurationData extends JsonScheme {
       "seconds": seconds,
       "milliseconds": milliseconds,
       "microseconds": microseconds,
-    };
 
-    durationData_data_create_json.removeWhere((key, value) => value == null);
+
+};
+
+
+          durationData_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -175,6 +202,8 @@ class DurationData extends JsonScheme {
         }
       });
     }
-    return DurationData(durationData_data_create_json);
-  }
+return DurationData(durationData_data_create_json);
+
+
+      }
 }

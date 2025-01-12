@@ -2,21 +2,21 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-class CaptchaWord extends JsonScheme {
-  CaptchaWord(super.rawData);
 
+/// Generated 
+class CaptchaWord extends JsonScheme {
+
+  /// Generated
+  CaptchaWord(super.rawData);
+  
   /// return default data
-  ///
+  /// 
   static Map get defaultData {
-    return {
-      "@type": "captchaWord",
-      "answer": [3, 5, 3],
-      "words": ["satu", "dua", "tiga", "empat", "lima", "enam", "tujuh"]
-    };
+    return {"@type":"captchaWord","answer":[3,5,3],"words":["satu","dua","tiga","empat","lima","enam","tujuh"]};
   }
 
-  /// check data
-  /// if raw data
+  /// check data 
+  /// if raw data 
   /// - rawData["@type"] == captchaWord
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -30,15 +30,20 @@ class CaptchaWord extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
+  
+
   /// create [CaptchaWord]
-  /// Empty
+  /// Empty  
   static CaptchaWord empty() {
     return CaptchaWord({});
   }
 
+  
+
+  /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false) {
+      if (rawData["@type"] is String == false){
         return null;
       }
       return rawData["@type"] as String;
@@ -47,17 +52,20 @@ class CaptchaWord extends JsonScheme {
     }
   }
 
+  /// Generated
   set special_type(String? value) {
     rawData["@type"] = value;
   }
 
+
+  /// Generated
   ///
   /// default:
-  ///
-  ///
+  /// 
+  /// 
   List<num> get answer {
     try {
-      if (rawData["answer"] is List == false) {
+      if (rawData["answer"] is List == false){
         return [];
       }
       return (rawData["answer"] as List).cast<num>();
@@ -66,17 +74,21 @@ class CaptchaWord extends JsonScheme {
     }
   }
 
+
+  /// Generated
   set answer(List<num> value) {
     rawData["answer"] = value;
   }
 
+
+  /// Generated
   ///
   /// default:
-  ///
-  ///
+  /// 
+  /// 
   List<String> get words {
     try {
-      if (rawData["words"] is List == false) {
+      if (rawData["words"] is List == false){
         return [];
       }
       return (rawData["words"] as List).cast<String>();
@@ -85,24 +97,33 @@ class CaptchaWord extends JsonScheme {
     }
   }
 
+
+  /// Generated
   set words(List<String> value) {
     rawData["words"] = value;
   }
 
+
+  /// Generated
   static CaptchaWord create({
-    bool schemeUtilsIsSetDefaultData = false,
+              bool schemeUtilsIsSetDefaultData = false,
+
     String special_type = "captchaWord",
-    List<num>? answer,
-    List<String>? words,
-  }) {
+      List<num>? answer,
+      List<String>? words,
+})  {
     // CaptchaWord captchaWord = CaptchaWord({
-    final Map captchaWord_data_create_json = {
+final Map captchaWord_data_create_json = {
+  
       "@type": special_type,
       "answer": answer,
       "words": words,
-    };
 
-    captchaWord_data_create_json.removeWhere((key, value) => value == null);
+
+};
+
+
+          captchaWord_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -111,6 +132,8 @@ class CaptchaWord extends JsonScheme {
         }
       });
     }
-    return CaptchaWord(captchaWord_data_create_json);
-  }
+return CaptchaWord(captchaWord_data_create_json);
+
+
+      }
 }

@@ -34,7 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 // ignore_for_file: unnecessary_brace_in_string_interps, non_constant_identifier_names
 //
-
+/// GeneralLibrary
 Future<Map> jsonEach({
   required Map data,
   required Future<dynamic> Function(
@@ -59,7 +59,7 @@ Future<Map> jsonEach({
 
   return jsonData;
 }
-
+/// GeneralLibrary
 Future<List> jsonListEach({
   required String key,
   required List data,
