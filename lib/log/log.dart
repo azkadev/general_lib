@@ -77,9 +77,9 @@ class GeneralLibraryLog {
   /// GeneralLibraryLog
   const GeneralLibraryLog();
 
-
   /// GeneralLibraryLog
-  static final bool _isCanPrintToTerminal = Dart.executable_type == ExecutableType.cli;
+  static final bool _isCanPrintToTerminal =
+      Dart.executable_type == ExecutableType.cli;
 
   /// GeneralLibraryLog
   FutureOr<void> printToTerminal({
@@ -104,5 +104,4 @@ class GeneralLibraryLog {
       }
     }
   }
-
 }

@@ -37,13 +37,17 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:general_lib/extension/extension.dart';
 import 'package:general_lib/extension/regexp.dart';
 
+/// GeneralLibrary
 class Args {
+  /// GeneralLibrary
   final List<String> arguments = [];
 
+  /// GeneralLibrary
   Args(List<String> args) {
     arguments.addAll(args);
   }
 
+  /// GeneralLibrary
   factory Args.fromString(String arg) {
     final List<String> args = [];
     String state_data = "";
@@ -104,6 +108,7 @@ class Args {
     return Args(args);
   }
 
+  /// GeneralLibrary
   bool contains(
     Object? key, {
     bool isRemoveIfFound = false,
@@ -128,6 +133,7 @@ class Args {
     return false;
   }
 
+  /// GeneralLibrary
   String? operator [](Object? key) {
     if (key is String) {
       for (var i = 0; i < arguments.length; i++) {
@@ -159,6 +165,7 @@ class Args {
     return null;
   }
 
+  /// GeneralLibrary
   String? after(Object? data) {
     if (data is int) {
       return this[data + 1];
@@ -169,6 +176,7 @@ class Args {
     return this[data];
   }
 
+  /// GeneralLibrary
   String? before(Object? data) {
     if (data is int) {
       return this[data - 1];
@@ -179,6 +187,7 @@ class Args {
     return null;
   }
 
+  /// GeneralLibrary
   void operator []=(String key, String value) {
     int? index = findIndex(key);
     if (index != null) {
@@ -195,6 +204,7 @@ class Args {
     }
   }
 
+  /// GeneralLibrary
   int? findIndex(String name) {
     for (var i = 0; i < arguments.length; i++) {
       String arg = arguments[i];

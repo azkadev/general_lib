@@ -40,7 +40,9 @@ import 'package:collection/collection.dart';
 import 'package:general_lib/extension/extension.dart';
 import 'package:general_lib/scheme/captcha_word.dart';
 
+/// GeneralLibrary
 class CaptchaGeneralLib {
+  /// GeneralLibrary
   List<Map<String, String>> animalEmoji = [
     {
       "emoji": "🦊️",
@@ -84,6 +86,7 @@ class CaptchaGeneralLib {
     }
   ];
 
+  /// GeneralLibrary
   List<String> default_words = [
     "guru",
     "dokter",
@@ -99,8 +102,10 @@ class CaptchaGeneralLib {
     "bakso",
   ];
 
+  /// GeneralLibrary
   CaptchaGeneralLib();
 
+  /// GeneralLibrary
   CaptchaResult animalCaptcha({
     List<Map>? emojis,
     int captchaLength = 5,
@@ -140,10 +145,12 @@ class CaptchaGeneralLib {
     }
   }
 
+  /// GeneralLibrary
   T randomByDatas<T>(List<T> datas) {
     return datas[Random().nextInt(datas.length)];
   }
 
+  /// GeneralLibrary
   CaptchaWord words({
     List<String>? words,
     int captchaLength = 5,
@@ -199,20 +206,31 @@ class CaptchaGeneralLib {
   }
 }
 
+/// GeneralLibrary
 class CaptchaResult {
+  /// GeneralLibrary
   final Map answer;
+
+  /// GeneralLibrary
   final List captchas;
+
+  /// GeneralLibrary
   CaptchaResult({
+    /// GeneralLibrary
     required this.answer,
+
+    /// GeneralLibrary
     required this.captchas,
   });
 
+  /// GeneralLibrary
   void clear() {
     answer.clear();
 
     captchas.clear();
   }
 
+  /// GeneralLibrary
   Map toJson() {
     return {
       "answer": answer,

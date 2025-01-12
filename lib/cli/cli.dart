@@ -46,9 +46,12 @@ import 'package:mason_logger/mason_logger.dart';
 import 'package:path/path.dart';
 import "scheme/scheme.dart" as general_lib_scheme;
 
+/// GeneralLibrary
 Logger logger = Logger(
   level: Level.verbose,
 );
+
+/// GeneralLibrary
 Future<Directory?> getPackageDirectory({
   String package_name = "package:general_lib/general_lib.dart",
 }) async {
@@ -69,12 +72,18 @@ Future<Directory?> getPackageDirectory({
   return directory;
 }
 
+/// GeneralLibrary
 class GeneralLibCli {
+  /// GeneralLibrary
   Directory base_directory = Directory.current;
+
+  /// GeneralLibrary
   Directory lib_directory = Directory.current;
 
+  /// GeneralLibrary
   GeneralLibCli();
 
+  /// GeneralLibrary
   Future<void> init() async {
     Uri? res = await Isolate.resolvePackageUri(
         Uri.parse("package:general_lib/general_lib.dart"));
@@ -88,6 +97,7 @@ class GeneralLibCli {
     return;
   }
 
+  /// GeneralLibrary
   FutureOr<File> addPackageByFileScriptDart({
     required File fileScriptDart,
     required List<String> new_packages,
@@ -99,6 +109,7 @@ class GeneralLibCli {
     ));
   }
 
+  /// GeneralLibrary
   String addPackageByStringScriptDart({
     required String scriptDart,
     required List<String> new_packages,

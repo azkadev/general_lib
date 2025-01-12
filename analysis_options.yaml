@@ -17,6 +17,7 @@ analyzer:
   exclude:
     - example/
     - dev/
+    - test/
 
 # Uncomment the following section to specify additional rules.
 

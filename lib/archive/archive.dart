@@ -18,15 +18,25 @@ class ArchiveGeneralLibOptions {
 
   /// ArchiveGeneralLibOptions
   ArchiveGeneralLibOptions({
+    /// GeneralLibrary
     required this.fileSystemEntityIgnore,
+
+    /// GeneralLibrary
     required this.isUseFileSystemEntityIgnore,
+
+    /// GeneralLibrary
     required this.isVerbose,
   });
 
   /// copy options
   ArchiveGeneralLibOptions copyWith({
+    /// GeneralLibrary
     String? fileSystemEntityIgnore,
+
+    /// GeneralLibrary
     bool? isUseFileSystemEntityIgnore,
+
+    /// GeneralLibrary
     bool? isVerbose,
   }) {
     return ArchiveGeneralLibOptions(
@@ -40,8 +50,13 @@ class ArchiveGeneralLibOptions {
 
   /// archive
   static ArchiveGeneralLibOptions empty({
+    /// GeneralLibrary
     String fileSystemEntityIgnore = "",
+
+    /// GeneralLibrary
     bool isUseFileSystemEntityIgnore = true,
+
+    /// GeneralLibrary
     bool isVerbose = false,
   }) {
     return ArchiveGeneralLibOptions(
@@ -57,6 +72,7 @@ extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
     on FileSystemEntity {
   /// archive file
   ArchiveFile toArchiveFile({
+    /// GeneralLibrary
     required String name,
   }) {
     return ArchiveFile.stream(
@@ -68,6 +84,7 @@ extension ArchiveGeneralLibExtensionFileSystemEntityToArchiveFile
 
 /// ArchiveGeneralLib
 class ArchiveGeneralLib {
+  /// GeneralLibrary
   final Archive archive = Archive();
 
   /// ArchiveGeneralLib
@@ -75,8 +92,13 @@ class ArchiveGeneralLib {
 
   /// archive directory
   void addFilesByDirectory({
+    /// GeneralLibrary
     required Directory directory,
+
+    /// GeneralLibrary
     required Directory directoryBase,
+
+    /// GeneralLibrary
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
     final List<String> fileSystemEntityIgnores =
@@ -120,7 +142,10 @@ class ArchiveGeneralLib {
 
   /// add any file
   void addFile({
+    /// GeneralLibrary
     required FileSystemEntity fileSystemEntity,
+
+    /// GeneralLibrary
     required String name,
   }) {
     archive.addFile(fileSystemEntity.toArchiveFile(
@@ -131,10 +156,19 @@ class ArchiveGeneralLib {
 
   /// archive to zip bytes
   List<int>? toZipBytes({
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     int level = DeflateLevel.bestSpeed,
+
+    /// GeneralLibrary
     OutputStream? output,
+
+    /// GeneralLibrary
     DateTime? modified,
+
+    /// GeneralLibrary
     bool autoClose = true,
   }) {
     final ZipEncoder zipEncoder = ZipEncoder(
@@ -151,8 +185,13 @@ class ArchiveGeneralLib {
 
   /// decode zip
   Archive zipDecoder({
+    /// GeneralLibrary
     required String path,
+
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     required bool verify,
   }) {
     final ZipDecoder zipDecoder = ZipDecoder();
@@ -172,10 +211,19 @@ class ArchiveGeneralLib {
 
   /// create archive zip
   static File createArchiveZip({
+    /// GeneralLibrary
     required Directory directory,
+
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     required File outPutFile,
+
+    /// GeneralLibrary
     DateTime? modified,
+
+    /// GeneralLibrary
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
@@ -201,10 +249,19 @@ class ArchiveGeneralLib {
 
   /// create archive zip async
   static Future<File> createArchiveZipAsync({
+    /// GeneralLibrary
     required Directory directory,
+
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     required File outPutFile,
+
+    /// GeneralLibrary
     DateTime? modified,
+
+    /// GeneralLibrary
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) async {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
@@ -230,10 +287,19 @@ class ArchiveGeneralLib {
 
   /// extract archive zip
   static Directory extractArchiveZip({
+    /// GeneralLibrary
     required File archivedFile,
+
+    /// GeneralLibrary
     required Directory directoryOutput,
+
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     required bool verify,
+
+    /// GeneralLibrary
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
@@ -252,10 +318,19 @@ class ArchiveGeneralLib {
 
   /// extract archive zip async
   static Future<Directory> extractArchiveZipAsync({
+    /// GeneralLibrary
     required File archivedFile,
+
+    /// GeneralLibrary
     required Directory directoryOutput,
+
+    /// GeneralLibrary
     required String? password,
+
+    /// GeneralLibrary
     bool verify = true,
+
+    /// GeneralLibrary
     required ArchiveGeneralLibOptions archiveGeneralLibOptions,
   }) async {
     final ArchiveGeneralLib archiveGeneralLib = ArchiveGeneralLib();
