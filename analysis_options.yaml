@@ -1,12 +1,12 @@
 include: package:lints/recommended.yaml
 analyzer:
   exclude:
-    - 'example/'
-    - 'dev/'
-    - 'test/'
-    - 'test'
-    - 'dev'
-    - 'templates'
+    - example/
+    - dev/
+    - test/
+    - test
+    - dev
+    - templates
 linter:
   rules:
-    - 'public_member_api_docs'
+    - public_member_api_docs
