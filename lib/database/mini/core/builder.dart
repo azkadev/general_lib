@@ -8,16 +8,28 @@ import 'package:general_lib/extension/map.dart';
 import 'package:general_lib/json_scheme/json_scheme.dart';
 import 'base.dart';
 
+
+/// GeneralLib
 class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
+  
+/// GeneralLib
   String state_key = "";
+
+/// GeneralLib
   Object? state_value = "";
+/// GeneralLib
   DatabaseMiniMethodType databaseMiniMethodType =
       DatabaseMiniMethodType.unknown;
+
+/// GeneralLib
   final DatabaseMiniGeneralLibraryBase db;
+
+/// GeneralLib
   DatabaseMiniGeneralLibraryBuilder({
     required this.db,
   });
 
+/// GeneralLib
   void ensureInitialized({
     required String key,
     required Object? value,
@@ -28,7 +40,8 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     this.databaseMiniMethodType = databaseMiniMethodType;
   }
 
-  // @override
+  
+/// GeneralLib
   T? sync() {
     if (databaseMiniMethodType == DatabaseMiniMethodType.writeDatabase) {
       db.writeSync(
@@ -44,6 +57,7 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     return execute();
   }
 
+/// GeneralLib
   T? execute() {
     if (databaseMiniMethodType == DatabaseMiniMethodType.getDatabase) {
       // unsupported
@@ -82,6 +96,7 @@ class DatabaseMiniGeneralLibraryBuilder<T> implements Future<T> {
     throw UnimplementedError(databaseMiniMethodType.name);
   }
 
+/// GeneralLib
   dynamic anyValueToWriteableJson(dynamic value) {
     if (value is JsonScheme) {
       return value.toJson();

@@ -34,9 +34,10 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-import 'dart:convert';
+import 'dart:convert';/// GeneralLib
 
 extension DynamicDataFutureExtension on Future<dynamic> {
+  /// GeneralLib
   Future<String> toStringifyPretty([int space = 2]) async {
     dynamic data_ = await this;
     if (data_ is Map || data_ is List) {
@@ -45,7 +46,7 @@ extension DynamicDataFutureExtension on Future<dynamic> {
       return data_.toString();
     }
   }
-
+/// GeneralLib
   Future<void> printPretty([int space = 2]) async {
     dynamic data_ = await this;
     if (data_ is Map || data_ is List) {
@@ -55,8 +56,9 @@ extension DynamicDataFutureExtension on Future<dynamic> {
     }
   }
 }
-
+/// GeneralLib
 extension DynamicDataExtension on dynamic {
+  /// GeneralLib
   DateTime? general_lib_utils_toDatetime() {
     DateTime? dateTime;
     try {
@@ -85,7 +87,7 @@ extension DynamicDataExtension on dynamic {
 
     return dateTime;
   }
-
+/// GeneralLib
   String toStringifyPretty([int space = 2]) {
     if (this is Map || this is List) {
       return JsonEncoder.withIndent(" " * space).convert(this);
@@ -93,7 +95,7 @@ extension DynamicDataExtension on dynamic {
       return toString();
     }
   }
-
+/// GeneralLib
   void printPretty([int space = 2]) {
     if (this is Map || this is List) {
       print(toStringifyPretty(space));

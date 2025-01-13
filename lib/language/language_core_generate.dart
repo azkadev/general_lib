@@ -44,6 +44,7 @@ import 'package:general_lib/schemes/language_code.dart';
 import 'package:io_universe/io_universe.dart';
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 Future<Directory> jsonToLanguageScript({
   required Map language_raw,
   required String default_language_code_id,
@@ -233,6 +234,7 @@ export ${json.encode("${base_name}_scheme.dart")};
   return directory;
 }
 
+/// GeneralLib
 Future<String> languageMapToStringScript({
   required String key_name,
   required Map data,

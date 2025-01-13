@@ -40,9 +40,13 @@ import 'package:general_lib/dart/dart.dart';
 import "package:path/path.dart" as path;
 import 'package:io_universe/io_universe.dart';
 
+/// GeneralLib
 class OperatingSystem {
+
+/// GeneralLib
   OperatingSystem();
 
+/// GeneralLib
   static Directory get app_directory {
     String? configDir;
     if (Platform.isLinux) {
@@ -60,15 +64,18 @@ class OperatingSystem {
     return Directory(configDir);
   }
 
+/// GeneralLib
   static Directory get home_directory {
     return Directory(Platform.environment['XDG_CONFIG_HOME'] ??
         path.join(Platform.environment['HOME']!));
   }
 
+/// GeneralLib
   static String? getEnvironment(String key, [String? defaultValue]) {
     return Platform.environment[key] ?? defaultValue;
   }
 
+/// GeneralLib
   static Future<bool> setEnvironment(String key, String value) async {
     if (Dart.isWeb) {
       return false;

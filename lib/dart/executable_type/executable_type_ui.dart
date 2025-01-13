@@ -34,6 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'package:general_lib/dart/executable_type/executable_type.dart';
 
+/// GeneralLib
 ExecutableType executableType() {
   return ExecutableType.gui;
 }

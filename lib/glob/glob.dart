@@ -4,7 +4,10 @@ import 'package:general_lib/regexp_replace/regexp_replace.dart';
 
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 extension GlobGeneralLibExtensionListRegExp on List<RegExp> {
+
+/// GeneralLib
   bool globContains(Object? value) {
     if (value is String) {
       for (final element in this) {
@@ -26,7 +29,10 @@ extension GlobGeneralLibExtensionListRegExp on List<RegExp> {
   }
 }
 
+/// GeneralLib
 extension GlobGeneralLibExtensionString on String {
+
+/// GeneralLib
   List<String> toGlob() {
     final List<String> globs = [];
     for (final elementLoop in split("\n")) {
@@ -42,10 +48,12 @@ extension GlobGeneralLibExtensionString on String {
     return globs;
   }
 
+/// GeneralLib
   List<RegExp> toGlobRegExp() {
     return toGlob().map((e) => RegExp(e)).toList();
   }
 
+/// GeneralLib
   String toGlobPattern() {
     String result = this;
     for (final element in globRegExpReplaces) {
@@ -61,6 +69,7 @@ extension GlobGeneralLibExtensionString on String {
   }
 }
 
+/// GeneralLib
 final List<RegExpReplace> globRegExpReplaces = [
   RegExpReplace(
     from: RegExp(r"((\*)?(\*))(\*)?"),

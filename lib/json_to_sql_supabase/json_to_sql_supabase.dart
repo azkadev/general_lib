@@ -40,6 +40,7 @@ import 'dart:convert';
 
 import 'package:general_lib/extension/extension.dart';
 
+/// GeneralLib
 String generateDataSqlJson({
   required Map data,
 }) {
@@ -81,6 +82,7 @@ ${key} ${type_data} null ${default_data},
   return script_data.replaceAll(RegExp(r"(,|,\n)$", caseSensitive: false), "");
 }
 
+/// GeneralLib
 String generate_add_sql_data({
   required String tableName,
   required Map data,
@@ -124,14 +126,14 @@ ALTER TABLE ${tableName} ADD COLUMN ${key} ${type_data} ${default_data};
       .trim();
 }
 
-// add column in
-// ALTER TABLE accounts ADD COLUMN new_column text;
-//
-// delete column
-// ALTER TABLE accounts DROP COLUMN new_column;
-//
-// edit
-// ALTER TABLE accounts ALTER COLUMN total_price_amount TYPE boolean;
+/// add column in
+/// ALTER TABLE accounts ADD COLUMN new_column text;
+///
+/// delete column
+/// ALTER TABLE accounts DROP COLUMN new_column;
+///
+/// edit
+/// ALTER TABLE accounts ALTER COLUMN total_price_amount TYPE boolean;
 String jsonToSqlSupabase({
   required Map jsonData,
   Map? originData,

@@ -5,10 +5,19 @@ import 'dart:convert';
 import 'package:io_universe/io_universe.dart';
 import 'dart:typed_data';
 
+/// GeneralLib
 class GeneralSocketMessageData {
+  
+/// GeneralLib
   final String socket_id;
+
+/// GeneralLib
   final String ipAddres;
+
+/// GeneralLib
   final Uint8List data;
+
+/// GeneralLib
   GeneralSocketMessageData({
     required this.socket_id,
     required this.ipAddres,
@@ -16,18 +25,30 @@ class GeneralSocketMessageData {
   });
 }
 
+/// GeneralLib
 class GeneralSocketData {
+
+/// GeneralLib
   final String socket_id;
+  
+/// GeneralLib
   final String multiCastGroup;
+  
+/// GeneralLib
   final int port;
   late final RawDatagramSocket _socket;
+
+/// GeneralLib
   bool is_initialized = false;
+
+/// GeneralLib
   GeneralSocketData({
     required this.port,
     required this.socket_id,
     required this.multiCastGroup,
   });
 
+/// GeneralLib
   Future<void> ensureInitiaLized({
     required RawDatagramSocket socket,
     required NetworkInterface networkInterface,
@@ -65,6 +86,7 @@ class GeneralSocketData {
     is_initialized = true;
   }
 
+/// GeneralLib
   bool close() {
     if (is_initialized == false) {
       return false;
@@ -73,6 +95,7 @@ class GeneralSocketData {
     return true;
   }
 
+/// GeneralLib
   int sendRaw({
     required List<int> buffer,
   }) {
@@ -82,12 +105,14 @@ class GeneralSocketData {
     return _socket.send(buffer, InternetAddress(multiCastGroup), port);
   }
 
+/// GeneralLib
   int sendText({
     required String value,
   }) {
     return sendRaw(buffer: utf8.encode(value));
   }
 
+/// GeneralLib
   int sendJson({
     required Map value,
   }) {

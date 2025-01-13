@@ -32,8 +32,15 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+
+/// GeneralLib
 enum SocketConnectionType {
+  /// GeneralLib
   connected,
+
+  /// GeneralLib
   reconnection,
-  disconnect,
+
+  /// GeneralLib
+  disconnect;
 }

@@ -47,24 +47,56 @@ import 'package:general_lib/extension/dynamic.dart';
 import 'package:http/http.dart';
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 enum DownloadFileCategory {
+  /// GeneralLib
   application,
+
+  /// GeneralLib
   compressed,
+
+  /// GeneralLib
   programs,
+
+  /// GeneralLib
   video,
-  unknown,
+
+  /// GeneralLib
+  unknown;
 }
 
+
+/// GeneralLib
 class DownloadClientData {
+
+/// GeneralLib
   File file;
+
+/// GeneralLib
   Uri uri;
+
+/// GeneralLib
   ByteStream byteStream;
+
+/// GeneralLib
   late StreamSubscription<List<int>> stream;
+
+/// GeneralLib
   Completer<bool> completer;
+
+/// GeneralLib
   DateTime date_time_start;
+
+/// GeneralLib
   void Function(List<int> chunk) onData;
+
+/// GeneralLib
   FutureOr<void> Function(DownloadClientData downloadClientData) onDone;
+  
+/// GeneralLib
   bool is_failed;
+
+/// GeneralLib
   DownloadClientData({
     required this.date_time_start,
     required this.file,
@@ -83,48 +115,61 @@ class DownloadClientData {
     );
   }
 
+/// GeneralLib
   bool is_complete() {
     return completer.isCompleted;
   }
 
+/// GeneralLib
   bool is_paused() {
     return stream.isPaused;
   }
 
+/// GeneralLib
   void pause() {
     stream.pause();
   }
 
+/// GeneralLib
   void resume() {
     stream.resume();
   }
 
+/// GeneralLib
   Future<void> cancel() async {
     await stream.cancel();
   }
 }
 
+/// GeneralLib
 class DownloadClient {
+
+/// GeneralLib
   final Client httpClient;
+  
+/// GeneralLib
   Directory directoryDownload = Directory("");
 
+/// GeneralLib
   DownloadClient({
     Client? httpClient,
     Directory? directoryDownload,
   })  : httpClient = httpClient ?? Client(),
-        directoryDownload = directoryDownload ??
-            Directory(path.join(Directory.current.path, "temp")) {
+        directoryDownload = directoryDownload ?? Directory(path.join(Directory.current.path, "temp")) {
     checkDir(directoryDownload: this.directoryDownload);
   }
 
+/// GeneralLib
   final List<DownloadClientData> downloadClientDatas = [];
+  
+/// GeneralLib
   DownloadClientData? getDownloadClientData({
     required Uri uri,
   }) {
-    return downloadClientDatas
-        .firstWhereOrNull((element) => element.uri == uri);
+    return downloadClientDatas.firstWhereOrNull((element) => element.uri == uri);
   }
 
+/// GeneralLib
   void deleteDownloadClientData({
     required Uri uri,
   }) {
@@ -132,6 +177,7 @@ class DownloadClient {
     downloadClientDatas.removeWhere((element) => element.uri == uri);
   }
 
+/// GeneralLib
   void checkDir({
     required Directory directoryDownload,
   }) {
@@ -143,12 +189,14 @@ class DownloadClient {
     }
   }
 
+/// GeneralLib
   static int getContentLength({
     required Map headers,
   }) {
     return int.tryParse(headers['content-length'] ?? "0") ?? 0;
   }
 
+/// GeneralLib
   static String? getContentName({
     required Map headers,
   }) {
@@ -157,8 +205,7 @@ class DownloadClient {
 
       for (final element in res) {
         if (element.contains('filename')) {
-          final result =
-              element.substring(element.indexOf("=") + 2, element.length - 1);
+          final result = element.substring(element.indexOf("=") + 2, element.length - 1);
           try {
             return Uri.decodeFull(result);
           } catch (e) {
@@ -174,6 +221,8 @@ class DownloadClient {
     return null;
   }
 
+/// GeneralLib
+
   Future<DownloadClientData> downloadRaw({
     required Uri url,
     required Directory? directoryDownload,
@@ -181,8 +230,7 @@ class DownloadClient {
     Map<String, String>? headers,
     required bool isAutoDeleteDownloadClientData,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
     directoryDownload ??= this.directoryDownload;
     checkDir(directoryDownload: directoryDownload);
@@ -191,13 +239,7 @@ class DownloadClient {
 
     int downloadUntil = getContentLength(headers: response_head.headers);
 
-    String new_file_name = [
-          newFileName,
-          getContentName(headers: response_head.headers),
-          url.pathSegments.lastOrNull
-        ].firstWhereOrNull(
-            (element) => (element != null && element.trim().isNotEmpty)) ??
-        "${url.toString()}";
+    String new_file_name = [newFileName, getContentName(headers: response_head.headers), url.pathSegments.lastOrNull].firstWhereOrNull((element) => (element != null && element.trim().isNotEmpty)) ?? "${url.toString()}";
 
     File file = File(path.join(directoryDownload.path, new_file_name));
 
@@ -281,14 +323,14 @@ class DownloadClient {
     );
   }
 
+/// GeneralLib
   Future<DownloadClientData> download({
     required Uri url,
     Directory? directoryDownload,
     String? newFileName,
     bool isAutoDeleteDownloadClientData = true,
     required FutureOr<dynamic> Function(double proggres, File file) onProggres,
-    required FutureOr<dynamic> Function(DownloadClientData downloadClientData)
-        onDone,
+    required FutureOr<dynamic> Function(DownloadClientData downloadClientData) onDone,
   }) async {
     DownloadClientData? downloadClientData = getDownloadClientData(uri: url);
 

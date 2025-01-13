@@ -1,8 +1,16 @@
 import 'mini/mini.dart';
 
+
+/// GeneralLib
 class DatabaseGeneralLib {
+
+/// GeneralLib
   static final Map<String, DatabaseMiniGeneralLibrary> _stateDbMini = {};
+
+/// GeneralLib
   DatabaseGeneralLib();
+
+/// GeneralLib
 
   DatabaseMiniGeneralLibrary openDatabaseMini({
     required String key,
@@ -28,6 +36,7 @@ class DatabaseGeneralLib {
     }
     return databaseMiniGeneralLibraryOld;
   }
+/// GeneralLib
 
   Future<DatabaseMiniGeneralLibrary> openDatabaseMiniAsync({
     required String key,
@@ -54,6 +63,7 @@ class DatabaseGeneralLib {
     return databaseMiniGeneralLibraryOld;
   }
 
+/// GeneralLib
   bool closeDatabaseMini({
     required String key,
   }) {

@@ -38,6 +38,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
+/// GeneralLib
 Future<Response> fetch(
   String url, {
   FetchOption? options,
@@ -78,11 +79,15 @@ Future<Response> fetch(
   return response;
 }
 
+/// GeneralLib
 extension OnFetch on Response {
+
+/// GeneralLib
   get text {
     return body;
   }
 
+/// GeneralLib
   Map? get jsonData {
     try {
       return json.decode(body);
@@ -92,10 +97,20 @@ extension OnFetch on Response {
   }
 }
 
+
+/// GeneralLib
 class FetchOption {
+
+/// GeneralLib
   String method;
+
+/// GeneralLib
   Map<String, String>? headers;
+
+/// GeneralLib
   Object? body;
+
+/// GeneralLib
   FetchOption({
     required this.method,
     this.headers,

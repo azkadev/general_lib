@@ -1,6 +1,10 @@
 import 'core/base.dart';
 
+
+/// GeneralLib
 class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
+  
+/// GeneralLib
   DatabaseMiniGeneralLibrary();
 
   @override

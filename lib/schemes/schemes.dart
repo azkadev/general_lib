@@ -1,5 +1,5 @@
 import 'package:general_lib/schemes/language_code.dart';
-
+/// GeneralLib
 final List<Map<String, dynamic>> schemes = [
   {
     "@type": "captchaResult",

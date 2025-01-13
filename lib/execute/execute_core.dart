@@ -36,10 +36,13 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:async';
 
+/// GeneralLib
 typedef ExecuteOnErrorDart<V> = FutureOr<V> Function(
     Object error, StackTrace stackTrace);
 
+/// GeneralLib
 extension GeneralLibFutureOrExecuteExtensions<T> on FutureOr<T> {
+/// GeneralLib
   FutureOr<T> general_lib_execute({
     Duration? timeLimit,
     FutureOr<T> Function()? onTimeout,
@@ -55,7 +58,7 @@ extension GeneralLibFutureOrExecuteExtensions<T> on FutureOr<T> {
         )) ??
         await onNullData();
   }
-
+/// GeneralLib
   FutureOr<T?> general_lib_execute_or_null({
     Duration? timeLimit,
     FutureOr<T> Function()? onTimeout,

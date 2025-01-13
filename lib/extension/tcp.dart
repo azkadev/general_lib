@@ -34,7 +34,10 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'package:io_universe/io_universe.dart';
 
+/// GeneralLib
 extension TcpSendDataSocket on Socket {
+
+/// GeneralLib
   void send(List<int> data) {
     return add(data);
   }

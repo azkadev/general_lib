@@ -34,15 +34,23 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 
 // RegExp
+// 
+/// GeneralLib
 class RegExpReplace {
+
+/// GeneralLib
   final RegExp from;
+
+/// GeneralLib
   final String Function(Match match) replace;
 
+/// GeneralLib
   const RegExpReplace({
     required this.from,
     required this.replace,
   });
 
+/// GeneralLib
   RegExpReplace copyWith({
     final RegExp? from,
     final String Function(Match match)? replace,

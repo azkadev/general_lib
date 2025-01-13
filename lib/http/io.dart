@@ -5,8 +5,11 @@ import "dart:typed_data";
 import "package:http/http.dart" as http;
 import "package:http/io_client.dart";
 
+/// GeneralLib
 class HttpClientGeneralLib implements http.Client {
   late final IOClient _client;
+
+/// GeneralLib
   HttpClientGeneralLib(
     HttpClient? httpClient,
   ) {

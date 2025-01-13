@@ -55,6 +55,7 @@ class GeneralLibraryLogMessage {
     required this.logMessageType,
   });
 
+/// GeneralLib
   GeneralLibraryLogMessage copyWith({
     Object? value,
     bool? isForcePrint,

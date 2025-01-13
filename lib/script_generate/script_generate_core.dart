@@ -45,10 +45,15 @@ import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 class ScriptGeneratorStatus {
+  /// GeneralLib
   FileSystemEntity file_system_entity;
 
+  /// GeneralLib
   String text;
+
+  /// GeneralLib
   ScriptGeneratorStatus({
     required this.file_system_entity,
     required this.text,
@@ -61,12 +66,25 @@ class ScriptGeneratorStatus {
 
 /// slebew
 class ScriptGenerator {
+  /// GeneralLib
   FileSystemEntity file_system_entity;
+
+  /// GeneralLib
   Map state_data = {};
+
+  /// GeneralLib
   Directory directory_base;
+
+  /// GeneralLib
   String value;
+
+  /// GeneralLib
   FileSystemEntityType file_system_entity_type;
+
+  /// GeneralLib
   List<ScriptGenerator> children;
+
+  /// GeneralLib
   bool is_generate;
 
   /// slebew
@@ -80,6 +98,7 @@ class ScriptGenerator {
     required this.children,
   });
 
+  /// GeneralLib
   static String replacerData({
     required String value,
     required String originProjectName,
@@ -118,14 +137,9 @@ class ScriptGenerator {
       // Slebew Project
       // New Project
       RegExpReplace(
-        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "),
-            caseSensitive: false),
+        from: RegExp(originProjectName.snakeCaseClass().split("_").join(" "), caseSensitive: false),
         replace: (match) {
-          return newProjectName
-              .snakeCaseClass()
-              .split("_")
-              .map((e) => e.toUpperCaseFirstData())
-              .join(" ");
+          return newProjectName.snakeCaseClass().split("_").map((e) => e.toUpperCaseFirstData()).join(" ");
         },
       ),
     ];
@@ -142,29 +156,29 @@ class ScriptGenerator {
     return value;
   }
 
+  /// GeneralLib
   String getPath() {
-    return path.relative(file_system_entity.uri.toFilePath(),
-        from: directory_base.uri.toFilePath());
+    return path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
   }
 
+  /// GeneralLib
   Map toJson() {
     return {
       "@type": "ScriptGenerator",
       "is_generate": true,
       "directory_base": (path.basename(directory_base.uri.toFilePath())),
-      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(),
-          from: directory_base.uri.toFilePath()),
+      "file_system_entity": path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath()),
       "file_system_entity_type": file_system_entity_type.toString(),
       "value": value,
       "children": children.map((e) => e.toJson()).toList(growable: true),
     };
   }
 
+  /// GeneralLib
   String valueToScript() {
     String parse_value = value;
     for (final RegExpReplace regExpReplace in regExpReplaces()) {
-      parse_value = parse_value.replaceAllMapped(
-          regExpReplace.from, regExpReplace.replace);
+      parse_value = parse_value.replaceAllMapped(regExpReplace.from, regExpReplace.replace);
     }
 
     if (parse_value.isEmpty) {
@@ -176,8 +190,10 @@ class ScriptGenerator {
     return "r\"\"\"\n${parse_value}\n\"\"\"";
   }
 
+  /// GeneralLib
   bool get is_file_dart => (path.extension(file_system_entity.path) == ".dart");
 
+  /// GeneralLib
   List<RegExpReplace> regExpReplaces() {
     bool is_file_dart_procces = is_file_dart;
     return [
@@ -207,15 +223,14 @@ class ScriptGenerator {
       ],
     ];
   }
-
+/// GeneralLib
   String toScriptDart() {
     String script_generate = """
 ScriptGenerator(
   is_generate: true,
   directory_base: Directory(${json.encode(path.basename(directory_base.uri.toFilePath()))}),
   file_system_entity: ${() {
-      String base_file_path = path.relative(file_system_entity.uri.toFilePath(),
-          from: directory_base.uri.toFilePath());
+      String base_file_path = path.relative(file_system_entity.uri.toFilePath(), from: directory_base.uri.toFilePath());
       if (file_system_entity_type == FileSystemEntityType.file) {
         return "File(${json.encode(base_file_path)})";
       }

@@ -11,7 +11,11 @@ enum _DatabaseIndexedOperationType {
   readonly;
 }
 
+
+/// GeneralLib
 class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
+
+/// GeneralLib
   DatabaseMiniGeneralLibrary();
 
   static late final dart_indexed_db.IdbFactory _indexedDatabase;

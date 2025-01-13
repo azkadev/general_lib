@@ -2,8 +2,11 @@ import 'package:io_universe/io_universe.dart';
 
 import 'core/base.dart';
 
+/// GeneralLib
 class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase
     implements DatabaseMiniGeneralLibraryBaseAbstract {
+  
+/// GeneralLib
   DatabaseMiniGeneralLibrary();
 
   File get _file {

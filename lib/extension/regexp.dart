@@ -36,7 +36,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'package:general_lib/scheme/reg_exp_data_scheme.dart';
 
+/// GeneralLib
 extension GeneralLibRegExpExtension on RegExp {
+  /// GeneralLib
   bool hashData(dynamic input) {
     try {
       if (input is String == false) {
@@ -48,6 +50,8 @@ extension GeneralLibRegExpExtension on RegExp {
     }
   }
 
+  /// GeneralLib
+
   RegExp fromJson(Map data) {
     RegExpDataScheme regExpDataScheme = RegExpDataScheme(data);
     return RegExp(
@@ -58,6 +62,8 @@ extension GeneralLibRegExpExtension on RegExp {
       dotAll: regExpDataScheme.is_dot_all ?? false,
     );
   }
+
+  /// GeneralLib
 
   Map toJson() {
     return {
@@ -71,7 +77,10 @@ extension GeneralLibRegExpExtension on RegExp {
   }
 }
 
+/// GeneralLib
+
 extension GeneralLibListRegExpExtension on List<RegExp> {
+  /// GeneralLib
   bool hashData(dynamic input) {
     int count = 0;
     for (var i = 0; i < length; i++) {
@@ -84,7 +93,9 @@ extension GeneralLibListRegExpExtension on List<RegExp> {
   }
 }
 
+/// GeneralLib
 extension GeneralLibListListRegExpExtension on List<List<RegExp>> {
+  /// GeneralLib
   bool hashData(dynamic input) {
     for (var i = 0; i < length; i++) {
       if (this[i].hashData(input)) {

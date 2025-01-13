@@ -36,7 +36,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'package:io_universe/io_universe.dart';
 
+/// GeneralLib
 extension HttpHeadersGetRangeExtensions on HttpHeaders {
+  /// GeneralLib
   (num from, num to) general_lib_utils_range() {
     try {
       return (value("Range") ?? "").general_lib_utils_range();
@@ -45,7 +47,10 @@ extension HttpHeadersGetRangeExtensions on HttpHeaders {
   }
 }
 
+/// GeneralLib
+
 extension StringGetRangeExtensions on String {
+  /// GeneralLib
   (num from, num to) general_lib_utils_range() {
     try {
       RegExp regExp = RegExp("(bytes=([0-9]+)-([0-9]+))");
@@ -53,10 +58,7 @@ extension StringGetRangeExtensions on String {
       if (regExpMatch == null) {
         return (0, 0);
       }
-      return (
-        num.tryParse(regExpMatch.group(2) ?? "0") ?? 0,
-        num.tryParse(regExpMatch.group(3) ?? "0") ?? 0
-      );
+      return (num.tryParse(regExpMatch.group(2) ?? "0") ?? 0, num.tryParse(regExpMatch.group(3) ?? "0") ?? 0);
     } catch (e) {}
     // bytes=0-227836;
     return (0, 0);

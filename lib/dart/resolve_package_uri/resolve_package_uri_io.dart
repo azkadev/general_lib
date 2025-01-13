@@ -34,6 +34,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'dart:isolate';
 
+/// GeneralLib
 Uri? resolvePackageUriSync(Uri uri) {
   return Isolate.resolvePackageUriSync(uri);
 }

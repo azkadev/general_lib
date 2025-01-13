@@ -36,6 +36,8 @@ import 'package:io_universe/io_universe.dart';
 
 /// flutter command line in class dart
 class Flutter {
+
+/// GeneralLib
   static String get version {
     ProcessResult processResult = Process.runSync("flutter", ["--version"]);
     if (processResult.exitCode != 0) {

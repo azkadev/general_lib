@@ -8,24 +8,32 @@ import 'package:general_lib/database/mini/core/builder.dart';
 import 'package:general_lib/database/mini/core/type.dart';
 import 'package:general_lib/extension/map.dart';
 
+/// GeneralLib
 abstract class DatabaseMiniGeneralLibraryBaseAbstract {
+  /// GeneralLib
   String platformName() {
     return "";
   }
 
+  /// GeneralLib
   String readSync() {
     return "";
   }
+
+  /// GeneralLib
 
   Future<String> readAsync() async {
     return "";
   }
 
+  /// GeneralLib
   void writeSync({
     required String content,
   }) {
     return;
   }
+
+  /// GeneralLib
 
   Future<void> writeAsync({
     required String content,
@@ -34,10 +42,19 @@ abstract class DatabaseMiniGeneralLibraryBaseAbstract {
   }
 }
 
+/// GeneralLib
 class DatabaseMiniGeneralLibraryBaseOptions {
+  /// GeneralLib
   final Crypto crypto;
+
+  /// GeneralLib
+
   final bool isUseCrypto;
+
+  /// GeneralLib
   final bool isIgnoreError;
+
+  /// GeneralLib
 
   DatabaseMiniGeneralLibraryBaseOptions({
     required this.crypto,
@@ -46,18 +63,27 @@ class DatabaseMiniGeneralLibraryBaseOptions {
   });
 }
 
-abstract class DatabaseMiniGeneralLibraryBase
-    implements DatabaseMiniGeneralLibraryBaseAbstract {
+/// GeneralLib
+abstract class DatabaseMiniGeneralLibraryBase implements DatabaseMiniGeneralLibraryBaseAbstract {
+  /// GeneralLib
   late final String pathToFile;
-  late final DatabaseMiniGeneralLibraryBaseOptions
-      databaseMiniGeneralLibraryBaseOptions;
+
+  /// GeneralLib
+  late final DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions;
+
+  /// GeneralLib
   bool isEnsureInitialized = false;
 
+  /// GeneralLib
   bool isInitialized = false;
 
+  /// GeneralLib
   Map<dynamic, dynamic> stateData = <dynamic, dynamic>{};
+
+  /// GeneralLib
   Map<dynamic, dynamic> defaultData = <dynamic, dynamic>{};
 
+  /// GeneralLib
   DatabaseMiniGeneralLibraryBase();
 
   /// operator map data
@@ -70,20 +96,21 @@ abstract class DatabaseMiniGeneralLibraryBase
     stateData[key] = value;
   }
 
+  /// GeneralLib
+
   void ensureInitialized({
     required String pathToFile,
-    required DatabaseMiniGeneralLibraryBaseOptions
-        databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (isEnsureInitialized) {
       return;
     }
     this.pathToFile = pathToFile;
-    this.databaseMiniGeneralLibraryBaseOptions =
-        databaseMiniGeneralLibraryBaseOptions;
+    this.databaseMiniGeneralLibraryBaseOptions = databaseMiniGeneralLibraryBaseOptions;
     isEnsureInitialized = true;
   }
 
+  /// GeneralLib
   void initiaLizedSync({
     Map<dynamic, dynamic>? defaultData,
   }) {
@@ -95,8 +122,7 @@ abstract class DatabaseMiniGeneralLibraryBase
       setDefaultData(
         defaultData: json.decode(decrypt(
           data_base64: readSync(),
-          databaseMiniGeneralLibraryBaseOptions:
-              databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
         )),
       );
     } catch (e) {
@@ -109,6 +135,7 @@ abstract class DatabaseMiniGeneralLibraryBase
     isInitialized = true;
   }
 
+  /// GeneralLib
   Future<void> initiaLized({
     Map<dynamic, dynamic>? defaultData,
   }) async {
@@ -120,8 +147,7 @@ abstract class DatabaseMiniGeneralLibraryBase
       setDefaultData(
         defaultData: json.decode(decrypt(
           data_base64: await readAsync(),
-          databaseMiniGeneralLibraryBaseOptions:
-              databaseMiniGeneralLibraryBaseOptions,
+          databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
         )),
       );
     } catch (e) {
@@ -134,12 +160,14 @@ abstract class DatabaseMiniGeneralLibraryBase
     isInitialized = true;
   }
 
+  /// GeneralLib
   void reset() {
     stateData.clear();
     // stateData.addAll(defaultData);
     setDefaultData(defaultData: defaultData);
   }
 
+  /// GeneralLib
   void setDefaultData({
     required Map<dynamic, dynamic> defaultData,
   }) {
@@ -149,15 +177,14 @@ abstract class DatabaseMiniGeneralLibraryBase
     );
   }
 
+  /// GeneralLib
   String encrypt({
     required Map data,
-    required DatabaseMiniGeneralLibraryBaseOptions
-        databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
       try {
-        return databaseMiniGeneralLibraryBaseOptions.crypto
-            .encrypt(data: json.encode(data));
+        return databaseMiniGeneralLibraryBaseOptions.crypto.encrypt(data: json.encode(data));
       } catch (e) {
         if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
           rethrow;
@@ -176,15 +203,14 @@ abstract class DatabaseMiniGeneralLibraryBase
     }
   }
 
+  /// GeneralLib
   String decrypt({
     required String data_base64,
-    required DatabaseMiniGeneralLibraryBaseOptions
-        databaseMiniGeneralLibraryBaseOptions,
+    required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions,
   }) {
     if (databaseMiniGeneralLibraryBaseOptions.isUseCrypto) {
       try {
-        return databaseMiniGeneralLibraryBaseOptions.crypto
-            .decrypt(data: data_base64);
+        return databaseMiniGeneralLibraryBaseOptions.crypto.decrypt(data: data_base64);
       } catch (e) {
         if (databaseMiniGeneralLibraryBaseOptions.isIgnoreError == false) {
           rethrow;
@@ -203,11 +229,15 @@ abstract class DatabaseMiniGeneralLibraryBase
     }
   }
 
+  /// GeneralLib
+
   T valueBuilder<T>({
     required T Function(DatabaseMiniGeneralLibraryBase db) builder,
   }) {
     return builder(this);
   }
+
+  /// GeneralLib
 
   FutureOr<T> valueBuilderAsync<T>({
     required FutureOr<T> Function(DatabaseMiniGeneralLibraryBase db) builder,
@@ -215,9 +245,13 @@ abstract class DatabaseMiniGeneralLibraryBase
     return await builder(this);
   }
 
+  /// GeneralLib
+
   Map<dynamic, dynamic> toMap() {
     return toJson();
   }
+
+  /// GeneralLib
 
   Map<dynamic, dynamic> toJson() {
     return stateData;
@@ -228,12 +262,11 @@ abstract class DatabaseMiniGeneralLibraryBase
     return json.encode(stateData);
   }
 
+  /// GeneralLib
   DatabaseMiniGeneralLibraryBuilder<T> get<T>({
     required String key,
   }) {
-    final DatabaseMiniGeneralLibraryBuilder<T>
-        databaseMiniGeneralLibraryBuilder =
-        DatabaseMiniGeneralLibraryBuilder<T>(
+    final DatabaseMiniGeneralLibraryBuilder<T> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<T>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -244,13 +277,12 @@ abstract class DatabaseMiniGeneralLibraryBase
     return databaseMiniGeneralLibraryBuilder;
   }
 
+  /// GeneralLib
   DatabaseMiniGeneralLibraryBuilder<bool> set<bool>({
     required String key,
     required Object? value,
   }) {
-    final DatabaseMiniGeneralLibraryBuilder<bool>
-        databaseMiniGeneralLibraryBuilder =
-        DatabaseMiniGeneralLibraryBuilder<bool>(
+    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -261,10 +293,9 @@ abstract class DatabaseMiniGeneralLibraryBase
     return databaseMiniGeneralLibraryBuilder;
   }
 
+  /// GeneralLib
   DatabaseMiniGeneralLibraryBuilder<bool> write<bool>() {
-    final DatabaseMiniGeneralLibraryBuilder<bool>
-        databaseMiniGeneralLibraryBuilder =
-        DatabaseMiniGeneralLibraryBuilder<bool>(
+    final DatabaseMiniGeneralLibraryBuilder<bool> databaseMiniGeneralLibraryBuilder = DatabaseMiniGeneralLibraryBuilder<bool>(
       db: this,
     );
     databaseMiniGeneralLibraryBuilder.ensureInitialized(
@@ -275,6 +306,7 @@ abstract class DatabaseMiniGeneralLibraryBase
     return databaseMiniGeneralLibraryBuilder;
   }
 
+  /// GeneralLib
   void close() {
     stateData.clear();
     defaultData.clear();
@@ -289,73 +321,92 @@ abstract class DatabaseMiniGeneralLibraryBase
     stateData.addAll(other);
   }
 
+  /// GeneralLib
   void addEntries(Iterable<MapEntry> newEntries) {
     stateData.addEntries(newEntries);
   }
 
+  /// GeneralLib
   Map<RK, RV> cast<RK, RV>() {
     return stateData.cast<RK, RV>();
   }
 
+  /// GeneralLib
   void clear() {
     stateData.clear();
-    // TODO: implement clear
+
+    /// GeneralLib clear
   }
 
+  /// GeneralLib
   bool containsKey(Object? key) {
     return stateData.containsKey(key);
   }
 
+  /// GeneralLib
   bool containsValue(Object? value) {
     return stateData.containsValue(value);
   }
 
-  // TODO: implement entries
+  /// GeneralLib entries
   Iterable<MapEntry> get entries => stateData.entries;
 
+  /// GeneralLib
   void forEach(void Function(dynamic key, dynamic value) action) {
     stateData.forEach(action);
   }
 
-  // TODO: implement isEmpty
+  /// GeneralLib isEmpty
   bool get isEmpty => stateData.isEmpty;
 
-  // TODO: implement isNotEmpty
+  /// GeneralLib isNotEmpty
   bool get isNotEmpty => stateData.isNotEmpty;
 
-  // TODO: implement keys
+  /// GeneralLib keys
+  //
+  /// GeneralLib
   Iterable get keys => stateData.keys;
 
-  // TODO: implement length
+  /// GeneralLib length
+
+  /// GeneralLib
   int get length => stateData.length;
 
-  Map<K2, V2> map<K2, V2>(
-      MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
+  /// GeneralLib
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(dynamic key, dynamic value) convert) {
     return stateData.map<K2, V2>(convert);
   }
+
+  /// GeneralLib
 
   putIfAbsent(key, Function() ifAbsent) {
     return stateData.putIfAbsent(key, ifAbsent);
   }
 
+  /// GeneralLib
   remove(Object? key) {
     return stateData.remove(key);
   }
 
+  /// GeneralLib
   void removeWhere(bool Function(dynamic key, dynamic value) test) {
     return stateData.removeWhere(test);
   }
 
+  /// GeneralLib
   update(key, Function(dynamic value) update, {Function()? ifAbsent}) {
     return stateData.update(key, update, ifAbsent: ifAbsent);
   }
 
+  /// GeneralLib
   void updateAll(Function(dynamic key, dynamic value) update) {
-    // TODO: implement updateAll
+    /// GeneralLib updateAll
     return stateData.updateAll(update);
   }
 
-  // TODO: implement values
+  /// GeneralLib values
+
+  /// GeneralLib
   Iterable get values => stateData.values;
 
   ///

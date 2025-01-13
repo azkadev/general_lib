@@ -34,11 +34,16 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 // ignore_for_file: non_constant_identifier_names, no_leading_underscores_for_local_identifiers
 
+
+/// GeneralLib
 class FileSize {
+
+/// GeneralLib
   static int get mb_one {
     return (1048576);
   }
 
+/// GeneralLib
   static int get gb_one {
     return (mb_one * 1024);
   }

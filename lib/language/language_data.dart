@@ -37,6 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:general_lib/scheme/language_code_data_detail.dart';
 import 'package:general_lib/schemes/language_code.dart';
 
+/// GeneralLib
 final Map<String, LanguageCodeDataDetail> languageCodeDetailData = () {
   final Map<String, LanguageCodeDataDetail> jsonData = {};
   for (var element in languageCodeJson.entries) {
@@ -51,11 +52,15 @@ final Map<String, LanguageCodeDataDetail> languageCodeDetailData = () {
   return jsonData;
 }.call();
 
+/// GeneralLib
 final List<String> languageCodeNames =
     languageCodeJson.keys.whereType<String>().toList();
 
+/// GeneralLib
 extension LanguageCodeDataDetailGeneralLibExtensions
     on Map<String, LanguageCodeDataDetail> {
+
+/// GeneralLib
   Future<LanguageCodeDataDetail?> languageDetailDataQuery({
     required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
         onData,
@@ -71,6 +76,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
     return null;
   }
 
+/// GeneralLib
   LanguageCodeDataDetail? languageDetailDataQuerySync({
     required bool Function(LanguageCodeDataDetail languageDetailData) onData,
   }) {
@@ -86,6 +92,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
     return null;
   }
 
+/// GeneralLib
   Future<LanguageCodeDataDetail> languageDetailDataQueryForce({
     required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
         onData,
@@ -95,6 +102,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
         defaultLanguageCodeDataDetail;
   }
 
+/// GeneralLib
   LanguageCodeDataDetail languageDetailDataQueryForceSync({
     required bool Function(LanguageCodeDataDetail languageDetailData) onData,
     required LanguageCodeDataDetail defaultLanguageCodeDataDetail,
@@ -103,6 +111,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
         defaultLanguageCodeDataDetail;
   }
 
+/// GeneralLib
   LanguageCodeDataDetail? languageDetailDataGetByPhoneCode({
     required RegExp regExpPhoneCode,
   }) {

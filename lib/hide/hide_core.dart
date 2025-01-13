@@ -38,17 +38,36 @@ import 'dart:convert';
 
 import 'package:general_lib/extension/regexp.dart';
 
+/// GeneralLib
 enum HideDataType {
+  
+/// GeneralLib
   obfuscate,
+  
+/// GeneralLib
   replace,
 }
 
+
+/// GeneralLib
 class HideRegExp {
+
+/// GeneralLib
   final RegExp regExp;
+
+/// GeneralLib
   final String replace;
+
+/// GeneralLib
   final HideDataType hideDataType;
+
+/// GeneralLib
   final int startIndexObfuscate;
+
+/// GeneralLib
   final int endIndexObfuscate;
+
+/// GeneralLib
   HideRegExp({
     required this.regExp,
     required this.replace,
@@ -58,9 +77,14 @@ class HideRegExp {
   });
 }
 
+
+/// GeneralLib
 class Hide {
+
+/// GeneralLib
   Hide();
 
+/// GeneralLib
   String obfocustData({
     required String mystring,
     int start = 5,
@@ -87,6 +111,7 @@ class Hide {
     return message;
   }
 
+/// GeneralLib
   String hideData({
     required String data,
     required List<HideRegExp> hideRegExps,
@@ -118,6 +143,7 @@ class Hide {
     return data;
   }
 
+/// GeneralLib
   List<dynamic> cloneRecuriveList({
     required List data,
     required List<HideRegExp> hideRegExps,
@@ -181,6 +207,7 @@ class Hide {
     return newData;
   }
 
+/// GeneralLib
   Map cloneRecuriveMap({
     required Map data,
     required List<HideRegExp> hideRegExps,
@@ -293,6 +320,7 @@ class Hide {
     return newData;
   }
 
+/// GeneralLib
   static T dataToOrigin<T>({
     required T data,
     required List<HideRegExp> hideRegExps,
@@ -351,6 +379,7 @@ class Hide {
     }
   }
 
+/// GeneralLib
   static String dataToString({
     required dynamic data,
     required List<HideRegExp> hideRegExps,

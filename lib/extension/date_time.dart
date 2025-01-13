@@ -34,7 +34,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+/// GeneralLib
 extension DateTimeExtensions on DateTime {
+  /// GeneralLib
   bool isExpired() {
     return isBefore(DateTime.now());
   }

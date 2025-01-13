@@ -41,7 +41,9 @@ import "package:general_lib/json_scheme/json_scheme.dart";
 import "list.dart" as listext;
 import "regexp.dart" as regexp;
 
+/// GeneralLib
 extension GeneralLibExtensionMap on Map {
+  /// GeneralLib
   Map clone() {
     Map jsonData = {};
     forEach((key, value) {
@@ -56,6 +58,7 @@ extension GeneralLibExtensionMap on Map {
     return jsonData;
   }
 
+  /// GeneralLib
   bool hashNewData(Map data) {
     bool is_new_data = false;
 
@@ -97,6 +100,7 @@ extension GeneralLibExtensionMap on Map {
     return is_new_data;
   }
 
+  /// GeneralLib
   bool hashData(Map data) {
     int count_valid = 0;
     int count_data_same = 0;
@@ -181,6 +185,7 @@ extension GeneralLibExtensionMap on Map {
     return (count_valid == count_data_same);
   }
 
+  /// GeneralLib
   Map<T, K> removeValueNull<T, K>() {
     forEach((key, value) {
       if (value == null) {
@@ -189,6 +194,8 @@ extension GeneralLibExtensionMap on Map {
     });
     return cast<T, K>();
   }
+
+  /// GeneralLib
 
   Map<T, K> filterByKeys<T, K>({
     required List<String> keys,
@@ -210,6 +217,8 @@ extension GeneralLibExtensionMap on Map {
     return jsonData;
   }
 
+  /// GeneralLib
+
   Map<T, K> filterByKeysFromMapKeys<T, K>({
     required Map<String, dynamic> keys,
     bool isAllowValueNull = true,
@@ -220,6 +229,8 @@ extension GeneralLibExtensionMap on Map {
     );
   }
 
+  /// GeneralLib
+
   void removeByKeys(List<String> keys, {bool isAllowValueNull = true}) {
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
@@ -228,6 +239,8 @@ extension GeneralLibExtensionMap on Map {
       }
     }
   }
+
+  /// GeneralLib
 
   dynamic extension_general_lib_getData({
     required String key,
@@ -248,6 +261,7 @@ extension GeneralLibExtensionMap on Map {
     return state_data;
   }
 
+  /// GeneralLib
   void utils_set_datas_void(List datas, dynamic value) {
     dynamic state_data = this;
     for (var index = 0; index < datas.length; index++) {
@@ -263,20 +277,26 @@ extension GeneralLibExtensionMap on Map {
     return;
   }
 
+  /// GeneralLib
   void utils_set_data_void(String data, dynamic value) {
     utils_set_datas_void(data.split("."), value);
     return;
   }
 
+  /// GeneralLib
   Map utils_set_datas(List datas, value) {
     utils_set_datas_void(datas, value);
     return this;
   }
 
+  /// GeneralLib
+
   Map utils_set_data(dynamic data, value) {
     utils_set_data_void(data, value);
     return this;
   }
+
+  /// GeneralLib
 
   void general_lib_utils_updateMapIfNotSameOrEmptyOrNull({
     required Map data,
@@ -298,8 +318,7 @@ extension GeneralLibExtensionMap on Map {
         if (this[key] == null) {
           this[key] = value;
         } else if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(
-              data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         }
@@ -307,6 +326,8 @@ extension GeneralLibExtensionMap on Map {
     });
     return;
   }
+
+  /// GeneralLib
 
   void general_lib_utils_updateMapWithReplace({
     required Map data,
@@ -327,8 +348,7 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapWithReplace(
-              data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapWithReplace(data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -338,6 +358,8 @@ extension GeneralLibExtensionMap on Map {
     });
     return;
   }
+
+  /// GeneralLib
 
   void general_lib_utils_updateIfNotSameTypeOrEmpty({
     required Map data,
@@ -361,8 +383,7 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(
-              data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -375,6 +396,7 @@ extension GeneralLibExtensionMap on Map {
     return;
   }
 
+  /// GeneralLib
   void general_lib_utils_removeRecursiveByKeys({
     required List<String> keyDatas,
   }) {
@@ -386,8 +408,7 @@ extension GeneralLibExtensionMap on Map {
       if (value is Map) {
         value.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       } else if (value is JsonScheme) {
-        value.rawData
-            .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+        value.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       }
 
       if (value is List<Map>) {
@@ -396,14 +417,15 @@ extension GeneralLibExtensionMap on Map {
         }
       } else if (value is List<JsonScheme>) {
         for (var element in value) {
-          element.rawData
-              .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+          element.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
         }
       }
 
       return false;
     });
   }
+
+  /// GeneralLib
 
   void general_lib_utils_removeRecursiveValueNullOrEmpty() {
     removeWhere((key, value) {
@@ -447,8 +469,7 @@ extension GeneralLibExtensionMap on Map {
             }
           } else if (value is List<JsonScheme>) {
             for (var element in value) {
-              element.rawData
-                  .general_lib_utils_removeRecursiveValueNullOrEmpty();
+              element.rawData.general_lib_utils_removeRecursiveValueNullOrEmpty();
             }
           }
         }
@@ -457,6 +478,7 @@ extension GeneralLibExtensionMap on Map {
     });
   }
 
+  /// GeneralLib
   void general_lib_extension_removeNullVoid() {
     forEach((key, value) {
       try {
@@ -470,6 +492,8 @@ extension GeneralLibExtensionMap on Map {
     });
     return;
   }
+
+  /// GeneralLib
 
   void general_lib_extension_updateForce({
     required Map data,
@@ -489,6 +513,8 @@ extension GeneralLibExtensionMap on Map {
     });
     return;
   }
+
+  /// GeneralLib
 
   void general_lib_extension_updateVoid({
     required Map data,

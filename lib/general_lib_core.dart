@@ -40,17 +40,35 @@ import 'dart:math';
 import 'package:general_lib/extension/extension.dart';
 import 'package:io_universe/io_universe.dart';
 
+
+/// GeneralLib
 enum NetworkClientConnectionType {
+
+/// GeneralLib
   http,
+
+/// GeneralLib
   tcpsocket,
+
+/// GeneralLib
   websocket,
 }
 
+
+/// GeneralLib
 enum GeneralLibSchemeType {
+
+/// GeneralLib
   database,
+
+/// GeneralLib
   local,
+
+/// GeneralLib
   scheme;
 
+
+/// GeneralLib
   String toSpesialType() {
     if (this == database) {
       return "Database";
@@ -73,6 +91,8 @@ String getUuid(int length, {String? text}) {
       Iterable.generate(length, (_) => ch.codeUnitAt(r.nextInt(ch.length))));
 }
 
+/// GeneralLib
+
 String generateUuid(
   int length, {
   String text = "0123456789abcdefghijklmnopqrstuvwxyz",
@@ -88,37 +108,54 @@ String generateUuid(
   }).join("");
 }
 
+/// GeneralLib
+
 T getRandomElement<T>(List<T> list) {
   final random = Random();
   var i = random.nextInt(list.length);
   return list[i];
 }
 
+/// GeneralLib
 class JsonDataScript {
+  
+/// GeneralLib
   String className;
+  
+/// GeneralLib
   List<String> datas;
+  
+/// GeneralLib
   bool is_isar;
+  
+/// GeneralLib
   JsonDataScript({
     required this.className,
     required this.datas,
     this.is_isar = false,
   });
+
+/// GeneralLib
   String get first {
     return datas.first;
   }
+/// GeneralLib
 
   String get last {
     return datas.last;
   }
 
+/// GeneralLib
   String get first_name {
     return "${className.snakeCaseClass().toLowerCase()}.dart";
   }
+/// GeneralLib
 
   String get last_name {
     return "${className.snakeCaseClass().toLowerCase()}.g.dart";
   }
 
+/// GeneralLib
   Future<Directory> saveToFile(Directory output) async {
     if (!output.existsSync()) {
       await output.create(recursive: true);
@@ -144,6 +181,7 @@ class JsonDataScript {
   }
 }
 
+/// GeneralLib
 (List<int> offsets, int limit) createOffset({
   required int totalCount,
   required int limitCount,

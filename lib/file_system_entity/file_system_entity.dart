@@ -41,11 +41,16 @@ import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 class FileSystemEntityIgnore {
+
+/// GeneralLib
   static List<String> ignoreFileNames = [
     ".gitignore",
     ".pubignore",
   ];
+
+/// GeneralLib
   static List<String> getFileIgnoresByDirectory({
     required String currentPath,
   }) {
@@ -68,7 +73,10 @@ class FileSystemEntityIgnore {
   }
 }
 
+/// GeneralLib
 extension ExtensionOnStorTtpe on List<FileSystemEntity> {
+
+/// GeneralLib
   List<FileSystemEntity> local_sort({
     SortFileSystemEntityType sortFileSystemEntityType =
         SortFileSystemEntityType.type,
@@ -112,6 +120,7 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
     return this;
   }
 
+/// GeneralLib
   List<FileSystemEntityChildren> toTree() {
     List<FileSystemEntityChildren> sles = [];
 
@@ -150,23 +159,39 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
   }
 }
 
+
+/// GeneralLib
 extension FileSaloslapsExtension on List<FileSystemEntityChildren> {
+
+/// GeneralLib
   List<Map> toJson() {
     return map((e) => e.toJson()).toList(
       growable: true,
     );
   }
 
+/// GeneralLib
   String toStringData() {
     return (toJson().toStringifyPretty());
   }
 }
 
+/// GeneralLib
 class FileSystemEntityChildren {
+
+/// GeneralLib
   FileSystemEntity fileSystemEntity;
+
+/// GeneralLib
   Map state_data = {};
+
+/// GeneralLib
   FileSystemEntityType fileSystemEntityType;
+
+/// GeneralLib
   List<FileSystemEntityChildren> children;
+
+/// GeneralLib
   FileSystemEntityChildren({
     required this.fileSystemEntity,
     required this.state_data,
@@ -174,6 +199,7 @@ class FileSystemEntityChildren {
     required this.children,
   });
 
+/// GeneralLib
   Map toJson() {
     return {
       "@type": "fileSystemEntityChildren",

@@ -41,7 +41,17 @@ import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
 
+/// GeneralLib
 extension DirectoryHelper on Directory {
+  /// GeneralLib
+  Directory generalLibUtilsDangerRecreate() {
+    if (existsSync()) {
+      deleteSync(recursive: true);
+    }
+    createSync(recursive: true);
+    return this;
+  }
+
   /// Recursively copies a directory + subdirectories into a target directory.
   /// Similar to Copy-Item in PowerShell.
   void copyTo(
@@ -125,7 +135,7 @@ extension DirectoryHelper on Directory {
   //     });
   //   } catch (e) {}
   // }
-
+  /// GeneralLib
   void renameRecursive({
     required String origin_name,
     required String new_name,
@@ -141,22 +151,12 @@ extension DirectoryHelper on Directory {
           if (ignoreDirList.contains(path.basename(entity.path))) {
             continue;
           }
-          if (RegExp(origin_name, caseSensitive: false)
-              .hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(
-                RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
-            Directory(file_path).renameRecursive(
-                origin_name: origin_name,
-                new_name: new_name,
-                ignoreDirList: ignoreDirList,
-                ignoreFileList: ignoreFileList);
+            Directory(file_path).renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
           } else {
-            entity.absolute.renameRecursive(
-                origin_name: origin_name,
-                new_name: new_name,
-                ignoreDirList: ignoreDirList,
-                ignoreFileList: ignoreFileList);
+            entity.absolute.renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
           }
         } else if (entity is File) {
           if (ignoreFileList.contains(path.basename(entity.path))) {
@@ -164,18 +164,13 @@ extension DirectoryHelper on Directory {
           }
           try {
             String data = entity.readAsStringSync();
-            if (RegExp(origin_name, caseSensitive: caseSensitiveFile)
-                .hashData(data)) {
-              entity.writeAsStringSync(data.replaceAll(
-                  RegExp(origin_name, caseSensitive: caseSensitiveFile),
-                  new_name));
+            if (RegExp(origin_name, caseSensitive: caseSensitiveFile).hashData(data)) {
+              entity.writeAsStringSync(data.replaceAll(RegExp(origin_name, caseSensitive: caseSensitiveFile), new_name));
             }
           } catch (e) {}
 
-          if (RegExp(origin_name, caseSensitive: false)
-              .hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(
-                RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
           }
         }
@@ -183,6 +178,8 @@ extension DirectoryHelper on Directory {
     }
     return;
   }
+
+  /// GeneralLib
 
   void renameRecursiveSync({
     required String origin_name,
@@ -198,22 +195,12 @@ extension DirectoryHelper on Directory {
           if (ignoreDirList.contains(path.basename(entity.path))) {
             continue;
           }
-          if (RegExp(origin_name, caseSensitive: false)
-              .hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(
-                RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
-            Directory(file_path).renameRecursive(
-                origin_name: origin_name,
-                new_name: new_name,
-                ignoreDirList: ignoreDirList,
-                ignoreFileList: ignoreFileList);
+            Directory(file_path).renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
           } else {
-            entity.absolute.renameRecursive(
-                origin_name: origin_name,
-                new_name: new_name,
-                ignoreDirList: ignoreDirList,
-                ignoreFileList: ignoreFileList);
+            entity.absolute.renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
           }
         } else if (entity is File) {
           if (ignoreFileList.contains(path.basename(entity.path))) {
@@ -222,15 +209,12 @@ extension DirectoryHelper on Directory {
           try {
             String data = entity.readAsStringSync();
             if (RegExp(origin_name, caseSensitive: false).hashData(data)) {
-              entity.writeAsStringSync(data.replaceAll(
-                  RegExp(origin_name, caseSensitive: false), new_name));
+              entity.writeAsStringSync(data.replaceAll(RegExp(origin_name, caseSensitive: false), new_name));
             }
           } catch (e) {}
 
-          if (RegExp(origin_name, caseSensitive: false)
-              .hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(
-                RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
           }
         }
@@ -238,6 +222,8 @@ extension DirectoryHelper on Directory {
     }
     return;
   }
+
+  /// GeneralLib
 
   Future<void> recursive({
     required FutureOr<void> Function(FileSystemEntity fileSystemEntity) onData,

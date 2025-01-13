@@ -40,14 +40,21 @@ import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart';
 import 'package:general_lib/general_lib.dart';
 
+/// GeneralLib
 class Crypto {
+  /// GeneralLib
   final String key;
+
+  /// GeneralLib
   final String iv;
+
+  /// GeneralLib
   const Crypto({
     required this.key,
     this.iv = "AAAAAAAAAAAAAAAAAAAAAA==",
   });
 
+  /// GeneralLib
   static String generateKey({
     String scheme = "0123456789abcdefghijklmnopqrstuvwxyz",
   }) {
@@ -60,14 +67,17 @@ class Crypto {
   //   );
   // }
 
+  /// GeneralLib
   const Crypto.defaultCrypto()
       : key = "aFWcpMJ8eqcedhWjY2ZjW5ejDGUeBQoK",
         iv = "WSavXkGwlNwaUwcQAiZtrw==";
 
+  /// GeneralLib
   static Crypto empty() {
     return Crypto(key: "");
   }
 
+  /// GeneralLib
   static void cryptoExchanges<JSCDATA extends JsonScheme>({
     required JSCDATA jsonSceheme,
     required Set<String> keys,
@@ -86,6 +96,7 @@ class Crypto {
     return;
   }
 
+  /// GeneralLib
   static void cryptoExchange<DV>({
     required DV defaultValue,
     required void Function(DV defaultValue) changeValue,
@@ -103,6 +114,7 @@ class Crypto {
     }
   }
 
+  /// GeneralLib
   String encrypt({
     required String data,
     String? newKey,
@@ -121,6 +133,7 @@ class Crypto {
     return encrypter.encrypt(data, iv: IV.fromBase64(iv)).base64;
   }
 
+  /// GeneralLib
   String decrypt({
     required String data,
     String? newKey,
@@ -138,18 +151,21 @@ class Crypto {
     return encrypter.decrypt64(data, iv: IV.fromBase64(iv));
   }
 
+  /// GeneralLib
   String encryptMapToBase64({
     required Map data,
   }) {
     return encryptToBase64(text: json.encode(data));
   }
 
+  /// GeneralLib
   String encryptListToBase64({
     required List data,
   }) {
     return encryptToBase64(text: json.encode(data));
   }
 
+  /// GeneralLib
   Uint8List encryptBytes({
     required List<int> data,
     String? key,
@@ -161,6 +177,7 @@ class Crypto {
     return encrypter.encryptBytes(data, iv: IV.fromBase64(iv)).bytes;
   }
 
+  /// GeneralLib
   List<int> decryptBytes({
     required List<int> data,
     String? key,
@@ -169,10 +186,10 @@ class Crypto {
     iv ??= this.iv;
     key ??= this.key;
     final encrypter = Encrypter(AES(Key.fromUtf8(key)));
-    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)),
-        iv: IV.fromBase64(iv));
+    return encrypter.decryptBytes(Encrypted(Uint8List.fromList(data)), iv: IV.fromBase64(iv));
   }
 
+  /// GeneralLib
   Uint8List encryptsBytes({
     required List<int> data,
     required List<String> keys,
@@ -185,6 +202,7 @@ class Crypto {
     return uint8list;
   }
 
+  /// GeneralLib
   List<int> decryptsBytes({
     required List<int> data,
     required List<String> keys,
@@ -197,6 +215,7 @@ class Crypto {
     return uint8list;
   }
 
+  /// GeneralLib
   String encryptToBase64({
     required String text,
     String? key,
@@ -208,6 +227,8 @@ class Crypto {
 
     return encrypter.encrypt(text, iv: IV.fromBase64(iv)).base64;
   }
+
+  /// GeneralLib
 
   String decryptFromBase64({
     required String text,

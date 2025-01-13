@@ -35,8 +35,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: unnecessary_brace_in_string_interps, empty_catches
 
 import 'package:general_lib/scheme/duration_data_scheme.dart';
-
+/// GeneralLib
 extension DurationExtensions on Duration {
+  /// GeneralLib
   String toAgo() {
     if (inDays >= 1) {
       return '${inDays} day(s) ago';
@@ -53,7 +54,7 @@ extension DurationExtensions on Duration {
     } else {
       return "just now";
     }
-  }
+  }/// GeneralLib
 
   String toLeft() {
     if (inDays >= 1) {
@@ -72,7 +73,7 @@ extension DurationExtensions on Duration {
       return "just now";
     }
   }
-
+/// GeneralLib
   String toDurationLocal() {
     if (inDays >= 1) {
       return '${inDays} days';
@@ -90,7 +91,7 @@ extension DurationExtensions on Duration {
       return "Life Time";
     }
   }
-
+/// GeneralLib
   Duration fromJson(Map data) {
     final DurationDataScheme durationData = DurationDataScheme(data);
     return Duration(
@@ -102,11 +103,11 @@ extension DurationExtensions on Duration {
       microseconds: (durationData.microseconds ?? 0).toInt(),
     );
   }
-
+/// GeneralLib
   String toText() {
     return "${inDays} ${inHours} ${inMinutes} ${inSeconds} ${inMilliseconds} ${inMicroseconds}";
   }
-
+/// GeneralLib
   Map toJson() {
     return DurationDataScheme.create(
       special_type: "durationDataScheme",

@@ -7,14 +7,30 @@ import 'package:io_universe/io_universe.dart';
 import 'package:general_lib/general_lib.dart';
 import 'socket_data.dart';
 
+/// GeneralLib
 class NetworkClientGeneralLib {
+  /// GeneralLib
   String multiCastGroup;
+
+  /// GeneralLib
   int port;
+
+  /// GeneralLib
   final Map<String, GeneralSocketData> general_socket_data = {};
+
+  /// GeneralLib
   final EventEmitter event_emitter = EventEmitter();
+
+  /// GeneralLib
   final String event_update;
+
+  /// GeneralLib
   final List<NetworkInterface> network_interface_connecteds = [];
+
+  /// GeneralLib
   bool isKeepRunning;
+
+  /// GeneralLib
   NetworkClientGeneralLib({
     this.event_update = "update",
     this.multiCastGroup = '224.0.0.167',
@@ -22,12 +38,11 @@ class NetworkClientGeneralLib {
     this.isKeepRunning = true,
   });
 
+  /// GeneralLib
   EventEmitterListener on({
     required String eventName,
     Object? context,
-    required FutureOr<dynamic> Function(
-            GeneralSocketMessageData generalSocketMessageData)
-        onUpdate,
+    required FutureOr<dynamic> Function(GeneralSocketMessageData generalSocketMessageData) onUpdate,
     FutureOr<dynamic> Function(Object e, StackTrace stackTrace)? onError,
   }) {
     return event_emitter.on(
@@ -49,6 +64,7 @@ class NetworkClientGeneralLib {
     );
   }
 
+  /// GeneralLib
   void emit({
     required String eventName,
     Object? context,
@@ -60,6 +76,7 @@ class NetworkClientGeneralLib {
     );
   }
 
+  /// GeneralLib
   Future<String> createNewSocketId({
     String? newSocketId,
   }) async {
@@ -74,25 +91,27 @@ class NetworkClientGeneralLib {
         return "";
       }
       final String new_socket_id = generateUuid(10);
-      final GeneralSocketData? generalSocketData =
-          general_socket_data[new_socket_id];
+      final GeneralSocketData? generalSocketData = general_socket_data[new_socket_id];
       if (generalSocketData == null) {
         return new_socket_id;
       }
     }
   }
 
+  /// GeneralLib
   Future<void> initialized() async {
     await reloadAll();
     return;
   }
 
+  /// GeneralLib
   Future<void> reloadAll() async {
     for (NetworkInterface networkInterface in await NetworkInterface.list()) {
       await reload(networkInterface: networkInterface);
     }
   }
 
+  /// GeneralLib
   void close() {
     isKeepRunning = false;
     for (var element in general_socket_data.entries) {
@@ -102,6 +121,7 @@ class NetworkClientGeneralLib {
     network_interface_connecteds.clear();
   }
 
+  /// GeneralLib
   Future<bool> reload({
     required NetworkInterface networkInterface,
   }) async {
@@ -152,6 +172,7 @@ class NetworkClientGeneralLib {
     return true;
   }
 
+  /// GeneralLib
   Future<void> sendMultiCastRaw({
     required List<int> buffer,
   }) async {
@@ -173,18 +194,21 @@ class NetworkClientGeneralLib {
     }
   }
 
+  /// GeneralLib
   Future<void> sendMultiCastText({
     required String value,
   }) async {
     return await sendMultiCastRaw(buffer: utf8.encode(value));
   }
 
+  /// GeneralLib
   Future<void> sendMultiCastJson({
     required Map value,
   }) async {
     return await sendMultiCastRaw(buffer: utf8.encode(json.encode(value)));
   }
 
+  /// GeneralLib
   int sendRaw({
     required List<int> buffer,
     required String socketId,
@@ -198,6 +222,7 @@ class NetworkClientGeneralLib {
     return 0;
   }
 
+  /// GeneralLib
   int sendText({
     required String value,
     required String socketId,
@@ -211,6 +236,7 @@ class NetworkClientGeneralLib {
     return 0;
   }
 
+  /// GeneralLib
   int sendJson({
     required Map value,
     required String socketId,

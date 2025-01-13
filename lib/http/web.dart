@@ -7,8 +7,11 @@ import "package:http/http.dart" as http;
 import "package:http/browser_client.dart";
 import "package:io_universe/io_universe.dart";
 
+/// GeneralLib
 class HttpClientGeneralLib implements http.Client {
   late final BrowserClient _client;
+
+/// GeneralLib
   HttpClientGeneralLib(
     HttpClient? httpClient,
   ) {

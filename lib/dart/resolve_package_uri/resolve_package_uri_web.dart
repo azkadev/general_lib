@@ -32,6 +32,8 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+
+/// GeneralLib
 Uri? resolvePackageUriSync(Uri uri) {
   return null;
 }

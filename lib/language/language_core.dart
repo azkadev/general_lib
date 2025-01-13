@@ -37,10 +37,17 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 import 'package:general_lib/regexp_replace/regexp_replace.dart';
 import 'package:general_lib/scheme/language_code_data.dart';
 
+
+/// GeneralLib
 class Language {
+
+/// GeneralLib
   String language_code = "id";
 
+/// GeneralLib
   List<RegExpReplace> regexp_replaces = [];
+  
+/// GeneralLib
   Language({
     String languageCode = "id",
     required List<RegExpReplace> regexpReplaces,
@@ -49,6 +56,7 @@ class Language {
     regexp_replaces = regexpReplaces;
   }
 
+/// GeneralLib
   String sendLanguage({
     required LanguageCodeData languageCodeData,
     required String id,
@@ -75,6 +83,7 @@ class Language {
     }
   }
 
+/// GeneralLib
   String variableMessage({
     required String text,
     List<RegExpReplace>? regexpReplaces,

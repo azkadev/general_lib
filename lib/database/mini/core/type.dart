@@ -1,6 +1,14 @@
+/// GeneralLib
 enum DatabaseMiniMethodType {
+  /// GeneralLib
   getDatabase,
+
+  /// GeneralLib
   setDatabase,
+
+  /// GeneralLib
   writeDatabase,
-  unknown,
+
+  /// GeneralLib
+  unknown;
 }

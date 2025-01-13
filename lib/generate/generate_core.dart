@@ -38,14 +38,22 @@ import 'dart:math';
 
 import 'package:general_lib/general_lib.dart';
 
+/// GeneralLib
 class GenerateSecretWords {
+
+/// GeneralLib
   int min_count;
+
+/// GeneralLib
   int max_count;
+
+/// GeneralLib
   GenerateSecretWords({
     required this.min_count,
     required this.max_count,
   });
 
+/// GeneralLib
   static GenerateSecretWords minMax({
     required int minCount,
     required int maxCount,
@@ -56,6 +64,7 @@ class GenerateSecretWords {
     );
   }
 
+/// GeneralLib
   static GenerateSecretWords fixed({required int totalCount}) {
     return GenerateSecretWords(
       max_count: totalCount,
@@ -63,6 +72,7 @@ class GenerateSecretWords {
     );
   }
 
+/// GeneralLib
   int totalLength() {
     if (min_count == max_count) {
       return min_count;
@@ -71,9 +81,13 @@ class GenerateSecretWords {
   }
 }
 
+/// GeneralLib
 class Generate {
+
+/// GeneralLib
   Generate();
 
+/// GeneralLib
   static List<String> secretRandomWords({
     required int totalCount,
     required GenerateSecretWords generateSecretWords,

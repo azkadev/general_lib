@@ -1,5 +1,11 @@
+/// GeneralLib
 enum GeneralLibParseModeType {
+  /// GeneralLib
   html,
+
+  /// GeneralLib
   markdown,
-  raw,
+
+  /// GeneralLib
+  raw;
 }

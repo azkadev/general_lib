@@ -33,9 +33,17 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 
+/// GeneralLib
 enum SortFileSystemEntityType {
+  /// GeneralLib
   name,
+
+  /// GeneralLib
   size,
+
+  /// GeneralLib
   time,
-  type,
+
+  /// GeneralLib
+  type;
 }
