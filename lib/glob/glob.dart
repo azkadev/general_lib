@@ -6,8 +6,7 @@ import "package:path/path.dart" as path;
 
 /// GeneralLib
 extension GlobGeneralLibExtensionListRegExp on List<RegExp> {
-
-/// GeneralLib
+  /// GeneralLib
   bool globContains(Object? value) {
     if (value is String) {
       for (final element in this) {
@@ -31,8 +30,7 @@ extension GlobGeneralLibExtensionListRegExp on List<RegExp> {
 
 /// GeneralLib
 extension GlobGeneralLibExtensionString on String {
-
-/// GeneralLib
+  /// GeneralLib
   List<String> toGlob() {
     final List<String> globs = [];
     for (final elementLoop in split("\n")) {
@@ -48,12 +46,12 @@ extension GlobGeneralLibExtensionString on String {
     return globs;
   }
 
-/// GeneralLib
+  /// GeneralLib
   List<RegExp> toGlobRegExp() {
     return toGlob().map((e) => RegExp(e)).toList();
   }
 
-/// GeneralLib
+  /// GeneralLib
   String toGlobPattern() {
     String result = this;
     for (final element in globRegExpReplaces) {

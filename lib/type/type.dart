@@ -77,7 +77,8 @@ enum GeneralLibClientUseType {
     required String text,
     required GeneralLibClientUseType Function() onDefault,
   }) {
-    final GeneralLibClientUseType generalLibClientUseType = getFromText(text: text);
+    final GeneralLibClientUseType generalLibClientUseType =
+        getFromText(text: text);
     if (generalLibClientUseType == GeneralLibClientUseType.unknown) {
       return onDefault();
     }

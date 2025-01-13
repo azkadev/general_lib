@@ -151,12 +151,22 @@ extension DirectoryHelper on Directory {
           if (ignoreDirList.contains(path.basename(entity.path))) {
             continue;
           }
-          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false)
+              .hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(
+                RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
-            Directory(file_path).renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
+            Directory(file_path).renameRecursive(
+                origin_name: origin_name,
+                new_name: new_name,
+                ignoreDirList: ignoreDirList,
+                ignoreFileList: ignoreFileList);
           } else {
-            entity.absolute.renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
+            entity.absolute.renameRecursive(
+                origin_name: origin_name,
+                new_name: new_name,
+                ignoreDirList: ignoreDirList,
+                ignoreFileList: ignoreFileList);
           }
         } else if (entity is File) {
           if (ignoreFileList.contains(path.basename(entity.path))) {
@@ -164,13 +174,18 @@ extension DirectoryHelper on Directory {
           }
           try {
             String data = entity.readAsStringSync();
-            if (RegExp(origin_name, caseSensitive: caseSensitiveFile).hashData(data)) {
-              entity.writeAsStringSync(data.replaceAll(RegExp(origin_name, caseSensitive: caseSensitiveFile), new_name));
+            if (RegExp(origin_name, caseSensitive: caseSensitiveFile)
+                .hashData(data)) {
+              entity.writeAsStringSync(data.replaceAll(
+                  RegExp(origin_name, caseSensitive: caseSensitiveFile),
+                  new_name));
             }
           } catch (e) {}
 
-          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false)
+              .hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(
+                RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
           }
         }
@@ -195,12 +210,22 @@ extension DirectoryHelper on Directory {
           if (ignoreDirList.contains(path.basename(entity.path))) {
             continue;
           }
-          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false)
+              .hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(
+                RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
-            Directory(file_path).renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
+            Directory(file_path).renameRecursive(
+                origin_name: origin_name,
+                new_name: new_name,
+                ignoreDirList: ignoreDirList,
+                ignoreFileList: ignoreFileList);
           } else {
-            entity.absolute.renameRecursive(origin_name: origin_name, new_name: new_name, ignoreDirList: ignoreDirList, ignoreFileList: ignoreFileList);
+            entity.absolute.renameRecursive(
+                origin_name: origin_name,
+                new_name: new_name,
+                ignoreDirList: ignoreDirList,
+                ignoreFileList: ignoreFileList);
           }
         } else if (entity is File) {
           if (ignoreFileList.contains(path.basename(entity.path))) {
@@ -209,12 +234,15 @@ extension DirectoryHelper on Directory {
           try {
             String data = entity.readAsStringSync();
             if (RegExp(origin_name, caseSensitive: false).hashData(data)) {
-              entity.writeAsStringSync(data.replaceAll(RegExp(origin_name, caseSensitive: false), new_name));
+              entity.writeAsStringSync(data.replaceAll(
+                  RegExp(origin_name, caseSensitive: false), new_name));
             }
           } catch (e) {}
 
-          if (RegExp(origin_name, caseSensitive: false).hashData(path.basename(entity.path))) {
-            var file_path = entity.path.replaceAll(RegExp(origin_name, caseSensitive: false), new_name);
+          if (RegExp(origin_name, caseSensitive: false)
+              .hashData(path.basename(entity.path))) {
+            var file_path = entity.path.replaceAll(
+                RegExp(origin_name, caseSensitive: false), new_name);
             entity.renameSync(file_path);
           }
         }

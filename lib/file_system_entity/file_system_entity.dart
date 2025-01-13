@@ -43,14 +43,13 @@ import "package:path/path.dart" as path;
 
 /// GeneralLib
 class FileSystemEntityIgnore {
-
-/// GeneralLib
+  /// GeneralLib
   static List<String> ignoreFileNames = [
     ".gitignore",
     ".pubignore",
   ];
 
-/// GeneralLib
+  /// GeneralLib
   static List<String> getFileIgnoresByDirectory({
     required String currentPath,
   }) {
@@ -75,8 +74,7 @@ class FileSystemEntityIgnore {
 
 /// GeneralLib
 extension ExtensionOnStorTtpe on List<FileSystemEntity> {
-
-/// GeneralLib
+  /// GeneralLib
   List<FileSystemEntity> local_sort({
     SortFileSystemEntityType sortFileSystemEntityType =
         SortFileSystemEntityType.type,
@@ -120,7 +118,7 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
     return this;
   }
 
-/// GeneralLib
+  /// GeneralLib
   List<FileSystemEntityChildren> toTree() {
     List<FileSystemEntityChildren> sles = [];
 
@@ -159,18 +157,16 @@ extension ExtensionOnStorTtpe on List<FileSystemEntity> {
   }
 }
 
-
 /// GeneralLib
 extension FileSaloslapsExtension on List<FileSystemEntityChildren> {
-
-/// GeneralLib
+  /// GeneralLib
   List<Map> toJson() {
     return map((e) => e.toJson()).toList(
       growable: true,
     );
   }
 
-/// GeneralLib
+  /// GeneralLib
   String toStringData() {
     return (toJson().toStringifyPretty());
   }
@@ -178,20 +174,19 @@ extension FileSaloslapsExtension on List<FileSystemEntityChildren> {
 
 /// GeneralLib
 class FileSystemEntityChildren {
-
-/// GeneralLib
+  /// GeneralLib
   FileSystemEntity fileSystemEntity;
 
-/// GeneralLib
+  /// GeneralLib
   Map state_data = {};
 
-/// GeneralLib
+  /// GeneralLib
   FileSystemEntityType fileSystemEntityType;
 
-/// GeneralLib
+  /// GeneralLib
   List<FileSystemEntityChildren> children;
 
-/// GeneralLib
+  /// GeneralLib
   FileSystemEntityChildren({
     required this.fileSystemEntity,
     required this.state_data,
@@ -199,7 +194,7 @@ class FileSystemEntityChildren {
     required this.children,
   });
 
-/// GeneralLib
+  /// GeneralLib
   Map toJson() {
     return {
       "@type": "fileSystemEntityChildren",

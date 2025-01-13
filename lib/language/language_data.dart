@@ -59,8 +59,7 @@ final List<String> languageCodeNames =
 /// GeneralLib
 extension LanguageCodeDataDetailGeneralLibExtensions
     on Map<String, LanguageCodeDataDetail> {
-
-/// GeneralLib
+  /// GeneralLib
   Future<LanguageCodeDataDetail?> languageDetailDataQuery({
     required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
         onData,
@@ -76,7 +75,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
     return null;
   }
 
-/// GeneralLib
+  /// GeneralLib
   LanguageCodeDataDetail? languageDetailDataQuerySync({
     required bool Function(LanguageCodeDataDetail languageDetailData) onData,
   }) {
@@ -92,7 +91,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
     return null;
   }
 
-/// GeneralLib
+  /// GeneralLib
   Future<LanguageCodeDataDetail> languageDetailDataQueryForce({
     required Future<bool> Function(LanguageCodeDataDetail languageDetailData)
         onData,
@@ -102,7 +101,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
         defaultLanguageCodeDataDetail;
   }
 
-/// GeneralLib
+  /// GeneralLib
   LanguageCodeDataDetail languageDetailDataQueryForceSync({
     required bool Function(LanguageCodeDataDetail languageDetailData) onData,
     required LanguageCodeDataDetail defaultLanguageCodeDataDetail,
@@ -111,7 +110,7 @@ extension LanguageCodeDataDetailGeneralLibExtensions
         defaultLanguageCodeDataDetail;
   }
 
-/// GeneralLib
+  /// GeneralLib
   LanguageCodeDataDetail? languageDetailDataGetByPhoneCode({
     required RegExp regExpPhoneCode,
   }) {

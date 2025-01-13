@@ -81,13 +81,12 @@ Future<Response> fetch(
 
 /// GeneralLib
 extension OnFetch on Response {
-
-/// GeneralLib
+  /// GeneralLib
   get text {
     return body;
   }
 
-/// GeneralLib
+  /// GeneralLib
   Map? get jsonData {
     try {
       return json.decode(body);
@@ -97,20 +96,18 @@ extension OnFetch on Response {
   }
 }
 
-
 /// GeneralLib
 class FetchOption {
-
-/// GeneralLib
+  /// GeneralLib
   String method;
 
-/// GeneralLib
+  /// GeneralLib
   Map<String, String>? headers;
 
-/// GeneralLib
+  /// GeneralLib
   Object? body;
 
-/// GeneralLib
+  /// GeneralLib
   FetchOption({
     required this.method,
     this.headers,

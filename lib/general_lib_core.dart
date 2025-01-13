@@ -40,35 +40,30 @@ import 'dart:math';
 import 'package:general_lib/extension/extension.dart';
 import 'package:io_universe/io_universe.dart';
 
-
 /// GeneralLib
 enum NetworkClientConnectionType {
-
-/// GeneralLib
+  /// GeneralLib
   http,
 
-/// GeneralLib
+  /// GeneralLib
   tcpsocket,
 
-/// GeneralLib
+  /// GeneralLib
   websocket,
 }
 
-
 /// GeneralLib
 enum GeneralLibSchemeType {
-
-/// GeneralLib
+  /// GeneralLib
   database,
 
-/// GeneralLib
+  /// GeneralLib
   local,
 
-/// GeneralLib
+  /// GeneralLib
   scheme;
 
-
-/// GeneralLib
+  /// GeneralLib
   String toSpesialType() {
     if (this == database) {
       return "Database";
@@ -118,44 +113,45 @@ T getRandomElement<T>(List<T> list) {
 
 /// GeneralLib
 class JsonDataScript {
-  
-/// GeneralLib
+  /// GeneralLib
   String className;
-  
-/// GeneralLib
+
+  /// GeneralLib
   List<String> datas;
-  
-/// GeneralLib
+
+  /// GeneralLib
   bool is_isar;
-  
-/// GeneralLib
+
+  /// GeneralLib
   JsonDataScript({
     required this.className,
     required this.datas,
     this.is_isar = false,
   });
 
-/// GeneralLib
+  /// GeneralLib
   String get first {
     return datas.first;
   }
-/// GeneralLib
+
+  /// GeneralLib
 
   String get last {
     return datas.last;
   }
 
-/// GeneralLib
+  /// GeneralLib
   String get first_name {
     return "${className.snakeCaseClass().toLowerCase()}.dart";
   }
-/// GeneralLib
+
+  /// GeneralLib
 
   String get last_name {
     return "${className.snakeCaseClass().toLowerCase()}.g.dart";
   }
 
-/// GeneralLib
+  /// GeneralLib
   Future<Directory> saveToFile(Directory output) async {
     if (!output.existsSync()) {
       await output.create(recursive: true);

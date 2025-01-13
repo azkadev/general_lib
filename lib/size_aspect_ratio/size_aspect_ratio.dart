@@ -55,7 +55,9 @@ class SizeAspectRatio {
     int maxWidth,
     int maxHeight,
   ) {
-    double scaleFactor = (maxWidth / width > maxHeight / height) ? maxHeight / height : maxWidth / width;
+    double scaleFactor = (maxWidth / width > maxHeight / height)
+        ? maxHeight / height
+        : maxWidth / width;
     int newWidth = (width * scaleFactor).round();
     int newHeight = (height * scaleFactor).round();
     int finalWidth = newWidth.clamp(0, maxWidth);
@@ -71,7 +73,9 @@ class SizeAspectRatio {
     int maxWidth,
     int maxHeight,
   ) {
-    double scaleFactor = (maxWidth / width > maxHeight / height) ? maxHeight / height : maxWidth / width;
+    double scaleFactor = (maxWidth / width > maxHeight / height)
+        ? maxHeight / height
+        : maxWidth / width;
     int newWidth = (width * scaleFactor).round();
     int newHeight = (height * scaleFactor).round();
     int finalWidth = newWidth.clamp(0, maxWidth);

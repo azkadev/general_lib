@@ -51,7 +51,7 @@ class JsonScheme {
       "@type": "jsonDart",
     };
   }
-  
+
   /// GeneralLib
   static JsonScheme empty() {
     return JsonScheme({});
@@ -148,7 +148,8 @@ class JsonScheme {
     utils_remove_by_values_void(values);
     return rawData;
   }
-/// GeneralLib
+
+  /// GeneralLib
   void utils_remove_by_keys_void(List keys) {
     for (final element in keys) {
       rawData.remove(element);
@@ -191,13 +192,15 @@ class JsonScheme {
     return json.encode(rawData);
   }
 }
+
 /// GeneralLib
 extension JsonSchemeGeneralLibExtensions on List<JsonScheme> {
   /// GeneralLib
   List<Map> toMap() {
     return toJson();
   }
-/// GeneralLib
+
+  /// GeneralLib
   List<Map> toJson() {
     return map((e) => e.toJson()).toList().cast<Map>();
   }

@@ -97,7 +97,8 @@ class WebSocketClient {
   /// GeneralLib
   Future<void> connect({
     required Future<void> Function(dynamic data) onSocketData,
-    required FutureOr<void> Function(SocketConnection socketConnection) onSocketConnection,
+    required FutureOr<void> Function(SocketConnection socketConnection)
+        onSocketConnection,
     Duration delayDuration = const Duration(milliseconds: 500),
   }) async {
     while (true) {
@@ -127,13 +128,17 @@ class WebSocketClient {
                 "@type": "socketConnection",
                 "status": SocketConnectionType.disconnect.name,
               }));
-              Timer.periodic(pingInterval ?? Duration(seconds: 2), (timer) async {
+              Timer.periodic(pingInterval ?? Duration(seconds: 2),
+                  (timer) async {
                 if (isConnect) {
                   timer.cancel();
                   return;
                 }
                 try {
-                  await connect(onSocketData: onSocketData, onSocketConnection: onSocketConnection, delayDuration: delayDuration);
+                  await connect(
+                      onSocketData: onSocketData,
+                      onSocketConnection: onSocketConnection,
+                      delayDuration: delayDuration);
                 } catch (e) {}
               });
             },
@@ -186,7 +191,11 @@ class WebSocketClient {
     while (true) {
       await Future.delayed(durationDelay);
       if (dateTime.isBefore(DateTime.now())) {
-        throw SocketError({"@type": "socketError", "message": "send_data_time_out", "description": "Send Data time out "});
+        throw SocketError({
+          "@type": "socketError",
+          "message": "send_data_time_out",
+          "description": "Send Data time out "
+        });
       }
       if (isConnect) {
         break;
@@ -206,7 +215,11 @@ class WebSocketClient {
     while (true) {
       await Future.delayed(durationDelay);
       if (dateTime.isBefore(DateTime.now())) {
-        throw SocketError({"@type": "socketError", "message": "send_data_time_out", "description": "Send Data time out "});
+        throw SocketError({
+          "@type": "socketError",
+          "message": "send_data_time_out",
+          "description": "Send Data time out "
+        });
       }
       if (isConnect) {
         break;
@@ -227,7 +240,11 @@ class WebSocketClient {
       sleep(durationDelay);
 
       if (dateTime.isBefore(DateTime.now())) {
-        throw SocketError({"@type": "socketError", "message": "send_data_time_out", "description": "Send Data time out "});
+        throw SocketError({
+          "@type": "socketError",
+          "message": "send_data_time_out",
+          "description": "Send Data time out "
+        });
       }
 
       if (isConnect) {

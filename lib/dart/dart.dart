@@ -82,108 +82,107 @@ class Dart {
 
   /// GeneralLib
   static bool get isDebug => (!Dart.isRelease && !Dart.isProfile);
-  
 
-/// GeneralLib
+  /// GeneralLib
   static bool get isAndroid => Platform.isAndroid;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isFuchsia => Platform.isFuchsia;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isIOS => Platform.isIOS;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isLinux => Platform.isLinux;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isMacOS => Platform.isMacOS;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isWindows => Platform.isWindows;
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isIo => const bool.fromEnvironment('dart.library.io');
-  
-/// GeneralLib
+
+  /// GeneralLib
   static bool get isWeb => const bool.fromEnvironment('dart.library.js_util');
 
-/// GeneralLib
+  /// GeneralLib
 
   static bool get isGui => executable_type == ExecutableType.gui;
 
-/// GeneralLib
+  /// GeneralLib
   static bool get isCli => executable_type == ExecutableType.cli;
 
-
-/// GeneralLib
+  /// GeneralLib
 
   static bool get isMobile => Dart.isAndroid || Dart.isIOS;
 
-/// GeneralLib
-  static bool get isDesktop => Dart.isLinux || Dart.isMacOS || Dart.isWindows || Dart.isFuchsia;
+  /// GeneralLib
+  static bool get isDesktop =>
+      Dart.isLinux || Dart.isMacOS || Dart.isWindows || Dart.isFuchsia;
 
-
-/// GeneralLib
+  /// GeneralLib
 
   static Map<String, String> get environment => Platform.environment;
 
-
-/// GeneralLib
+  /// GeneralLib
 
   static String get executable => Platform.executable;
 
-
-/// GeneralLib
+  /// GeneralLib
 
   static List<String> get executableArguments => Platform.executableArguments;
 
-
-/// GeneralLib
+  /// GeneralLib
   static String get localHostname => Platform.localHostname;
 
-/// GeneralLib
+  /// GeneralLib
   static String get localeName => Platform.localeName;
 
-/// GeneralLib
+  /// GeneralLib
   static String get operatingSystem => Platform.operatingSystem;
 
-/// GeneralLib
+  /// GeneralLib
   static String get operatingSystemVersion => Platform.operatingSystemVersion;
 
-/// GeneralLib
+  /// GeneralLib
   static String? get packageConfig => Platform.packageConfig;
 
-/// GeneralLib
+  /// GeneralLib
   static String get pathSeparator => Platform.pathSeparator;
 
-/// GeneralLib
+  /// GeneralLib
   static String get resolvedExecutable => Platform.resolvedExecutable;
 
-/// GeneralLib
+  /// GeneralLib
   static int get numberOfProcessors => Platform.numberOfProcessors;
 
-/// GeneralLib
+  /// GeneralLib
   static String get version => Platform.version;
 
-/// GeneralLib
+  /// GeneralLib
   static Pub get pub => Pub();
 
-/// GeneralLib
+  /// GeneralLib
   static Future<String?> networkLocalIpAddres() async {
-    final interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4, includeLinkLocal: true);
+    final interfaces = await NetworkInterface.list(
+        type: InternetAddressType.IPv4, includeLinkLocal: true);
     try {
-      NetworkInterface? interface = interfaces.singleWhereOrNull((element) => RegExp("^(wl)", caseSensitive: false).hasMatch(element.name));
+      NetworkInterface? interface = interfaces.singleWhereOrNull((element) =>
+          RegExp("^(wl)", caseSensitive: false).hasMatch(element.name));
       if (interface != null) {
         return interface.addresses.first.address;
       }
       try {
-        NetworkInterface interface = interfaces.firstWhere((element) => element.name == "eth0");
+        NetworkInterface interface =
+            interfaces.firstWhere((element) => element.name == "eth0");
         return interface.addresses.first.address;
       } catch (e) {
         // Try any other connection next
         try {
-          NetworkInterface interface = interfaces.firstWhere((element) => !(["wlan0"].contains(element.name)));
+          NetworkInterface interface = interfaces
+              .firstWhere((element) => !(["wlan0"].contains(element.name)));
           return interface.addresses.first.address;
         } catch (ex) {
           return null;
@@ -191,12 +190,14 @@ class Dart {
       }
     } catch (ex) {
       try {
-        NetworkInterface interface = interfaces.firstWhere((element) => element.name == "eth0");
+        NetworkInterface interface =
+            interfaces.firstWhere((element) => element.name == "eth0");
         return interface.addresses.first.address;
       } catch (e) {
         // Try any other connection next
         try {
-          NetworkInterface interface = interfaces.firstWhere((element) => !(["wlan0"].contains(element.name)));
+          NetworkInterface interface = interfaces
+              .firstWhere((element) => !(["wlan0"].contains(element.name)));
           return interface.addresses.first.address;
         } catch (ex) {
           return null;
@@ -205,16 +206,17 @@ class Dart {
     }
   }
 
-/// GeneralLib
+  /// GeneralLib
   static Uri get script {
     return Platform.script;
   }
 
-/// GeneralLib
+  /// GeneralLib
   static ExecutableType get executable_type {
     return executableType();
   }
-/// GeneralLib
+
+  /// GeneralLib
 
   static Directory get home_directory {
     if (Dart.isWeb) {
@@ -222,11 +224,13 @@ class Dart {
     }
     String? configDir;
     if (Platform.isLinux) {
-      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ?? Platform.environment['HOME']!);
+      configDir = path.join(Platform.environment['XDG_CONFIG_HOME'] ??
+          Platform.environment['HOME']!);
     } else if (Platform.isWindows) {
       configDir = Platform.environment['APPDATA']!;
     } else if (Platform.isMacOS) {
-      configDir = path.join(Platform.environment['HOME']!, 'Library', 'Application Support');
+      configDir = path.join(
+          Platform.environment['HOME']!, 'Library', 'Application Support');
     } else {
       configDir = path.join(Platform.environment['HOME'] ?? '');
     }

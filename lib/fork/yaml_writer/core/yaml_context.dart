@@ -1,9 +1,12 @@
 /// YAML Writer.
-class YamlContext {/// YAML Writer.
+class YamlContext {
+  /// YAML Writer.
   final int indentSize;
-/// YAML Writer.
+
+  /// YAML Writer.
   final bool allowUnquotedStrings;
-/// YAML Writer.
+
+  /// YAML Writer.
   YamlContext({
     required this.indentSize,
     required this.allowUnquotedStrings,

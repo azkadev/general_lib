@@ -112,16 +112,19 @@ String jsonToMessage(
         }
         if (key == "first_name") {
           if (data["last_name"] is String) {
-            loopData = "${data[key]} ${data["last_name"]}".trim(); 
+            loopData = "${data[key]} ${data["last_name"]}".trim();
           }
           if (isHtml) {
-            loopData = (parseHtmlLink(data[key].toString(), "tg://user?id=${data["id"].toString()}"));
+            loopData = (parseHtmlLink(
+                data[key].toString(), "tg://user?id=${data["id"].toString()}"));
           }
         }
         if (key == "language_code") {
-          loopData = (jsonFullMedia["language_code_${data[key]}"] ?? loopData.toString());
+          loopData = (jsonFullMedia["language_code_${data[key]}"] ??
+              loopData.toString());
         }
-        message += "\n${space}${(jsonFullMedia[key] != null) ? jsonFullMedia[key] : key}: $loopData";
+        message +=
+            "\n${space}${(jsonFullMedia[key] != null) ? jsonFullMedia[key] : key}: $loopData";
       }
     } catch (e) {}
   });

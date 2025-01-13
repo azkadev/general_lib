@@ -2,21 +2,19 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-
-/// Generated 
+/// Generated
 class Emoji extends JsonScheme {
-
   /// Generated
   Emoji(super.rawData);
-  
+
   /// return default data
-  /// 
+  ///
   static Map get defaultData {
-    return {"@type":"emoji"};
+    return {"@type": "emoji"};
   }
 
-  /// check data 
-  /// if raw data 
+  /// check data
+  /// if raw data
   /// - rawData["@type"] == emoji
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -30,20 +28,16 @@ class Emoji extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
-  
-
   /// create [Emoji]
-  /// Empty  
+  /// Empty
   static Emoji empty() {
     return Emoji({});
   }
 
-  
-
   /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false){
+      if (rawData["@type"] is String == false) {
         return null;
       }
       return rawData["@type"] as String;
@@ -57,23 +51,17 @@ class Emoji extends JsonScheme {
     rawData["@type"] = value;
   }
 
-
   /// Generated
   static Emoji create({
-              bool schemeUtilsIsSetDefaultData = false,
-
+    bool schemeUtilsIsSetDefaultData = false,
     String special_type = "emoji",
-})  {
+  }) {
     // Emoji emoji = Emoji({
-final Map emoji_data_create_json = {
-  
+    final Map emoji_data_create_json = {
       "@type": special_type,
+    };
 
-
-};
-
-
-          emoji_data_create_json.removeWhere((key, value) => value == null);
+    emoji_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -82,8 +70,6 @@ final Map emoji_data_create_json = {
         }
       });
     }
-return Emoji(emoji_data_create_json);
-
-
-      }
+    return Emoji(emoji_data_create_json);
+  }
 }

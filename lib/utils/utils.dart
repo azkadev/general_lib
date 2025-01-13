@@ -53,16 +53,19 @@ class GeneralLibUtils {
   static String get translateBoldStart {
     return "{bold_start}";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String get translateBoldEnd {
     return "{bold_end}";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static int generateRandomNumber(int min_data, int max_data) {
     final random = Random();
     return random.nextInt(max_data - min_data + 1) + min_data;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String generateToken(int min_data, int max_data) {
     return generateUuid(
       generateRandomNumber(min_data, max_data),
@@ -70,7 +73,8 @@ class GeneralLibUtils {
       // text: "abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&*()_+{}|:<>?,./;\\'[]\\-=",
     );
   }
-/// GeneralLib
+
+  /// GeneralLib
   static dynamic autoParseChatId(dynamic data) {
     try {
       try {
@@ -84,7 +88,8 @@ class GeneralLibUtils {
     } catch (e) {}
     return 0;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static int parserBotUserIdFromToken(dynamic token_bot) {
     try {
       return int.parse(token_bot.split(":")[0]);
@@ -92,7 +97,8 @@ class GeneralLibUtils {
       return 0;
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String pathTdlib() {
     if (Platform.isAndroid || Platform.isLinux) {
       return "libtdjson.so";
@@ -175,7 +181,8 @@ class GeneralLibUtils {
     }
     return [];
   }
-/// GeneralLib
+
+  /// GeneralLib
   static int toSuperGroupId(dynamic chat_id) {
     if (chat_id is int) {
       if (chat_id.isNegative) {
@@ -221,7 +228,8 @@ class GeneralLibUtils {
     }
     return (listOffset, limitCount);
   }
-/// GeneralLib
+
+  /// GeneralLib
   static bool getBoolean(dynamic data) {
     if (data == null) {
       return false;
@@ -322,15 +330,18 @@ class GeneralLibUtils {
       "text": text,
     }).toString();
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseMarkdownLink(String text, String links) {
     return "[${text}](${links})";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseHtmlLink(String text, String links) {
     return "<a href='${links}'>${text}</a>";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseMarkdownCodeWithLanguage(String text, String language) {
     return """
 ```${language}
@@ -338,32 +349,38 @@ ${text}
 ```"""
         .trim();
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseHtmlCodeWithLanguage(String text, String language) {
     return "<pre><code class=\"language-${language}\">${text}</code></pre>";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseMarkdownCode(String text) {
     return "```${text}```";
   }
 
-/// GeneralLib
+  /// GeneralLib
   static String parseHtmlCode(String text) {
     return "<code>${text}</code>";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseHtmlSpoiler(String text) {
     return "<tg-spoiler>${text}</tg-spoiler>";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseMarkdownBold(String text) {
     return "**${text}**";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseHtmlBold(String text) {
     return "<b>${text}</b>";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static dynamic parse_all_chat_id({
     required Map parameters,
   }) {
@@ -396,7 +413,8 @@ ${text}
     }();
     return target_chat_id;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static dynamic parse_chat_id({
     required Map parameters,
   }) {
@@ -417,7 +435,8 @@ ${text}
     }();
     return target_chat_id;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static Map? replyMarkupTgApiToTdlib({
     required Map replyMarkup,
   }) {
@@ -629,7 +648,8 @@ ${text}
     }
     return null;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static Map? replyMarkupTdlibToTgApi({
     required Map replyMarkup,
   }) {
@@ -777,20 +797,21 @@ ${text}
     return null;
   }
 
-/// GeneralLib
+  /// GeneralLib
   static Map? entitiesTgApiToTdlib({
     required Map replyMarkup,
   }) {
     return null;
   }
 
-/// GeneralLib
+  /// GeneralLib
   static Map? entitiesTdlibToTgApi({
     required Map replyMarkup,
   }) {
     return null;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static Map sender_id_from_int(int data_id) {
     if (data_id > 0) {
       return {
@@ -804,7 +825,8 @@ ${text}
       };
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static Map sender_id_from_msg(Map msg) {
     if (msg["sender_chat"] is Map) {
       return sender_id_from_int(msg["sender_chat"]["id"]);
@@ -839,11 +861,13 @@ ${text}
       return "${Random().nextInt(9)}";
     });
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String generate_test_dc_code() {
     return "22222";
   }
-/// GeneralLib
+
+  /// GeneralLib
   static List<String> bot_emoji_reactions() {
     return [
       "👍",
@@ -921,7 +945,8 @@ ${text}
       "😡"
     ];
   }
-/// GeneralLib
+
+  /// GeneralLib
   static List<String> bot_emoji_reaction_goods() {
     return [
       "👍",
@@ -934,11 +959,13 @@ ${text}
       "😍",
     ];
   }
-/// GeneralLib
+
+  /// GeneralLib
   static List<String> bot_emoji_reaction_bads() {
     return ["👎", "🤬", "🤮", "💩", "🤡", "🥱", "🥴", "🤣", "🤪", "😡"];
   }
-/// GeneralLib
+
+  /// GeneralLib
   static Future<Map> telegramInvoke({
     required Map parametersRequest,
     required String tokenBot,
@@ -1052,7 +1079,8 @@ ${text}
     }
     return result;
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseBold({
     required String text,
     required GeneralLibParseModeType generalLibParseModeType,
@@ -1066,7 +1094,8 @@ ${text}
         return text;
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseCode({
     required String text,
     required GeneralLibParseModeType generalLibParseModeType,
@@ -1080,7 +1109,8 @@ ${text}
         return text;
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseCodeWithLanguage({
     required String text,
     required String languageCode,
@@ -1095,7 +1125,8 @@ ${text}
         return text;
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseLink({
     required String text,
     required String links,
@@ -1110,7 +1141,8 @@ ${text}
         return text;
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   static String parseSpoiler({
     required String text,
     required GeneralLibParseModeType generalLibParseModeType,

@@ -35,8 +35,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 /// GeneralLib
 class Vm {
-
-/// GeneralLib
+  /// GeneralLib
   bool get product {
     return const bool.fromEnvironment('dart.vm.product');
   }

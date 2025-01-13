@@ -4,7 +4,6 @@ import 'dart:math';
 import 'node.dart';
 
 import 'yaml_context.dart';
- 
 
 /// YAML Writer.
 class YamlWriterGeneralLib extends Converter<Object?, String> {
@@ -22,7 +21,8 @@ class YamlWriterGeneralLib extends Converter<Object?, String> {
 
   /// Used to convert objects to an encodable version.
   final Object? Function(dynamic object) toEncodable;
-/// YAML Writer.
+
+  /// YAML Writer.
   YamlWriterGeneralLib({
     int indentSize = 2,
     this.allowUnquotedStrings = false,

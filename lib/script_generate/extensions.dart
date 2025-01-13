@@ -43,13 +43,15 @@ import 'package:general_lib/script_generate/script_generate_options.dart';
 import 'package:io_universe/io_universe.dart';
 
 import "package:path/path.dart" as path;
+
 /// GeneralLib
 typedef OnWrittingScriptGenerator = FutureOr<String> Function(
     ScriptGenerator scriptGenerator, File file);
+
 /// GeneralLib
 extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity
     on List<FileSystemEntity> {
-      /// GeneralLib
+  /// GeneralLib
   List<ScriptGenerator> toScriptGenerate({
     Directory? directoryBase,
     required ScriptGeneratorOptions scriptGeneratorOptions,
@@ -178,6 +180,7 @@ extension ScriptGeneratorGeneralLibExtensionListFileSystemEntity
     return sles;
   }
 }
+
 /// GeneralLib
 extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
   ///
@@ -321,7 +324,9 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
     }
 
     return;
-  }/// GeneralLib
+  }
+
+  /// GeneralLib
 
   Map toJson() {
     final List<Map> scripts = map((e) => e.toJson()).toList(
@@ -333,18 +338,21 @@ extension ListScriptGeneratorExtensionGeneralLib on List<ScriptGenerator> {
       "scripts": scripts,
     };
   }
-/// GeneralLib
+
+  /// GeneralLib
   List<Map> toJsonList() {
     final List<Map> scripts = map((e) => e.toJson()).toList(
       growable: true,
     );
     return scripts;
   }
-/// GeneralLib
+
+  /// GeneralLib
   String toStringData() {
     return (toJsonList().toStringifyPretty());
   }
-/// GeneralLib
+
+  /// GeneralLib
   String toScriptDart({
     required String scriptName,
   }) {

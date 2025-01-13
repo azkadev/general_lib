@@ -36,8 +36,7 @@ import 'package:io_universe/io_universe.dart';
 
 /// GeneralLib
 extension TcpSendDataSocket on Socket {
-
-/// GeneralLib
+  /// GeneralLib
   void send(List<int> data) {
     return add(data);
   }

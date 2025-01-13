@@ -5,8 +5,7 @@ import 'core/base.dart';
 /// GeneralLib
 class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase
     implements DatabaseMiniGeneralLibraryBaseAbstract {
-  
-/// GeneralLib
+  /// GeneralLib
   DatabaseMiniGeneralLibrary();
 
   File get _file {

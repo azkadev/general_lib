@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
+
 /// GeneralLib
 extension ObjectOrNullGeneralLibExtension<T extends Object> on T? {
   /// GeneralLib
@@ -9,13 +10,15 @@ extension ObjectOrNullGeneralLibExtension<T extends Object> on T? {
   }) async {
     return await onBuilder(this);
   }
-/// GeneralLib
+
+  /// GeneralLib
   T extension_general_lib_builderSync({
     required T Function(T? value) onBuilder,
   }) {
     return onBuilder(this);
   }
 }
+
 /// GeneralLib
 extension ObjectGeneralLibExtension<T extends Object> on T {
   /// GeneralLib
@@ -24,7 +27,8 @@ extension ObjectGeneralLibExtension<T extends Object> on T {
   }) async {
     return await onConvert(this);
   }
-/// GeneralLib
+
+  /// GeneralLib
   K extension_general_lib_convertSync<K extends Object?>({
     required K Function(T value) onConvert,
   }) {

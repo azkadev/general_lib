@@ -32,14 +32,18 @@ class EventEmitter {
   /// GeneralLib
   EventEmitterListener on({
     required String eventName,
-    required FutureOr<dynamic> Function(EventEmitterListener listener, dynamic update) onCallback,
+    required FutureOr<dynamic> Function(
+            EventEmitterListener listener, dynamic update)
+        onCallback,
     Map? stateData,
   }) {
-    final Map<String, EventEmitterListener> event_datas = events.putIfAbsent(eventName, () {
+    final Map<String, EventEmitterListener> event_datas =
+        events.putIfAbsent(eventName, () {
       return {};
     });
 
-    final EventEmitterListener eventEmitterListenerGeneralLib = EventEmitterListener(
+    final EventEmitterListener eventEmitterListenerGeneralLib =
+        EventEmitterListener(
       stateData: stateData ?? {},
     );
     eventEmitterListenerGeneralLib.ensureInitiaLized(
@@ -52,7 +56,8 @@ class EventEmitter {
         event.dispose();
       },
     );
-    event_datas[eventEmitterListenerGeneralLib.event_unique_id] = eventEmitterListenerGeneralLib;
+    event_datas[eventEmitterListenerGeneralLib.event_unique_id] =
+        eventEmitterListenerGeneralLib;
     return eventEmitterListenerGeneralLib;
   }
 
@@ -73,7 +78,8 @@ class EventEmitter {
     required String eventName,
     required String uniqueId,
   }) {
-    final Map<String, EventEmitterListener> event_datas = events.putIfAbsent(eventName, () {
+    final Map<String, EventEmitterListener> event_datas =
+        events.putIfAbsent(eventName, () {
       return {};
     });
     event_datas.remove(uniqueId);
@@ -94,7 +100,8 @@ class EventEmitter {
     required Map<String, EventEmitterListener> event_datas,
   }) {
     while (true) {
-      final String new_unique_id = generateUuid(Random().nextInt(10) + 10, text: "0123456789abcdefghijklmnopqrstuvwxyz-_");
+      final String new_unique_id = generateUuid(Random().nextInt(10) + 10,
+          text: "0123456789abcdefghijklmnopqrstuvwxyz-_");
       if (event_datas.containsKey(new_unique_id) == false) {
         return new_unique_id;
       }
@@ -133,7 +140,7 @@ class EventEmitterListener {
     required this.stateData,
   });
 
-/// GeneralLib
+  /// GeneralLib
   void ensureInitiaLized({
     required String eventName,
     required String eventUniqueId,
@@ -150,31 +157,31 @@ class EventEmitterListener {
     is_initialized = true;
   }
 
-/// GeneralLib
+  /// GeneralLib
   void resume() {
     is_pause = false;
   }
 
-/// GeneralLib
+  /// GeneralLib
   void pause() {
     is_pause = true;
   }
 
   // @override
-  // 
-/// GeneralLib
+  //
+  /// GeneralLib
   void dispose() {
     close();
     stateData.clear();
   }
 
-/// GeneralLib
+  /// GeneralLib
   void close() {
     cancel();
     return;
   }
 
-/// GeneralLib
+  /// GeneralLib
   bool cancel() {
     if (is_initialized == false) {
       return false;

@@ -9,7 +9,7 @@ import "package:http/io_client.dart";
 class HttpClientGeneralLib implements http.Client {
   late final IOClient _client;
 
-/// GeneralLib
+  /// GeneralLib
   HttpClientGeneralLib(
     HttpClient? httpClient,
   ) {

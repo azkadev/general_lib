@@ -74,7 +74,9 @@ class StringNode extends Node {
       bool isContainsSingleQuote = text.contains("'");
       // text.printPretty();
       // print(_isValidUnquotedString(text));
-      if (context.allowUnquotedStrings && !isContainsSingleQuote && _isValidUnquotedString(text)) {
+      if (context.allowUnquotedStrings &&
+          !isContainsSingleQuote &&
+          _isValidUnquotedString(text)) {
         yamlLines.add(text);
       } else if (!isContainsSingleQuote) {
         yamlLines.add('\'$text\'');
@@ -89,7 +91,8 @@ class StringNode extends Node {
 
   // static final _regexpInvalidUnquotedChars = RegExp(r'[^0-9a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ@/. \t-]');
 
-  bool _isValidUnquotedString(String s) => !s.startsWith('@') && !s.startsWith('-');
+  bool _isValidUnquotedString(String s) =>
+      !s.startsWith('@') && !s.startsWith('-');
 }
 
 /// YAML Writer.

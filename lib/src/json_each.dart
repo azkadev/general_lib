@@ -59,6 +59,7 @@ Future<Map> jsonEach({
 
   return jsonData;
 }
+
 /// GeneralLibrary
 Future<List> jsonListEach({
   required String key,

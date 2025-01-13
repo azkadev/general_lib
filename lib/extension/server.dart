@@ -58,7 +58,10 @@ extension StringGetRangeExtensions on String {
       if (regExpMatch == null) {
         return (0, 0);
       }
-      return (num.tryParse(regExpMatch.group(2) ?? "0") ?? 0, num.tryParse(regExpMatch.group(3) ?? "0") ?? 0);
+      return (
+        num.tryParse(regExpMatch.group(2) ?? "0") ?? 0,
+        num.tryParse(regExpMatch.group(3) ?? "0") ?? 0
+      );
     } catch (e) {}
     // bytes=0-227836;
     return (0, 0);

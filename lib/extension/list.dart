@@ -39,6 +39,7 @@ import "dart:math";
 
 import "map.dart" as mapext;
 import "regexp.dart" as regexp;
+
 /// GeneralLib
 extension GeneralLibExtensionListExtension<T> on List<T> {
   /// GeneralLib
@@ -59,7 +60,8 @@ extension GeneralLibExtensionListExtension<T> on List<T> {
     }
     return;
   }
-/// GeneralLib
+
+  /// GeneralLib
   Iterable<V> extensionGeneralLibMap<V>({
     required bool isReverse,
     required V Function(T data, int index, int totalLength, bool isReverse)
@@ -78,6 +80,7 @@ extension GeneralLibExtensionListExtension<T> on List<T> {
     return;
   }
 }
+
 /// GeneralLib
 extension GeneralLibExtensionList on List {
   /// GeneralLib
@@ -105,7 +108,8 @@ extension GeneralLibExtensionList on List {
     }
     return result;
   }
-/// GeneralLib
+
+  /// GeneralLib
   List<T> clone<T>() {
     List<T> jsonData = [];
 
@@ -120,7 +124,9 @@ extension GeneralLibExtensionList on List {
       }
     }
     return jsonData;
-  }/// GeneralLib
+  }
+
+  /// GeneralLib
 
   bool hashNewData(List datas) {
     bool is_new_data = false;
@@ -170,7 +176,8 @@ extension GeneralLibExtensionList on List {
 
     return is_new_data;
   }
-/// GeneralLib
+
+  /// GeneralLib
   bool hashData(List datas) {
     int count_valid = 0;
     int count_data_same = 0;
@@ -261,7 +268,9 @@ extension GeneralLibExtensionList on List {
       return false;
     }
     return (count_valid == count_data_same);
-  }/// GeneralLib
+  }
+
+  /// GeneralLib
 
   T? get<T>(dynamic data) {
     for (var index = 0; index < length; index++) {
@@ -280,7 +289,8 @@ extension GeneralLibExtensionList on List {
     }
     return null;
   }
-/// GeneralLib
+
+  /// GeneralLib
   List<T> gets<T>(dynamic data) {
     List<T> datas = [];
     for (var index = 0; index < length; index++) {
@@ -299,7 +309,8 @@ extension GeneralLibExtensionList on List {
     }
     return datas;
   }
-/// GeneralLib
+
+  /// GeneralLib
   List<T> cloneAndRandom<T>(List<T> array) {
     List<T> random_datas = [];
     for (var index = 0; index < array.length; index++) {
@@ -310,7 +321,9 @@ extension GeneralLibExtensionList on List {
     }
     return random_datas;
   }
-}/// GeneralLib
+}
+
+/// GeneralLib
 
 extension GeneralLibExtensionListd<T> on List<T> {
   /// sas
@@ -323,7 +336,8 @@ extension GeneralLibExtensionListd<T> on List<T> {
       return onNotFound();
     }
   }
-/// GeneralLib
+
+  /// GeneralLib
   Future<T> randomAsync({
     required FutureOr<T> Function() onNotFound,
   }) async {
@@ -332,7 +346,9 @@ extension GeneralLibExtensionListd<T> on List<T> {
     } catch (e) {
       return await onNotFound();
     }
-  }/// GeneralLib
+  }
+
+  /// GeneralLib
 
   T? randomOrNull() {
     try {
@@ -342,6 +358,7 @@ extension GeneralLibExtensionListd<T> on List<T> {
     }
   }
 }
+
 /// GeneralLib
 extension GeneralLibRegExpExtensionList on List<RegExp> {
   /// GeneralLib

@@ -11,7 +11,7 @@ import "package:io_universe/io_universe.dart";
 class HttpClientGeneralLib implements http.Client {
   late final BrowserClient _client;
 
-/// GeneralLib
+  /// GeneralLib
   HttpClientGeneralLib(
     HttpClient? httpClient,
   ) {

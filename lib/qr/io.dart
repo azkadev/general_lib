@@ -5,10 +5,8 @@ import 'package:zxing2/qrcode.dart';
 import "package:image/image.dart" as img;
 import 'dart:typed_data';
 
-
-  /// Generates a QR code from the given [input] string.
+/// Generates a QR code from the given [input] string.
 class QrGeneralLib {
-
   /// Generates a QR code from the given [input] string.
   const QrGeneralLib();
 

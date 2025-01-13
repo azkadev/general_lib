@@ -48,11 +48,9 @@ import 'package:general_lib/general_lib_core.dart';
 import "package:path/path.dart" as path;
 import "package:yaml/yaml.dart" as yaml;
 
-
 /// GeneralLib
 class Pub {
-
-/// GeneralLib
+  /// GeneralLib
   Directory get base_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -74,7 +72,7 @@ class Pub {
     return Directory(configDir);
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get bin_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -82,7 +80,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "bin"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get git_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -90,7 +88,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "git"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get global_packages_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -98,7 +96,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "global_packages"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get hosted_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -106,7 +104,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "hosted"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get hosted_hashes_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -114,7 +112,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "hosted-hashes"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory get temp_directory {
     if (Dart.isWeb) {
       return Directory("");
@@ -122,7 +120,7 @@ class Pub {
     return Directory(path.join(base_directory.path, "_temp"));
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory? installFromDirectory({
     required Directory directoryPackage,
     required String? archiveSha256,
@@ -252,7 +250,7 @@ class Pub {
     return directory_pub_dev;
   }
 
-/// GeneralLib
+  /// GeneralLib
   File? archiveDirectory({
     required Directory directoryPackage,
     String? password,
@@ -286,7 +284,7 @@ $fileSystemEntityIgnore
     );
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory? installFromArchive({
     required File archivedFile,
     String? password,
@@ -359,7 +357,7 @@ $fileSystemEntityIgnore
     }
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory? installFromDirectoryFresh({
     required Directory directoryPackage,
     String? password,
@@ -392,7 +390,7 @@ $fileSystemEntityIgnore
     }
   }
 
-/// GeneralLib
+  /// GeneralLib
   Uri? resolvePackageUri(Uri uri) {
     if (Dart.isWeb) {
       return null;
@@ -400,7 +398,7 @@ $fileSystemEntityIgnore
     return resolvePackageUriSync(uri);
   }
 
-/// GeneralLib
+  /// GeneralLib
   Directory? resolvePackageBase(Uri uri) {
     if (Dart.isWeb) {
       return null;

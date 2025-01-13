@@ -318,7 +318,8 @@ extension GeneralLibExtensionMap on Map {
         if (this[key] == null) {
           this[key] = value;
         } else if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapIfNotSameOrEmptyOrNull(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         }
@@ -348,7 +349,8 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateMapWithReplace(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateMapWithReplace(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -383,7 +385,8 @@ extension GeneralLibExtensionMap on Map {
           }
         }
         if (value is Map && this[key] is Map) {
-          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(data: value, ignoreKeys: ignoreKeys);
+          (this[key] as Map).general_lib_utils_updateIfNotSameTypeOrEmpty(
+              data: value, ignoreKeys: ignoreKeys);
         } else if (value is List && this[key] is List) {
           if (value is List<Map> && this[key] is List<Map>) {}
         } else {
@@ -408,7 +411,8 @@ extension GeneralLibExtensionMap on Map {
       if (value is Map) {
         value.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       } else if (value is JsonScheme) {
-        value.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+        value.rawData
+            .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
       }
 
       if (value is List<Map>) {
@@ -417,7 +421,8 @@ extension GeneralLibExtensionMap on Map {
         }
       } else if (value is List<JsonScheme>) {
         for (var element in value) {
-          element.rawData.general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
+          element.rawData
+              .general_lib_utils_removeRecursiveByKeys(keyDatas: keyDatas);
         }
       }
 
@@ -469,7 +474,8 @@ extension GeneralLibExtensionMap on Map {
             }
           } else if (value is List<JsonScheme>) {
             for (var element in value) {
-              element.rawData.general_lib_utils_removeRecursiveValueNullOrEmpty();
+              element.rawData
+                  .general_lib_utils_removeRecursiveValueNullOrEmpty();
             }
           }
         }

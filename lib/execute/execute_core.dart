@@ -42,7 +42,7 @@ typedef ExecuteOnErrorDart<V> = FutureOr<V> Function(
 
 /// GeneralLib
 extension GeneralLibFutureOrExecuteExtensions<T> on FutureOr<T> {
-/// GeneralLib
+  /// GeneralLib
   FutureOr<T> general_lib_execute({
     Duration? timeLimit,
     FutureOr<T> Function()? onTimeout,
@@ -58,7 +58,8 @@ extension GeneralLibFutureOrExecuteExtensions<T> on FutureOr<T> {
         )) ??
         await onNullData();
   }
-/// GeneralLib
+
+  /// GeneralLib
   FutureOr<T?> general_lib_execute_or_null({
     Duration? timeLimit,
     FutureOr<T> Function()? onTimeout,

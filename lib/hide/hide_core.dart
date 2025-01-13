@@ -40,34 +40,31 @@ import 'package:general_lib/extension/regexp.dart';
 
 /// GeneralLib
 enum HideDataType {
-  
-/// GeneralLib
+  /// GeneralLib
   obfuscate,
-  
-/// GeneralLib
+
+  /// GeneralLib
   replace,
 }
 
-
 /// GeneralLib
 class HideRegExp {
-
-/// GeneralLib
+  /// GeneralLib
   final RegExp regExp;
 
-/// GeneralLib
+  /// GeneralLib
   final String replace;
 
-/// GeneralLib
+  /// GeneralLib
   final HideDataType hideDataType;
 
-/// GeneralLib
+  /// GeneralLib
   final int startIndexObfuscate;
 
-/// GeneralLib
+  /// GeneralLib
   final int endIndexObfuscate;
 
-/// GeneralLib
+  /// GeneralLib
   HideRegExp({
     required this.regExp,
     required this.replace,
@@ -77,14 +74,12 @@ class HideRegExp {
   });
 }
 
-
 /// GeneralLib
 class Hide {
-
-/// GeneralLib
+  /// GeneralLib
   Hide();
 
-/// GeneralLib
+  /// GeneralLib
   String obfocustData({
     required String mystring,
     int start = 5,
@@ -111,7 +106,7 @@ class Hide {
     return message;
   }
 
-/// GeneralLib
+  /// GeneralLib
   String hideData({
     required String data,
     required List<HideRegExp> hideRegExps,
@@ -143,7 +138,7 @@ class Hide {
     return data;
   }
 
-/// GeneralLib
+  /// GeneralLib
   List<dynamic> cloneRecuriveList({
     required List data,
     required List<HideRegExp> hideRegExps,
@@ -207,7 +202,7 @@ class Hide {
     return newData;
   }
 
-/// GeneralLib
+  /// GeneralLib
   Map cloneRecuriveMap({
     required Map data,
     required List<HideRegExp> hideRegExps,
@@ -320,7 +315,7 @@ class Hide {
     return newData;
   }
 
-/// GeneralLib
+  /// GeneralLib
   static T dataToOrigin<T>({
     required T data,
     required List<HideRegExp> hideRegExps,
@@ -379,7 +374,7 @@ class Hide {
     }
   }
 
-/// GeneralLib
+  /// GeneralLib
   static String dataToString({
     required dynamic data,
     required List<HideRegExp> hideRegExps,

@@ -2,21 +2,26 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-
-/// Generated 
+/// Generated
 class RegExpDataScheme extends JsonScheme {
-
   /// Generated
   RegExpDataScheme(super.rawData);
-  
+
   /// return default data
-  /// 
+  ///
   static Map get defaultData {
-    return {"@type":"regExpDataScheme","pattern":"","is_multi_line":false,"is_case_sensitive":false,"is_unicode":false,"is_dot_all":false};
+    return {
+      "@type": "regExpDataScheme",
+      "pattern": "",
+      "is_multi_line": false,
+      "is_case_sensitive": false,
+      "is_unicode": false,
+      "is_dot_all": false
+    };
   }
 
-  /// check data 
-  /// if raw data 
+  /// check data
+  /// if raw data
   /// - rawData["@type"] == regExpDataScheme
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -30,20 +35,16 @@ class RegExpDataScheme extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
-  
-
   /// create [RegExpDataScheme]
-  /// Empty  
+  /// Empty
   static RegExpDataScheme empty() {
     return RegExpDataScheme({});
   }
 
-  
-
   /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false){
+      if (rawData["@type"] is String == false) {
         return null;
       }
       return rawData["@type"] as String;
@@ -57,11 +58,10 @@ class RegExpDataScheme extends JsonScheme {
     rawData["@type"] = value;
   }
 
-
   /// Generated
   String? get pattern {
     try {
-      if (rawData["pattern"] is String == false){
+      if (rawData["pattern"] is String == false) {
         return null;
       }
       return rawData["pattern"] as String;
@@ -75,11 +75,10 @@ class RegExpDataScheme extends JsonScheme {
     rawData["pattern"] = value;
   }
 
-
   /// Generated
   bool? get is_multi_line {
     try {
-      if (rawData["is_multi_line"] is bool == false){
+      if (rawData["is_multi_line"] is bool == false) {
         return null;
       }
       return rawData["is_multi_line"] as bool;
@@ -93,11 +92,10 @@ class RegExpDataScheme extends JsonScheme {
     rawData["is_multi_line"] = value;
   }
 
-
   /// Generated
   bool? get is_case_sensitive {
     try {
-      if (rawData["is_case_sensitive"] is bool == false){
+      if (rawData["is_case_sensitive"] is bool == false) {
         return null;
       }
       return rawData["is_case_sensitive"] as bool;
@@ -111,11 +109,10 @@ class RegExpDataScheme extends JsonScheme {
     rawData["is_case_sensitive"] = value;
   }
 
-
   /// Generated
   bool? get is_unicode {
     try {
-      if (rawData["is_unicode"] is bool == false){
+      if (rawData["is_unicode"] is bool == false) {
         return null;
       }
       return rawData["is_unicode"] as bool;
@@ -129,11 +126,10 @@ class RegExpDataScheme extends JsonScheme {
     rawData["is_unicode"] = value;
   }
 
-
   /// Generated
   bool? get is_dot_all {
     try {
-      if (rawData["is_dot_all"] is bool == false){
+      if (rawData["is_dot_all"] is bool == false) {
         return null;
       }
       return rawData["is_dot_all"] as bool;
@@ -147,33 +143,28 @@ class RegExpDataScheme extends JsonScheme {
     rawData["is_dot_all"] = value;
   }
 
-
   /// Generated
   static RegExpDataScheme create({
-              bool schemeUtilsIsSetDefaultData = false,
-
+    bool schemeUtilsIsSetDefaultData = false,
     String special_type = "regExpDataScheme",
     String? pattern,
     bool? is_multi_line,
     bool? is_case_sensitive,
     bool? is_unicode,
     bool? is_dot_all,
-})  {
+  }) {
     // RegExpDataScheme regExpDataScheme = RegExpDataScheme({
-final Map regExpDataScheme_data_create_json = {
-  
+    final Map regExpDataScheme_data_create_json = {
       "@type": special_type,
       "pattern": pattern,
       "is_multi_line": is_multi_line,
       "is_case_sensitive": is_case_sensitive,
       "is_unicode": is_unicode,
       "is_dot_all": is_dot_all,
+    };
 
-
-};
-
-
-          regExpDataScheme_data_create_json.removeWhere((key, value) => value == null);
+    regExpDataScheme_data_create_json
+        .removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -182,8 +173,6 @@ final Map regExpDataScheme_data_create_json = {
         }
       });
     }
-return RegExpDataScheme(regExpDataScheme_data_create_json);
-
-
-      }
+    return RegExpDataScheme(regExpDataScheme_data_create_json);
+  }
 }

@@ -42,8 +42,7 @@ import 'package:general_lib/general_lib.dart';
 
 /// GeneralLib
 extension GeneralLibExtensionString on String {
-
-/// GeneralLib
+  /// GeneralLib
   bool isFullData(RegExp regExp) {
     int count = 0;
     for (var i = 0; i < length; i++) {
@@ -54,7 +53,7 @@ extension GeneralLibExtensionString on String {
     return (count == length);
   }
 
-/// GeneralLib
+  /// GeneralLib
   RegExp toRegExp({
     bool multiLine = false,
     bool caseSensitive = false,
@@ -109,7 +108,7 @@ extension GeneralLibExtensionString on String {
     );
   }
 
-/// GeneralLib
+  /// GeneralLib
   String hideData({int start = 2, int end = 2}) {
     var message = "";
     var numStart = start;
@@ -129,7 +128,7 @@ extension GeneralLibExtensionString on String {
     return message;
   }
 
-/// GeneralLib
+  /// GeneralLib
   String camelCaseClass({RegExp? regExp}) {
     regExp ??= RegExp(r"(_)", caseSensitive: false);
     String text = "";
@@ -148,7 +147,7 @@ extension GeneralLibExtensionString on String {
     return text.replaceAll(regExp, "");
   }
 
-/// GeneralLib
+  /// GeneralLib
   String toUpperCaseFirstData() {
     String text = "";
     for (var i = 0; i < length; i++) {
@@ -162,7 +161,7 @@ extension GeneralLibExtensionString on String {
     return text;
   }
 
-/// GeneralLib
+  /// GeneralLib
   String toLowerCaseFirstData() {
     String text = "";
     for (var i = 0; i < length; i++) {
@@ -176,7 +175,7 @@ extension GeneralLibExtensionString on String {
     return text;
   }
 
-/// GeneralLib
+  /// GeneralLib
   String snakeCaseClass({RegExp? regExp}) {
     regExp ??= RegExp(r"(_)", caseSensitive: false);
     String text = "";
@@ -191,24 +190,24 @@ extension GeneralLibExtensionString on String {
     return text.toLowerCase();
   }
 
-/// GeneralLib
+  /// GeneralLib
   String general_lib_utils_encryptToBase64() {
     return base64.encode(utf8.encode(this));
   }
 
-/// GeneralLib
+  /// GeneralLib
   String general_lib_utils_decryptFromBase64({bool? allowMalformed}) {
     return utf8.decode(base64.decode(this), allowMalformed: allowMalformed);
   }
 
-/// GeneralLib
+  /// GeneralLib
   String general_lib_utils_crypto_encryptToBase64({
     required Crypto crypto,
   }) {
     return crypto.encrypt(data: this);
   }
 
-/// GeneralLib
+  /// GeneralLib
   String general_lib_utils_crypto_decryptFromBase64({
     required Crypto crypto,
   }) {

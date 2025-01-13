@@ -4,20 +4,25 @@ import "package:general_lib/general_lib.dart";
 
 import "emoji.dart";
 
-/// Generated 
+/// Generated
 class CaptchaResult extends JsonScheme {
-
   /// Generated
   CaptchaResult(super.rawData);
-  
+
   /// return default data
-  /// 
+  ///
   static Map get defaultData {
-    return {"@type":"captchaResult","type":"words","emoji_answer":{"@type":"emoji"},"random_words":[""],"words":[""]};
+    return {
+      "@type": "captchaResult",
+      "type": "words",
+      "emoji_answer": {"@type": "emoji"},
+      "random_words": [""],
+      "words": [""]
+    };
   }
 
-  /// check data 
-  /// if raw data 
+  /// check data
+  /// if raw data
   /// - rawData["@type"] == captchaResult
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -31,20 +36,16 @@ class CaptchaResult extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
-  
-
   /// create [CaptchaResult]
-  /// Empty  
+  /// Empty
   static CaptchaResult empty() {
     return CaptchaResult({});
   }
 
-  
-
   /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false){
+      if (rawData["@type"] is String == false) {
         return null;
       }
       return rawData["@type"] as String;
@@ -58,11 +59,10 @@ class CaptchaResult extends JsonScheme {
     rawData["@type"] = value;
   }
 
-
   /// Generated
   String? get type {
     try {
-      if (rawData["type"] is String == false){
+      if (rawData["type"] is String == false) {
         return null;
       }
       return rawData["type"] as String;
@@ -76,35 +76,31 @@ class CaptchaResult extends JsonScheme {
     rawData["type"] = value;
   }
 
-
   /// Generated
   Emoji get emoji_answer {
     try {
-      if (rawData["emoji_answer"] is Map == false){
-        return Emoji({}); 
+      if (rawData["emoji_answer"] is Map == false) {
+        return Emoji({});
       }
       return Emoji(rawData["emoji_answer"] as Map);
-    } catch (e) {  
-      return Emoji({}); 
+    } catch (e) {
+      return Emoji({});
     }
   }
-
 
   /// Generated
   set emoji_answer(Emoji value) {
     rawData["emoji_answer"] = value.toJson();
   }
 
-
-
   /// Generated
   ///
   /// default:
-  /// 
-  /// 
+  ///
+  ///
   List<String> get random_words {
     try {
-      if (rawData["random_words"] is List == false){
+      if (rawData["random_words"] is List == false) {
         return [];
       }
       return (rawData["random_words"] as List).cast<String>();
@@ -113,21 +109,19 @@ class CaptchaResult extends JsonScheme {
     }
   }
 
-
   /// Generated
   set random_words(List<String> value) {
     rawData["random_words"] = value;
   }
 
-
   /// Generated
   ///
   /// default:
-  /// 
-  /// 
+  ///
+  ///
   List<String> get words {
     try {
-      if (rawData["words"] is List == false){
+      if (rawData["words"] is List == false) {
         return [];
       }
       return (rawData["words"] as List).cast<String>();
@@ -136,37 +130,30 @@ class CaptchaResult extends JsonScheme {
     }
   }
 
-
   /// Generated
   set words(List<String> value) {
     rawData["words"] = value;
   }
 
-
   /// Generated
   static CaptchaResult create({
-              bool schemeUtilsIsSetDefaultData = false,
-
+    bool schemeUtilsIsSetDefaultData = false,
     String special_type = "captchaResult",
     String? type,
-      Emoji? emoji_answer,
-      List<String>? random_words,
-      List<String>? words,
-})  {
+    Emoji? emoji_answer,
+    List<String>? random_words,
+    List<String>? words,
+  }) {
     // CaptchaResult captchaResult = CaptchaResult({
-final Map captchaResult_data_create_json = {
-  
+    final Map captchaResult_data_create_json = {
       "@type": special_type,
       "type": type,
-      "emoji_answer": (emoji_answer != null)?emoji_answer.toJson(): null,
+      "emoji_answer": (emoji_answer != null) ? emoji_answer.toJson() : null,
       "random_words": random_words,
       "words": words,
+    };
 
-
-};
-
-
-          captchaResult_data_create_json.removeWhere((key, value) => value == null);
+    captchaResult_data_create_json.removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
@@ -175,8 +162,6 @@ final Map captchaResult_data_create_json = {
         }
       });
     }
-return CaptchaResult(captchaResult_data_create_json);
-
-
-      }
+    return CaptchaResult(captchaResult_data_create_json);
+  }
 }
