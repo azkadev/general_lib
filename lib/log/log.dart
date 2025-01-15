@@ -38,6 +38,9 @@ class GeneralLibraryLogMessage {
   final bool isFullDetail;
 
   /// GeneralLibraryLog
+  final GeneralLibraryLogOptions? logOptions;
+
+  /// GeneralLibraryLog
   const GeneralLibraryLogMessage({
     /// GeneralLibraryLog
     required this.value,
@@ -53,6 +56,9 @@ class GeneralLibraryLogMessage {
 
     /// GeneralLibraryLog
     required this.logMessageType,
+
+    /// GeneralLibraryLog
+    required this.logOptions,
   });
 
   /// GeneralLib
@@ -62,6 +68,7 @@ class GeneralLibraryLogMessage {
     StackTrace? stackTrace,
     bool? isFullDetail,
     GeneralLibraryLogMessageType? logMessageType,
+    GeneralLibraryLogOptions? logOptions,
   }) {
     return GeneralLibraryLogMessage(
       value: value ?? this.value,
@@ -69,6 +76,57 @@ class GeneralLibraryLogMessage {
       stackTrace: stackTrace ?? this.stackTrace,
       isFullDetail: isFullDetail ?? this.isFullDetail,
       logMessageType: logMessageType ?? this.logMessageType,
+      logOptions: logOptions ?? this.logOptions,
+    );
+  }
+}
+
+/// GeneralLibraryLog
+class GeneralLibraryLogOptions {
+  /// GeneralLibraryLog
+  final String textTitle;
+
+  /// GeneralLibraryLog
+  final String textContext;
+
+  /// GeneralLibraryLog
+  const GeneralLibraryLogOptions({
+    required this.textTitle,
+    required this.textContext,
+  });
+
+  /// GeneralLibraryLog
+  GeneralLibraryLogOptions patchWith({
+    GeneralLibraryLogOptions? logOptions,
+  }) {
+    if (logOptions != null) {
+      return copyWith(
+        textTitle: valueStringSetIfEmptReturnNull(value: logOptions.textTitle),
+        textContext: valueStringSetIfEmptReturnNull(value: logOptions.textContext),
+      );
+    }
+    return this;
+  }
+
+  /// GeneralLibraryLog
+  String? valueStringSetIfEmptReturnNull({
+    required String? value,
+  }) {
+    final String vl = (value ?? "").trim();
+    if (vl.isEmpty) {
+      return null;
+    }
+    return vl;
+  }
+
+  /// GeneralLibraryLog
+  GeneralLibraryLogOptions copyWith({
+    final String? textTitle,
+    final String? textContext,
+  }) {
+    return GeneralLibraryLogOptions(
+      textTitle: textTitle ?? this.textTitle,
+      textContext: textContext ?? this.textContext,
     );
   }
 }
@@ -76,11 +134,15 @@ class GeneralLibraryLogMessage {
 /// GeneralLibraryLog
 class GeneralLibraryLog {
   /// GeneralLibraryLog
-  const GeneralLibraryLog();
+  final GeneralLibraryLogOptions logOptions;
 
   /// GeneralLibraryLog
-  static final bool _isCanPrintToTerminal =
-      Dart.executable_type == ExecutableType.cli;
+  const GeneralLibraryLog({
+    required this.logOptions,
+  });
+
+  /// GeneralLibraryLog
+  static final bool _isCanPrintToTerminal = Dart.executable_type == ExecutableType.cli;
 
   /// GeneralLibraryLog
   FutureOr<void> printToTerminal({
@@ -94,6 +156,14 @@ class GeneralLibraryLog {
         } else {
           print(Trace.from(logMessage.stackTrace).terse.toString());
         }
+        final GeneralLibraryLogOptions logOptions = this.logOptions.patchWith(
+          logOptions: logMessage.logOptions,
+        );
+        print("""
+• 🆔 Title: ${logOptions.textTitle}
+• 📍 Context: ${logOptions.textContext}
+• 📄 Message:
+""");
         if (logMessage.value is Map || logMessage.value is List) {
           (logMessage.value ?? {}).printPretty();
         } else {
