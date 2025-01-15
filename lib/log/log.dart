@@ -102,7 +102,8 @@ class GeneralLibraryLogOptions {
     if (logOptions != null) {
       return copyWith(
         textTitle: valueStringSetIfEmptReturnNull(value: logOptions.textTitle),
-        textContext: valueStringSetIfEmptReturnNull(value: logOptions.textContext),
+        textContext:
+            valueStringSetIfEmptReturnNull(value: logOptions.textContext),
       );
     }
     return this;
@@ -142,7 +143,8 @@ class GeneralLibraryLog {
   });
 
   /// GeneralLibraryLog
-  static final bool _isCanPrintToTerminal = Dart.executable_type == ExecutableType.cli;
+  static final bool _isCanPrintToTerminal =
+      Dart.executable_type == ExecutableType.cli;
 
   /// GeneralLibraryLog
   FutureOr<void> printToTerminal({
@@ -157,8 +159,8 @@ class GeneralLibraryLog {
           print(Trace.from(logMessage.stackTrace).terse.toString());
         }
         final GeneralLibraryLogOptions logOptions = this.logOptions.patchWith(
-          logOptions: logMessage.logOptions,
-        );
+              logOptions: logMessage.logOptions,
+            );
         print("""
 • 🆔 Title: ${logOptions.textTitle}
 • 📍 Context: ${logOptions.textContext}
