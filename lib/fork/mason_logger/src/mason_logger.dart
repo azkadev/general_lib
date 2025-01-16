@@ -24,7 +24,8 @@ String? _detailStyle(String? m) => darkGray.wrap(m);
 String? _infoStyle(String? m) => m;
 String? _errStyle(String? m) => lightRed.wrap(m);
 String? _warnStyle(String? m) => yellow.wrap(styleBold.wrap(m));
-String? _alertStyle(String? m) => backgroundRed.wrap(styleBold.wrap(white.wrap(m)));
+String? _alertStyle(String? m) =>
+    backgroundRed.wrap(styleBold.wrap(white.wrap(m)));
 String? _successStyle(String? m) => lightGreen.wrap(m);
 
 /// {@template log_theme}
@@ -184,13 +185,16 @@ class Logger {
   String prompt(String? message, {Object? defaultValue, bool hidden = false}) {
     final hasDefault = defaultValue != null && '$defaultValue'.isNotEmpty;
     final resolvedDefaultValue = hasDefault ? '$defaultValue' : '';
-    final suffix = hasDefault ? ' ${darkGray.wrap('($resolvedDefaultValue)')}' : '';
+    final suffix =
+        hasDefault ? ' ${darkGray.wrap('($resolvedDefaultValue)')}' : '';
     final resolvedMessage = '$message$suffix ';
     _stdout.write(resolvedMessage);
     final input = hidden ? _readLineHiddenSync() : _readLineSync();
-    final response = input == null || input.isEmpty ? resolvedDefaultValue : input;
+    final response =
+        input == null || input.isEmpty ? resolvedDefaultValue : input;
     final lines = resolvedMessage.split('\n').length - 1;
-    final prefix = lines > 1 ? '\x1b[A\u001B[2K\u001B[${lines}A' : '\x1b[A\u001B[2K';
+    final prefix =
+        lines > 1 ? '\x1b[A\u001B[2K\u001B[${lines}A' : '\x1b[A\u001B[2K';
     _stdout.writeln(
       '''$prefix$resolvedMessage${styleDim.wrap(lightCyan.wrap(hidden ? '******' : response))}''',
     );
@@ -213,8 +217,12 @@ class Logger {
 
     while (true) {
       final key = _readKey();
-      final isEnterOrReturnKey = key.controlChar == ControlCharacter.ctrlJ || key.controlChar == ControlCharacter.ctrlM;
-      final isDeleteOrBackspaceKey = key.controlChar == ControlCharacter.delete || key.controlChar == ControlCharacter.backspace || key.controlChar == ControlCharacter.ctrlH;
+      final isEnterOrReturnKey = key.controlChar == ControlCharacter.ctrlJ ||
+          key.controlChar == ControlCharacter.ctrlM;
+      final isDeleteOrBackspaceKey =
+          key.controlChar == ControlCharacter.delete ||
+              key.controlChar == ControlCharacter.backspace ||
+              key.controlChar == ControlCharacter.ctrlH;
 
       if (isEnterOrReturnKey) break;
 
@@ -272,9 +280,12 @@ class Logger {
       // so we treat them as the user pressing enter (e.g. use `defaultValue`).
       _stdout.writeln();
     }
-    final response = input == null || input.isEmpty ? defaultValue : input.toBoolean() ?? defaultValue;
+    final response = input == null || input.isEmpty
+        ? defaultValue
+        : input.toBoolean() ?? defaultValue;
     final lines = resolvedMessage.split('\n').length - 1;
-    final prefix = lines > 1 ? '\x1b[A\u001B[2K\u001B[${lines}A' : '\x1b[A\u001B[2K';
+    final prefix =
+        lines > 1 ? '\x1b[A\u001B[2K\u001B[${lines}A' : '\x1b[A\u001B[2K';
     _stdout.writeln(
       '''$prefix$resolvedMessage${styleDim.wrap(lightCyan.wrap(response ? 'Yes' : 'No'))}''',
     );
@@ -296,7 +307,8 @@ class Logger {
     String Function(T choice)? display,
   }) {
     final resolvedDisplay = display ?? (value) => '$value';
-    final hasDefault = defaultValue != null && resolvedDisplay(defaultValue).isNotEmpty;
+    final hasDefault =
+        defaultValue != null && resolvedDisplay(defaultValue).isNotEmpty;
     var index = hasDefault ? choices.indexOf(defaultValue) : 0;
 
     void writeChoices() {
@@ -334,9 +346,14 @@ class Logger {
     T? result;
     while (result == null) {
       final key = _readKey();
-      final isArrowUpOrKKey = key.controlChar == ControlCharacter.arrowUp || key.char == 'k';
-      final isArrowDownOrJKey = key.controlChar == ControlCharacter.arrowDown || key.char == 'j';
-      final isReturnOrEnterOrSpaceKey = key.controlChar == ControlCharacter.ctrlJ || key.controlChar == ControlCharacter.ctrlM || key.char == ' ';
+      final isArrowUpOrKKey =
+          key.controlChar == ControlCharacter.arrowUp || key.char == 'k';
+      final isArrowDownOrJKey =
+          key.controlChar == ControlCharacter.arrowDown || key.char == 'j';
+      final isReturnOrEnterOrSpaceKey =
+          key.controlChar == ControlCharacter.ctrlJ ||
+              key.controlChar == ControlCharacter.ctrlM ||
+              key.char == ' ';
 
       if (isArrowUpOrKKey) {
         index = (index - 1) % (choices.length);
@@ -387,7 +404,9 @@ class Logger {
   }) {
     final resolvedDisplay = display ?? (value) => '$value';
     final hasDefaults = defaultValues != null && defaultValues.isNotEmpty;
-    final selections = hasDefaults ? defaultValues.map((value) => choices.indexOf(value)).toSet() : <int>{};
+    final selections = hasDefaults
+        ? defaultValues.map((value) => choices.indexOf(value)).toSet()
+        : <int>{};
     var index = 0;
 
     void writeChoices() {
@@ -427,17 +446,22 @@ class Logger {
     List<T>? results;
     while (results == null) {
       final key = _readKey();
-      final keyIsUpOrKKey = key.controlChar == ControlCharacter.arrowUp || key.char == 'k';
-      final keyIsDownOrJKey = key.controlChar == ControlCharacter.arrowDown || key.char == 'j';
+      final keyIsUpOrKKey =
+          key.controlChar == ControlCharacter.arrowUp || key.char == 'k';
+      final keyIsDownOrJKey =
+          key.controlChar == ControlCharacter.arrowDown || key.char == 'j';
       final keyIsSpaceKey = key.char == ' ';
-      final keyIsEnterOrReturnKey = key.controlChar == ControlCharacter.ctrlJ || key.controlChar == ControlCharacter.ctrlM;
+      final keyIsEnterOrReturnKey = key.controlChar == ControlCharacter.ctrlJ ||
+          key.controlChar == ControlCharacter.ctrlM;
 
       if (keyIsUpOrKKey) {
         index = (index - 1) % (choices.length);
       } else if (keyIsDownOrJKey) {
         index = (index + 1) % (choices.length);
       } else if (keyIsSpaceKey) {
-        selections.contains(index) ? selections.remove(index) : selections.add(index);
+        selections.contains(index)
+            ? selections.remove(index)
+            : selections.add(index);
       } else if (keyIsEnterOrReturnKey) {
         _stdin
           ..lineMode = true

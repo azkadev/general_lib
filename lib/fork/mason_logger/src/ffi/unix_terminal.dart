@@ -13,7 +13,9 @@ import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
 
 class UnixTerminal implements Terminal {
   UnixTerminal() {
-    _lib = Platform.isMacOS ? DynamicLibrary.open('/usr/lib/libSystem.dylib') : DynamicLibrary.open('libc.so.6');
+    _lib = Platform.isMacOS
+        ? DynamicLibrary.open('/usr/lib/libSystem.dylib')
+        : DynamicLibrary.open('libc.so.6');
 
     _tcgetattr = _lib.lookupFunction<TCGetAttrNative, TCGetAttrDart>(
       'tcgetattr',
@@ -35,7 +37,8 @@ class UnixTerminal implements Terminal {
   void enableRawMode() {
     final origTermIOS = _origTermIOSPointer.ref;
     final newTermIOSPointer = calloc<TermIOS>()
-      ..ref.c_iflag = origTermIOS.c_iflag & ~(_BRKINT | _ICRNL | _INPCK | _ISTRIP | _IXON)
+      ..ref.c_iflag =
+          origTermIOS.c_iflag & ~(_BRKINT | _ICRNL | _INPCK | _ISTRIP | _IXON)
       ..ref.c_oflag = origTermIOS.c_oflag & ~_OPOST
       ..ref.c_cflag = (origTermIOS.c_cflag & ~_CSIZE) | _CS8
       ..ref.c_lflag = origTermIOS.c_lflag & ~(_ECHO | _ICANON | _IEXTEN | _ISIG)
