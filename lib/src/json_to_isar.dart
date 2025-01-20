@@ -48,7 +48,7 @@ JsonDataScript jsonToDatabaseUniverse(
   bool isMain = true,
   bool isUseClassName = false,
   String? comment,
-  int isarVersion = 3,
+  int isarVersion = 4,
 }) {
   return JsonDataScript(
     className: className,
@@ -115,7 +115,7 @@ String jsonToIsarDynamic(
   className = className.camelCaseClass();
   String classMessage = """
 ${((isMain) ? """
-// ignore_for_file: non_constant_identifier_names, unnecessary_this
+// ignore_for_file: non_constant_identifier_names, unnecessary_this, public_member_api_docs
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
