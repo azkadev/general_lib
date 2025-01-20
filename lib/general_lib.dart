@@ -39,7 +39,7 @@ export 'src/json_each.dart';
 export "json_to_script_dart/json_to_script.dart";
 export "json_to_sql_supabase/json_to_sql_supabase.dart";
 export 'src/json_to_dart.dart';
-export "src/json_to_isar.dart";
+export "src/json_to_database_universe.dart";
 export "src/json_to_message.dart";
 export 'src/json_to_update.dart';
 export 'src/production.dart';

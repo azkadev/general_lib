@@ -48,7 +48,7 @@ JsonDataScript jsonToDatabaseUniverse(
   bool isMain = true,
   bool isUseClassName = false,
   String? comment,
-  int isarVersion = 4,
+  int databaseUniverseVersion = 4,
 }) {
   return JsonDataScript(
     className: className,
@@ -59,14 +59,14 @@ JsonDataScript jsonToDatabaseUniverse(
         isMain: isMain,
         isUseClassName: isUseClassName,
         comment: comment,
-        isarVersion: isarVersion,
+        databaseUniverseVersion: databaseUniverseVersion,
         packageName: packageName,
       ),
       """
 part "${className.snakeCaseClass().toLowerCase()}.dart";
 """
     ],
-    is_isar: true,
+    is_databaseUniverse: true,
   );
 }
 
@@ -78,7 +78,7 @@ JsonDataScript jsonToIsar(
   bool isMain = true,
   bool isUseClassName = false,
   String? comment,
-  int isarVersion = 3,
+  int databaseUniverseVersion = 3,
 }) {
   return JsonDataScript(
     className: className,
@@ -89,14 +89,14 @@ JsonDataScript jsonToIsar(
         isMain: isMain,
         isUseClassName: isUseClassName,
         comment: comment,
-        isarVersion: isarVersion,
+        databaseUniverseVersion: databaseUniverseVersion,
         packageName: packageName,
       ),
       """
 part "${className.snakeCaseClass().toLowerCase()}.dart";
 """
     ],
-    is_isar: true,
+    is_databaseUniverse: true,
   );
 }
 
@@ -108,7 +108,7 @@ String jsonToIsarDynamic(
   bool isMain = true,
   bool isUseClassName = false,
   String? comment,
-  required int isarVersion,
+  required int databaseUniverseVersion,
 }) {
   comment ??= "";
   List<String> classMessages = [];
@@ -130,13 +130,13 @@ class ${className} {
 
   ${() {
     if (isMain) {
-      if (isarVersion >= 4) {
+      if (databaseUniverseVersion >= 4) {
         if (data["id"] is num == false) {
           return "int id = 0;";
         }
         return "";
       }
-      return "Id isar_data_id = Isar.autoIncrement;";
+      return "Id databaseUniverse_data_id = Isar.autoIncrement;";
     }
     return "";
   }.call()}
@@ -281,7 +281,7 @@ class ${className} {
         isMain: false,
         isUseClassName: isUseClassName,
         comment: comment,
-        isarVersion: isarVersion,
+        databaseUniverseVersion: databaseUniverseVersion,
       ).first);
     }
 
@@ -313,7 +313,7 @@ class ${className} {
               isMain: false,
               isUseClassName: isUseClassName,
               comment: comment,
-              isarVersion: isarVersion,
+              databaseUniverseVersion: databaseUniverseVersion,
             ).first,
           );
         }
@@ -608,10 +608,7 @@ String textToFunctionIsar({
     nameClass = "${className}${key.camelCaseClass()}";
   }
 
-  String nameMethod = key
-      .replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_")
-      .replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_")
-      .replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
+  String nameMethod = key.replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_").replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_").replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
   if (RegExp(r"^(do|is|in)$", caseSensitive: false).hasMatch(nameMethod)) {
     nameMethod += "_";
   }
