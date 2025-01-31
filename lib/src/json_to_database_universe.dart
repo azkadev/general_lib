@@ -53,7 +53,7 @@ JsonDataScript jsonToDatabaseUniverse(
   return JsonDataScript(
     className: className,
     datas: [
-      jsonToIsarDynamic(
+      jsonToDatabaseUniverseDynamic(
         data,
         className: className,
         isMain: isMain,
@@ -69,39 +69,9 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
     is_databaseUniverse: true,
   );
 }
-
+ 
 /// GeneralLibrary
-JsonDataScript jsonToIsar(
-  Map<String, dynamic> data, {
-  String packageName = "database_universe",
-  String className = "Root",
-  bool isMain = true,
-  bool isUseClassName = false,
-  String? comment,
-  int databaseUniverseVersion = 3,
-}) {
-  return JsonDataScript(
-    className: className,
-    datas: [
-      jsonToIsarDynamic(
-        data,
-        className: className,
-        isMain: isMain,
-        isUseClassName: isUseClassName,
-        comment: comment,
-        databaseUniverseVersion: databaseUniverseVersion,
-        packageName: packageName,
-      ),
-      """
-part "${className.snakeCaseClass().toLowerCase()}.dart";
-"""
-    ],
-    is_databaseUniverse: true,
-  );
-}
-
-/// GeneralLibrary
-String jsonToIsarDynamic(
+String jsonToDatabaseUniverseDynamic(
   Map<String, dynamic> data, {
   required String packageName,
   String className = "Root",
@@ -126,7 +96,7 @@ part "${className.snakeCaseClass().toLowerCase()}.g.dart";
 @collection""" : "@embedded")} 
 class ${className} { 
   
-  // Id id = Isar.autoIncrement;
+  // Id id = DatabaseUniverse.autoIncrement;
 
   ${() {
     if (isMain) {
@@ -136,7 +106,7 @@ class ${className} {
         }
         return "";
       }
-      return "Id databaseUniverse_data_id = Isar.autoIncrement;";
+      return "Id databaseUniverse_data_id = DatabaseUniverse.autoIncrement;";
     }
     return "";
   }.call()}
@@ -146,7 +116,7 @@ class ${className} {
   // ${() {
   //   if (isMain) {
   //     if (!data.containsKey("id")) {
-  //       return "Id id = Isar.autoIncrement;";
+  //       return "Id id = DatabaseUniverse.autoIncrement;";
   //     }
   //   }
   //   return "";
@@ -175,7 +145,7 @@ class ${className} {
     }
 
     if (value is String) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -192,7 +162,7 @@ class ${className} {
       );
     }
     if (value is int) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -208,7 +178,7 @@ class ${className} {
         },
       );
     } else if (value is double) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -224,7 +194,7 @@ class ${className} {
         },
       );
     } else if (value is num) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -241,7 +211,7 @@ class ${className} {
       );
     }
     if (value is bool) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -258,7 +228,7 @@ class ${className} {
       );
     }
     if (value is Map) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -275,7 +245,7 @@ class ${className} {
           operator_data += text;
         },
       );
-      classMessages.add(jsonToIsar(
+      classMessages.add(jsonToDatabaseUniverse(
         value.cast<String, dynamic>(),
         className: nameClass,
         isMain: false,
@@ -288,7 +258,7 @@ class ${className} {
     if (value is List) {
       if (value.isNotEmpty) {
         if (value.first is Map) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -307,7 +277,7 @@ class ${className} {
             },
           );
           classMessages.add(
-            jsonToIsar(
+            jsonToDatabaseUniverse(
               (value.first as Map).cast<String, dynamic>(),
               className: nameClass,
               isMain: false,
@@ -318,7 +288,7 @@ class ${className} {
           );
         }
         if (value.first is bool) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -337,7 +307,7 @@ class ${className} {
           );
         }
         if (value.first is String) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -356,7 +326,7 @@ class ${className} {
           );
         }
         if (value.first is int) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -374,7 +344,7 @@ class ${className} {
             },
           );
         } else if (value.first is double) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -392,7 +362,7 @@ class ${className} {
             },
           );
         } else if (value.first is num) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -411,7 +381,7 @@ class ${className} {
           );
         }
         if (value.first == null) {
-          classMessage += textToFunctionIsar(
+          classMessage += textToFunctionDatabaseUniverse(
             key: key,
             value: value,
             className: className,
@@ -430,7 +400,7 @@ class ${className} {
           );
         }
       } else {
-        classMessage += textToFunctionIsar(
+        classMessage += textToFunctionDatabaseUniverse(
           key: key,
           value: value,
           className: className,
@@ -451,7 +421,7 @@ class ${className} {
     }
 
     if (value == null) {
-      classMessage += textToFunctionIsar(
+      classMessage += textToFunctionDatabaseUniverse(
         key: key,
         value: value,
         className: className,
@@ -585,7 +555,7 @@ class ${className} {
 }
 
 /// GeneralLibrary
-String textToFunctionIsar({
+String textToFunctionDatabaseUniverse({
   required String key,
   required value,
   required String returnType,
