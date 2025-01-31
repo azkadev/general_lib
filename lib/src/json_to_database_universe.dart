@@ -69,7 +69,7 @@ part "${className.snakeCaseClass().toLowerCase()}.dart";
     is_databaseUniverse: true,
   );
 }
- 
+
 /// GeneralLibrary
 String jsonToDatabaseUniverseDynamic(
   Map<String, dynamic> data, {
@@ -578,7 +578,10 @@ String textToFunctionDatabaseUniverse({
     nameClass = "${className}${key.camelCaseClass()}";
   }
 
-  String nameMethod = key.replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_").replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_").replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
+  String nameMethod = key
+      .replaceAll(RegExp(r"^(@|[0-9]+)", caseSensitive: false), "special_")
+      .replaceAll(RegExp(r"([\-]+)", caseSensitive: false), "_")
+      .replaceAll(RegExp(r"^(_)", caseSensitive: false), "special_");
   if (RegExp(r"^(do|is|in)$", caseSensitive: false).hasMatch(nameMethod)) {
     nameMethod += "_";
   }
