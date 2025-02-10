@@ -1,10 +1,9 @@
 import 'dart:async';
 
-
-
-///
-extension StreamControllerExtensionGeneralLibraryStream<T> on StreamController<T> {
-  ///
+/// GeneralLib
+extension StreamControllerExtensionGeneralLibraryStream<T>
+    on StreamController<T> {
+  /// GeneralLib
   Future<bool> generalLibraryUtilsIsCanSendNow({
     Duration delayDuration = Duration.zero,
   }) async {

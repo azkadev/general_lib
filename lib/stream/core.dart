@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'typedef.dart';
- 
-///
+
+/// GeneralLib
 class GeneralLibraryStream {
   /// A controller with a [stream] that supports only one single subscriber.
   ///
@@ -48,7 +48,8 @@ class GeneralLibraryStream {
     FutureOr<void> Function()? onCancel,
     Duration delayDuration = Duration.zero,
     bool isSync = false,
-    required GeneralLibraryStreamOnStreamControllerFunction<T> onStreamController,
+    required GeneralLibraryStreamOnStreamControllerFunction<T>
+        onStreamController,
   }) {
     if (delayDuration < Duration(microseconds: 1)) {
       delayDuration = Duration(microseconds: 1);
@@ -64,4 +65,3 @@ class GeneralLibraryStream {
     return streamController;
   }
 }
- 

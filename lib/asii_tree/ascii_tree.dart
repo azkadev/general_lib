@@ -1,10 +1,4 @@
-// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
-/// A simple library for rendering tree-like structures in Unicode symbols with
-/// a fallback to ASCII.
-library;
+ 
 
 import 'dart:io';
 
@@ -91,14 +85,17 @@ List<T> _ordered<T extends Comparable<T>>(Iterable<T> iter) {
 
 /// Gets a _emoji special character as unicode, or the [alternative] if unicode
 /// characters are not supported by stdout.
-String _emoji(String unicode, String alternative) => _canUseUnicode ? unicode : alternative;
+String _emoji(String unicode, String alternative) =>
+    _canUseUnicode ? unicode : alternative;
 
 // Assume unicode _emojis are supported when not on Windows.
 // If we are on Windows, unicode _emojis are supported in Windows Terminal,
 // which sets the WT_SESSION environment variable. See:
 // https://github.com/microsoft/terminal/blob/master/doc/user-docs/index.md#tips-and-tricks
-bool get _canUseUnicode => !Platform.isWindows || Platform.environment.containsKey('WT_SESSION');
+bool get _canUseUnicode =>
+    !Platform.isWindows || Platform.environment.containsKey('WT_SESSION');
 
+/// GeneralLib
 class AsciiTree {
   /// Draws a tree for the given list of files
   ///
@@ -155,7 +152,8 @@ class AsciiTree {
     // Parse out the files into a tree of nested maps.
     final root = <String, Map>{};
     for (var file in files) {
-      final relativeFile = baseDir == null ? file : p.relative(file, from: baseDir);
+      final relativeFile =
+          baseDir == null ? file : p.relative(file, from: baseDir);
       final parts = p.split(relativeFile);
       if (showFileSizes) {
         final stat = File(p.normalize(file)).statSync();
@@ -167,7 +165,8 @@ class AsciiTree {
       }
       var directory = root;
       for (var part in parts) {
-        directory = directory.putIfAbsent(part, () => <String, Map>{}) as Map<String, Map>;
+        directory = directory.putIfAbsent(part, () => <String, Map>{})
+            as Map<String, Map>;
       }
     }
 
@@ -209,14 +208,4 @@ class AsciiTree {
     _draw(buffer, '', null, map, depth: startingAtTop ? 0 : 1);
     return buffer.toString();
   }
-}
-
-void main(List<String> args) {
-  final Directory directory = Directory(p.join(Directory.current.path, "lib", "dart"));
-  String data = AsciiTree.fromFiles(
-    directory.listSync(recursive: true).map((e) => e.path).toList(),
-    baseDir: directory.path,
-    showFileSizes: true,
-  );
-  print(data);
 }
