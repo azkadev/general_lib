@@ -1,8 +1,7 @@
 import 'dart:async';
 
-///
-typedef GeneralLibraryStreamOnStreamControllerFunction<T> = void Function(StreamController<T> streamController, Duration delayDuration);
-
+import 'typedef.dart';
+ 
 ///
 class GeneralLibraryStream {
   /// A controller with a [stream] that supports only one single subscriber.
@@ -65,25 +64,4 @@ class GeneralLibraryStream {
     return streamController;
   }
 }
-
-///
-extension StreamControllerExtensionGeneralLibraryStream<T> on StreamController<T> {
-  ///
-  Future<bool> generalLibraryUtilsIsCanSendNow({
-    Duration delayDuration = Duration.zero,
-  }) async {
-    if (delayDuration < Duration(microseconds: 1)) {
-      delayDuration = Duration(microseconds: 1);
-    }
-    while (true) {
-      await Future.delayed(delayDuration);
-      if (isClosed) {
-        return false;
-      }
-      if (isPaused) {
-        continue;
-      }
-      return true;
-    }
-  }
-}
+ 
