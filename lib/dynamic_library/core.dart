@@ -6,13 +6,13 @@ abstract class GeneralLibraryDynamicLibraryBaseCore {
   FutureOr<void> ensureInitialized();
 
   /// GeneralLib
+  FutureOr<void> initialized();
+
+  /// GeneralLib
   bool isCrash();
 
   /// GeneralLib
   bool isDeviceSupport();
-
-  /// GeneralLib
-  FutureOr<void> close();
 
   /// GeneralLib
   FutureOr<void> dispose();

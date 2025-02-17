@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 /* <!-- START LICENSE -->
 
 
@@ -35,6 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: empty_catches
 
 import 'dart:async';
+
 import "dart:html" as dart_html;
 import 'dart:indexed_db' as dart_indexed_db;
 
@@ -99,7 +102,6 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
       {required String pathToFile,
       required DatabaseMiniGeneralLibraryBaseOptions
           databaseMiniGeneralLibraryBaseOptions}) {
-    // TODO: implement ensureInitialized
     super.ensureInitialized(
         pathToFile: pathToFile,
         databaseMiniGeneralLibraryBaseOptions:
