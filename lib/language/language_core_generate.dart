@@ -106,7 +106,7 @@ import "package:general_lib/regexp_replace/regexp_replace.dart";
 
     script += """
 
-// extension ${name_extension} on ${base_name.camelCaseClass()} {
+/// extension ${name_extension} on ${base_name.camelCaseClass()} {
 extension ${name_extension} on Language {
 
 ${script_method}

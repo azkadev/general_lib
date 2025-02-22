@@ -47,7 +47,7 @@ JsonDataScript jsonToDatabaseUniverse(
   String className = "Root",
   bool isMain = true,
   bool isUseClassName = false,
-  String? comment,
+  String? comment = "/// Generated Document Database Universe By General Lib",
   int databaseUniverseVersion = 4,
 }) {
   return JsonDataScript(
