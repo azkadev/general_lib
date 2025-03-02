@@ -16,7 +16,10 @@ import 'version_union.dart';
 /// PackageVersionNumberGeneralLibrary ranges are ordered first by their lower bounds, then by their upper
 /// bounds. For example, `>=1.0.0 <2.0.0` is before `>=1.5.0 <2.0.0` is before
 /// `>=1.5.0 <3.0.0`.
-class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersionNumberGeneralLibraryRange>, PackageVersionNumberGeneralLibraryConstraint {
+class PackageVersionNumberGeneralLibraryRange
+    implements
+        Comparable<PackageVersionNumberGeneralLibraryRange>,
+        PackageVersionNumberGeneralLibraryConstraint {
   /// The minimum end of the range.
   ///
   /// If [includeMin] is `true`, this will be the minimum allowed version.
@@ -79,10 +82,12 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
       max = max.firstPreRelease;
     }
 
-    return PackageVersionNumberGeneralLibraryRange._(min, max, includeMin, includeMax);
+    return PackageVersionNumberGeneralLibraryRange._(
+        min, max, includeMin, includeMax);
   }
 
-  PackageVersionNumberGeneralLibraryRange._(this.min, this.max, this.includeMin, this.includeMax);
+  PackageVersionNumberGeneralLibraryRange._(
+      this.min, this.max, this.includeMin, this.includeMax);
 
   @override
   bool operator ==(Object other) {
@@ -136,7 +141,8 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
       return !allowsLower(other, this) && !allowsHigher(other, this);
     }
 
-    throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
+    throw ArgumentError(
+        'Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
   }
 
   @override
@@ -152,17 +158,23 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
       return !strictlyLower(other, this) && !strictlyHigher(other, this);
     }
 
-    throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
+    throw ArgumentError(
+        'Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint intersect(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint intersect(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     if (other.isEmpty) return other;
-    if (other is PackageVersionNumberGeneralLibraryUnion) return other.intersect(this);
+    if (other is PackageVersionNumberGeneralLibraryUnion) {
+      return other.intersect(this);
+    }
 
     // A range and a PackageVersionNumberGeneralLibrary just yields the version if it's in the range.
     if (other is PackageVersionNumberGeneralLibrary) {
-      return allows(other) ? other : PackageVersionNumberGeneralLibraryConstraint.empty;
+      return allows(other)
+          ? other
+          : PackageVersionNumberGeneralLibraryConstraint.empty;
     }
 
     if (other is PackageVersionNumberGeneralLibraryRange) {
@@ -170,11 +182,15 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
       PackageVersionNumberGeneralLibrary? intersectMin;
       bool intersectIncludeMin;
       if (allowsLower(this, other)) {
-        if (strictlyLower(this, other)) return PackageVersionNumberGeneralLibraryConstraint.empty;
+        if (strictlyLower(this, other)) {
+          return PackageVersionNumberGeneralLibraryConstraint.empty;
+        }
         intersectMin = other.min;
         intersectIncludeMin = other.includeMin;
       } else {
-        if (strictlyLower(other, this)) return PackageVersionNumberGeneralLibraryConstraint.empty;
+        if (strictlyLower(other, this)) {
+          return PackageVersionNumberGeneralLibraryConstraint.empty;
+        }
         intersectMin = min;
         intersectIncludeMin = includeMin;
       }
@@ -211,11 +227,13 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
           alwaysIncludeMaxPreRelease: true);
     }
 
-    throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
+    throw ArgumentError(
+        'Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint union(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint union(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     if (other is PackageVersionNumberGeneralLibrary) {
       if (allows(other)) return this;
 
@@ -237,7 +255,8 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
             alwaysIncludeMaxPreRelease: true);
       }
 
-      return PackageVersionNumberGeneralLibraryConstraint.unionOf([this, other]);
+      return PackageVersionNumberGeneralLibraryConstraint.unionOf(
+          [this, other]);
     }
 
     if (other is PackageVersionNumberGeneralLibraryRange) {
@@ -248,7 +267,8 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
               (includeMax || other.includeMin)) ||
           (min != null && min == other.max && (includeMin || other.includeMax));
       if (!edgesTouch && !allowsAny(other)) {
-        return PackageVersionNumberGeneralLibraryConstraint.unionOf([this, other]);
+        return PackageVersionNumberGeneralLibraryConstraint.unionOf(
+            [this, other]);
       }
 
       PackageVersionNumberGeneralLibrary? unionMin;
@@ -283,7 +303,8 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint difference(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint difference(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     if (other.isEmpty) return this;
 
     if (other is PackageVersionNumberGeneralLibrary) {
@@ -354,10 +375,13 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
             alwaysIncludeMaxPreRelease: true);
       }
 
-      if (before == null && after == null) return PackageVersionNumberGeneralLibraryConstraint.empty;
+      if (before == null && after == null) {
+        return PackageVersionNumberGeneralLibraryConstraint.empty;
+      }
       if (before == null) return after!;
       if (after == null) return before;
-      return PackageVersionNumberGeneralLibraryUnion.fromRanges([before, after]);
+      return PackageVersionNumberGeneralLibraryUnion.fromRanges(
+          [before, after]);
     } else if (other is PackageVersionNumberGeneralLibraryUnion) {
       var ranges = <PackageVersionNumberGeneralLibraryRange>[];
       var current = this;
@@ -385,10 +409,12 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
       }
 
       if (ranges.isEmpty) return current;
-      return PackageVersionNumberGeneralLibraryUnion.fromRanges(ranges..add(current));
+      return PackageVersionNumberGeneralLibraryUnion.fromRanges(
+          ranges..add(current));
     }
 
-    throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
+    throw ArgumentError(
+        'Unknown PackageVersionNumberGeneralLibraryConstraint type $other.');
   }
 
   @override
@@ -467,8 +493,12 @@ class PackageVersionNumberGeneralLibraryRange implements Comparable<PackageVersi
   }
 }
 
-class CompatibleWithPackageVersionNumberGeneralLibraryRange extends PackageVersionNumberGeneralLibraryRange {
-  CompatibleWithPackageVersionNumberGeneralLibraryRange(PackageVersionNumberGeneralLibrary version)
+/// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+class CompatibleWithPackageVersionNumberGeneralLibraryRange
+    extends PackageVersionNumberGeneralLibraryRange {
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+  CompatibleWithPackageVersionNumberGeneralLibraryRange(
+      PackageVersionNumberGeneralLibrary version)
       : super._(version, version.nextBreaking.firstPreRelease, true, false);
 
   @override

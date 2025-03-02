@@ -14,7 +14,8 @@ import 'version_range.dart';
 ///
 /// An instance of this will only be created if the version can't be represented
 /// as a non-compound value.
-class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGeneralLibraryConstraint {
+class PackageVersionNumberGeneralLibraryUnion
+    implements PackageVersionNumberGeneralLibraryConstraint {
   /// The constraints that compose this union.
   ///
   /// This list has two invariants:
@@ -92,7 +93,8 @@ class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGen
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint intersect(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint intersect(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     var ourRanges = ranges.iterator;
     var theirRanges = _rangesFor(other).iterator;
 
@@ -104,7 +106,9 @@ class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGen
     while (ourRangesMoved && theirRangesMoved) {
       var intersection = ourRanges.current.intersect(theirRanges.current);
 
-      if (!intersection.isEmpty) newRanges.add(intersection as PackageVersionNumberGeneralLibraryRange);
+      if (!intersection.isEmpty) {
+        newRanges.add(intersection as PackageVersionNumberGeneralLibraryRange);
+      }
 
       // Move the constraint with the lower max value forward. This ensures that
       // we keep both lists in sync as much as possible, and that large ranges
@@ -116,14 +120,17 @@ class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGen
       }
     }
 
-    if (newRanges.isEmpty) return PackageVersionNumberGeneralLibraryConstraint.empty;
+    if (newRanges.isEmpty) {
+      return PackageVersionNumberGeneralLibraryConstraint.empty;
+    }
     if (newRanges.length == 1) return newRanges.single;
 
     return PackageVersionNumberGeneralLibraryUnion.fromRanges(newRanges);
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint difference(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint difference(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     var ourRanges = ranges.iterator;
     var theirRanges = _rangesFor(other).iterator;
 
@@ -192,7 +199,9 @@ class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGen
       }
     }
 
-    if (newRanges.isEmpty) return PackageVersionNumberGeneralLibraryConstraint.empty;
+    if (newRanges.isEmpty) {
+      return PackageVersionNumberGeneralLibraryConstraint.empty;
+    }
     if (newRanges.length == 1) return newRanges.single;
     return PackageVersionNumberGeneralLibraryUnion.fromRanges(newRanges);
   }
@@ -200,24 +209,34 @@ class PackageVersionNumberGeneralLibraryUnion implements PackageVersionNumberGen
   /// Returns [constraint] as a list of ranges.
   ///
   /// This is used to normalize ranges of various types.
-  List<PackageVersionNumberGeneralLibraryRange> _rangesFor(PackageVersionNumberGeneralLibraryConstraint constraint) {
+  List<PackageVersionNumberGeneralLibraryRange> _rangesFor(
+      PackageVersionNumberGeneralLibraryConstraint constraint) {
     if (constraint.isEmpty) return [];
-    if (constraint is PackageVersionNumberGeneralLibraryUnion) return constraint.ranges;
-    if (constraint is PackageVersionNumberGeneralLibraryRange) return [constraint];
-    throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $constraint.');
+    if (constraint is PackageVersionNumberGeneralLibraryUnion) {
+      return constraint.ranges;
+    }
+    if (constraint is PackageVersionNumberGeneralLibraryRange) {
+      return [constraint];
+    }
+    throw ArgumentError(
+        'Unknown PackageVersionNumberGeneralLibraryConstraint type $constraint.');
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint union(PackageVersionNumberGeneralLibraryConstraint other) =>
+  PackageVersionNumberGeneralLibraryConstraint union(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
       PackageVersionNumberGeneralLibraryConstraint.unionOf([this, other]);
 
   @override
   bool operator ==(Object other) =>
       other is PackageVersionNumberGeneralLibraryUnion &&
-      const ListEquality<PackageVersionNumberGeneralLibraryRange>().equals(ranges, other.ranges);
+      const ListEquality<PackageVersionNumberGeneralLibraryRange>()
+          .equals(ranges, other.ranges);
 
   @override
-  int get hashCode => const ListEquality<PackageVersionNumberGeneralLibraryRange>().hash(ranges);
+  int get hashCode =>
+      const ListEquality<PackageVersionNumberGeneralLibraryRange>()
+          .hash(ranges);
 
   @override
   String toString() => ranges.join(' or ');

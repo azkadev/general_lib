@@ -16,10 +16,12 @@ import 'version_union.dart';
 /// version.
 abstract class PackageVersionNumberGeneralLibraryConstraint {
   /// A [PackageVersionNumberGeneralLibraryConstraint] that allows all versions.
-  static PackageVersionNumberGeneralLibraryConstraint any = PackageVersionNumberGeneralLibraryRange();
+  static PackageVersionNumberGeneralLibraryConstraint any =
+      PackageVersionNumberGeneralLibraryRange();
 
   /// A [PackageVersionNumberGeneralLibraryConstraint] that allows no versions -- the empty set.
-  static PackageVersionNumberGeneralLibraryConstraint empty = const _EmptyPackageVersionNumberGeneralLibrary();
+  static PackageVersionNumberGeneralLibraryConstraint empty =
+      const _EmptyPackageVersionNumberGeneralLibrary();
 
   /// Parses a version constraint.
   ///
@@ -57,7 +59,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
     if (text == 'any') return any;
 
     // Try to parse and consume a version number.
-    PackageVersionNumberGeneralLibrary? matchPackageVersionNumberGeneralLibrary() {
+    PackageVersionNumberGeneralLibrary?
+        matchPackageVersionNumberGeneralLibrary() {
       var version = startVersion.firstMatch(text);
       if (version == null) return null;
 
@@ -81,9 +84,12 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
       }
 
       return switch (op) {
-        '<=' => PackageVersionNumberGeneralLibraryRange(max: version, includeMax: true),
-        '<' => PackageVersionNumberGeneralLibraryRange(max: version, alwaysIncludeMaxPreRelease: true),
-        '>=' => PackageVersionNumberGeneralLibraryRange(min: version, includeMin: true),
+        '<=' => PackageVersionNumberGeneralLibraryRange(
+            max: version, includeMax: true),
+        '<' => PackageVersionNumberGeneralLibraryRange(
+            max: version, alwaysIncludeMaxPreRelease: true),
+        '>=' => PackageVersionNumberGeneralLibraryRange(
+            min: version, includeMin: true),
         '>' => PackageVersionNumberGeneralLibraryRange(min: version),
         _ => throw UnsupportedError(op),
       };
@@ -107,7 +113,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
             '"$compatibleWithChar" constraint in "$originalText".');
       }
 
-      return PackageVersionNumberGeneralLibraryConstraint.compatibleWith(version);
+      return PackageVersionNumberGeneralLibraryConstraint.compatibleWith(
+          version);
     }
 
     var compatibleWith = matchCompatibleWith();
@@ -123,7 +130,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
 
       if (text.isEmpty) break;
 
-      var newRange = matchPackageVersionNumberGeneralLibrary() ?? matchComparison();
+      var newRange =
+          matchPackageVersionNumberGeneralLibrary() ?? matchComparison();
       if (newRange == null) {
         throw FormatException('Could not parse version "$originalText". '
             'Unknown text at "$text".');
@@ -170,7 +178,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
   /// PackageVersionNumberGeneralLibrarys are considered backward compatible with [version] if they
   /// are greater than or equal to [version], but less than the next breaking
   /// version ([PackageVersionNumberGeneralLibrary.nextBreaking]) of [version].
-  factory PackageVersionNumberGeneralLibraryConstraint.compatibleWith(PackageVersionNumberGeneralLibrary version) =>
+  factory PackageVersionNumberGeneralLibraryConstraint.compatibleWith(
+          PackageVersionNumberGeneralLibrary version) =>
       CompatibleWithPackageVersionNumberGeneralLibraryRange(version);
 
   /// Creates a new version constraint that is the intersection of
@@ -183,7 +192,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
       Iterable<PackageVersionNumberGeneralLibraryConstraint> constraints) {
     var constraint = PackageVersionNumberGeneralLibraryRange();
     for (var other in constraints) {
-      constraint = constraint.intersect(other) as PackageVersionNumberGeneralLibraryRange;
+      constraint = constraint.intersect(other)
+          as PackageVersionNumberGeneralLibraryRange;
     }
     return constraint;
   }
@@ -192,15 +202,25 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
   ///
   /// It allows any versions that any of those constraints allows. If
   /// [constraints] is empty, this returns a constraint that allows no versions.
-  factory PackageVersionNumberGeneralLibraryConstraint.unionOf(Iterable<PackageVersionNumberGeneralLibraryConstraint> constraints) {
+  factory PackageVersionNumberGeneralLibraryConstraint.unionOf(
+      Iterable<PackageVersionNumberGeneralLibraryConstraint> constraints) {
     var flattened = constraints.expand((constraint) {
-      if (constraint.isEmpty) return <PackageVersionNumberGeneralLibraryRange>[];
-      if (constraint is PackageVersionNumberGeneralLibraryUnion) return constraint.ranges;
-      if (constraint is PackageVersionNumberGeneralLibraryRange) return [constraint];
-      throw ArgumentError('Unknown PackageVersionNumberGeneralLibraryConstraint type $constraint.');
+      if (constraint.isEmpty) {
+        return <PackageVersionNumberGeneralLibraryRange>[];
+      }
+      if (constraint is PackageVersionNumberGeneralLibraryUnion) {
+        return constraint.ranges;
+      }
+      if (constraint is PackageVersionNumberGeneralLibraryRange) {
+        return [constraint];
+      }
+      throw ArgumentError(
+          'Unknown PackageVersionNumberGeneralLibraryConstraint type $constraint.');
     }).toList();
 
-    if (flattened.isEmpty) return PackageVersionNumberGeneralLibraryConstraint.empty;
+    if (flattened.isEmpty) {
+      return PackageVersionNumberGeneralLibraryConstraint.empty;
+    }
 
     if (flattened.any((constraint) => constraint.isAny)) {
       return PackageVersionNumberGeneralLibraryConstraint.any;
@@ -216,8 +236,8 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
               !areAdjacent(merged.last, constraint))) {
         merged.add(constraint);
       } else {
-        merged[merged.length - 1] =
-            merged.last.union(constraint) as PackageVersionNumberGeneralLibraryRange;
+        merged[merged.length - 1] = merged.last.union(constraint)
+            as PackageVersionNumberGeneralLibraryRange;
       }
     }
 
@@ -244,18 +264,22 @@ abstract class PackageVersionNumberGeneralLibraryConstraint {
 
   /// Returns a [PackageVersionNumberGeneralLibraryConstraint] that only allows [PackageVersionNumberGeneralLibrary]s allowed by both
   /// this and [other].
-  PackageVersionNumberGeneralLibraryConstraint intersect(PackageVersionNumberGeneralLibraryConstraint other);
+  PackageVersionNumberGeneralLibraryConstraint intersect(
+      PackageVersionNumberGeneralLibraryConstraint other);
 
   /// Returns a [PackageVersionNumberGeneralLibraryConstraint] that allows [PackageVersionNumberGeneralLibrary]s allowed by either
   /// this or [other].
-  PackageVersionNumberGeneralLibraryConstraint union(PackageVersionNumberGeneralLibraryConstraint other);
+  PackageVersionNumberGeneralLibraryConstraint union(
+      PackageVersionNumberGeneralLibraryConstraint other);
 
   /// Returns a [PackageVersionNumberGeneralLibraryConstraint] that allows [PackageVersionNumberGeneralLibrary]s allowed by this but
   /// not [other].
-  PackageVersionNumberGeneralLibraryConstraint difference(PackageVersionNumberGeneralLibraryConstraint other);
+  PackageVersionNumberGeneralLibraryConstraint difference(
+      PackageVersionNumberGeneralLibraryConstraint other);
 }
 
-class _EmptyPackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralLibraryConstraint {
+class _EmptyPackageVersionNumberGeneralLibrary
+    implements PackageVersionNumberGeneralLibraryConstraint {
   const _EmptyPackageVersionNumberGeneralLibrary();
 
   @override
@@ -268,19 +292,26 @@ class _EmptyPackageVersionNumberGeneralLibrary implements PackageVersionNumberGe
   bool allows(PackageVersionNumberGeneralLibrary other) => false;
 
   @override
-  bool allowsAll(PackageVersionNumberGeneralLibraryConstraint other) => other.isEmpty;
+  bool allowsAll(PackageVersionNumberGeneralLibraryConstraint other) =>
+      other.isEmpty;
 
   @override
   bool allowsAny(PackageVersionNumberGeneralLibraryConstraint other) => false;
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint intersect(PackageVersionNumberGeneralLibraryConstraint other) => this;
+  PackageVersionNumberGeneralLibraryConstraint intersect(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
+      this;
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint union(PackageVersionNumberGeneralLibraryConstraint other) => other;
+  PackageVersionNumberGeneralLibraryConstraint union(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
+      other;
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint difference(PackageVersionNumberGeneralLibraryConstraint other) => this;
+  PackageVersionNumberGeneralLibraryConstraint difference(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
+      this;
 
   @override
   String toString() => '<empty>';

@@ -7,7 +7,8 @@ import 'version_range.dart';
 
 /// Returns whether [range1] is immediately next to, but not overlapping,
 /// [range2].
-bool areAdjacent(PackageVersionNumberGeneralLibraryRange range1, PackageVersionNumberGeneralLibraryRange range2) {
+bool areAdjacent(PackageVersionNumberGeneralLibraryRange range1,
+    PackageVersionNumberGeneralLibraryRange range2) {
   if (range1.max != range2.min) return false;
 
   return (range1.includeMax && !range2.includeMin) ||
@@ -15,7 +16,8 @@ bool areAdjacent(PackageVersionNumberGeneralLibraryRange range1, PackageVersionN
 }
 
 /// Returns whether [range1] allows lower versions than [range2].
-bool allowsLower(PackageVersionNumberGeneralLibraryRange range1, PackageVersionNumberGeneralLibraryRange range2) {
+bool allowsLower(PackageVersionNumberGeneralLibraryRange range1,
+    PackageVersionNumberGeneralLibraryRange range2) {
   if (range1.min == null) return range2.min != null;
   if (range2.min == null) return false;
 
@@ -26,7 +28,8 @@ bool allowsLower(PackageVersionNumberGeneralLibraryRange range1, PackageVersionN
 }
 
 /// Returns whether [range1] allows higher versions than [range2].
-bool allowsHigher(PackageVersionNumberGeneralLibraryRange range1, PackageVersionNumberGeneralLibraryRange range2) {
+bool allowsHigher(PackageVersionNumberGeneralLibraryRange range1,
+    PackageVersionNumberGeneralLibraryRange range2) {
   if (range1.max == null) return range2.max != null;
   if (range2.max == null) return false;
 
@@ -38,7 +41,8 @@ bool allowsHigher(PackageVersionNumberGeneralLibraryRange range1, PackageVersion
 
 /// Returns whether [range1] allows only versions lower than those allowed by
 /// [range2].
-bool strictlyLower(PackageVersionNumberGeneralLibraryRange range1, PackageVersionNumberGeneralLibraryRange range2) {
+bool strictlyLower(PackageVersionNumberGeneralLibraryRange range1,
+    PackageVersionNumberGeneralLibraryRange range2) {
   if (range1.max == null || range2.min == null) return false;
 
   var comparison = range1.max!.compareTo(range2.min!);
@@ -49,10 +53,13 @@ bool strictlyLower(PackageVersionNumberGeneralLibraryRange range1, PackageVersio
 
 /// Returns whether [range1] allows only versions higher than those allowed by
 /// [range2].
-bool strictlyHigher(PackageVersionNumberGeneralLibraryRange range1, PackageVersionNumberGeneralLibraryRange range2) =>
+bool strictlyHigher(PackageVersionNumberGeneralLibraryRange range1,
+        PackageVersionNumberGeneralLibraryRange range2) =>
     strictlyLower(range2, range1);
 
-bool equalsWithoutPreRelease(PackageVersionNumberGeneralLibrary version1, PackageVersionNumberGeneralLibrary version2) =>
+/// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+bool equalsWithoutPreRelease(PackageVersionNumberGeneralLibrary version1,
+        PackageVersionNumberGeneralLibrary version2) =>
     version1.major == version2.major &&
     version1.minor == version2.minor &&
     version1.patch == version2.patch;

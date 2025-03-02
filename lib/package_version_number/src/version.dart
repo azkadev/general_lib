@@ -16,9 +16,13 @@ const _equality = IterableEquality<Object>();
 
 /// A parsed semantic version number.
 // @sealed
-class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralLibraryConstraint, PackageVersionNumberGeneralLibraryRange {
+class PackageVersionNumberGeneralLibrary
+    implements
+        PackageVersionNumberGeneralLibraryConstraint,
+        PackageVersionNumberGeneralLibraryRange {
   /// No released version: i.e. "0.0.0".
-  static PackageVersionNumberGeneralLibrary get none => PackageVersionNumberGeneralLibrary(0, 0, 0);
+  static PackageVersionNumberGeneralLibrary get none =>
+      PackageVersionNumberGeneralLibrary(0, 0, 0);
 
   /// Compares [a] and [b] to see which takes priority over the other.
   ///
@@ -34,7 +38,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   ///
   /// When used to sort a list, orders in ascending priority so that the
   /// highest priority version is *last* in the result.
-  static int prioritize(PackageVersionNumberGeneralLibrary a, PackageVersionNumberGeneralLibrary b) {
+  static int prioritize(PackageVersionNumberGeneralLibrary a,
+      PackageVersionNumberGeneralLibrary b) {
     // Sort all prerelease versions after all normal versions. This way
     // the solver will prefer stable packages over unstable ones.
     if (a.isPreRelease && !b.isPreRelease) return -1;
@@ -49,7 +54,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   /// This still considers prerelease versions to be lower than non-prerelease
   /// versions. Pub uses this when downgrading -- it chooses the lowest version
   /// but still excludes pre-release versions when possible.
-  static int antiprioritize(PackageVersionNumberGeneralLibrary a, PackageVersionNumberGeneralLibrary b) {
+  static int antiprioritize(PackageVersionNumberGeneralLibrary a,
+      PackageVersionNumberGeneralLibrary b) {
     if (a.isPreRelease && !b.isPreRelease) return -1;
     if (!a.isPreRelease && b.isPreRelease) return 1;
 
@@ -94,8 +100,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   @override
   bool get includeMax => true;
 
-  PackageVersionNumberGeneralLibrary._(this.major, this.minor, this.patch, String? preRelease,
-      String? build, this._text)
+  PackageVersionNumberGeneralLibrary._(this.major, this.minor, this.patch,
+      String? preRelease, String? build, this._text)
       : preRelease = preRelease == null ? <Object>[] : _splitParts(preRelease),
         build = build == null ? [] : _splitParts(build) {
     if (major < 0) throw ArgumentError('Major version must be non-negative.');
@@ -110,7 +116,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
     if (pre != null) text += '-$pre';
     if (build != null) text += '+$build';
 
-    return PackageVersionNumberGeneralLibrary._(major, minor, patch, pre, build, text);
+    return PackageVersionNumberGeneralLibrary._(
+        major, minor, patch, pre, build, text);
   }
 
   /// Creates a new [PackageVersionNumberGeneralLibrary] by parsing [text].
@@ -128,7 +135,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
       var preRelease = match[5];
       var build = match[8];
 
-      return PackageVersionNumberGeneralLibrary._(major, minor, patch, preRelease, build, text);
+      return PackageVersionNumberGeneralLibrary._(
+          major, minor, patch, preRelease, build, text);
     } on FormatException {
       throw FormatException('Could not parse "$text".');
     }
@@ -140,7 +148,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   /// are no stable versions, it's just the highest-numbered version.
   ///
   /// If [versions] is empty, throws a [StateError].
-  static PackageVersionNumberGeneralLibrary primary(List<PackageVersionNumberGeneralLibrary> versions) {
+  static PackageVersionNumberGeneralLibrary primary(
+      List<PackageVersionNumberGeneralLibrary> versions) {
     var primary = versions.first;
     for (var version in versions.skip(1)) {
       if ((!version.isPreRelease && primary.isPreRelease) ||
@@ -179,10 +188,21 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
       _equality.hash(preRelease) ^
       _equality.hash(build);
 
-  bool operator <(PackageVersionNumberGeneralLibrary other) => compareTo(other) < 0;
-  bool operator >(PackageVersionNumberGeneralLibrary other) => compareTo(other) > 0;
-  bool operator <=(PackageVersionNumberGeneralLibrary other) => compareTo(other) <= 0;
-  bool operator >=(PackageVersionNumberGeneralLibrary other) => compareTo(other) >= 0;
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+  bool operator <(PackageVersionNumberGeneralLibrary other) =>
+      compareTo(other) < 0;
+
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+  bool operator >(PackageVersionNumberGeneralLibrary other) =>
+      compareTo(other) > 0;
+
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+  bool operator <=(PackageVersionNumberGeneralLibrary other) =>
+      compareTo(other) <= 0;
+
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
+  bool operator >=(PackageVersionNumberGeneralLibrary other) =>
+      compareTo(other) >= 0;
 
   @override
   bool get isAny => false;
@@ -245,31 +265,41 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   }
 
   /// Returns the first possible pre-release of this version.
-  PackageVersionNumberGeneralLibrary get firstPreRelease => PackageVersionNumberGeneralLibrary(major, minor, patch, pre: '0');
+  PackageVersionNumberGeneralLibrary get firstPreRelease =>
+      PackageVersionNumberGeneralLibrary(major, minor, patch, pre: '0');
 
   /// Returns whether this is the first possible pre-release of its version.
   bool get isFirstPreRelease => preRelease.length == 1 && preRelease.first == 0;
 
-  PackageVersionNumberGeneralLibrary _incrementMajor() => PackageVersionNumberGeneralLibrary(major + 1, 0, 0);
-  PackageVersionNumberGeneralLibrary _incrementMinor() => PackageVersionNumberGeneralLibrary(major, minor + 1, 0);
-  PackageVersionNumberGeneralLibrary _incrementPatch() => PackageVersionNumberGeneralLibrary(major, minor, patch + 1);
+  PackageVersionNumberGeneralLibrary _incrementMajor() =>
+      PackageVersionNumberGeneralLibrary(major + 1, 0, 0);
+  PackageVersionNumberGeneralLibrary _incrementMinor() =>
+      PackageVersionNumberGeneralLibrary(major, minor + 1, 0);
+  PackageVersionNumberGeneralLibrary _incrementPatch() =>
+      PackageVersionNumberGeneralLibrary(major, minor, patch + 1);
 
   /// Tests if [other] matches this version exactly.
   @override
   bool allows(PackageVersionNumberGeneralLibrary other) => this == other;
 
   @override
-  bool allowsAll(PackageVersionNumberGeneralLibraryConstraint other) => other.isEmpty || other == this;
+  bool allowsAll(PackageVersionNumberGeneralLibraryConstraint other) =>
+      other.isEmpty || other == this;
 
   @override
-  bool allowsAny(PackageVersionNumberGeneralLibraryConstraint other) => other.allows(this);
+  bool allowsAny(PackageVersionNumberGeneralLibraryConstraint other) =>
+      other.allows(this);
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint intersect(PackageVersionNumberGeneralLibraryConstraint other) =>
-      other.allows(this) ? this : PackageVersionNumberGeneralLibraryConstraint.empty;
+  PackageVersionNumberGeneralLibraryConstraint intersect(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
+      other.allows(this)
+          ? this
+          : PackageVersionNumberGeneralLibraryConstraint.empty;
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint union(PackageVersionNumberGeneralLibraryConstraint other) {
+  PackageVersionNumberGeneralLibraryConstraint union(
+      PackageVersionNumberGeneralLibraryConstraint other) {
     if (other.allows(this)) return other;
 
     if (other is PackageVersionNumberGeneralLibraryRange) {
@@ -296,8 +326,11 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   }
 
   @override
-  PackageVersionNumberGeneralLibraryConstraint difference(PackageVersionNumberGeneralLibraryConstraint other) =>
-      other.allows(this) ? PackageVersionNumberGeneralLibraryConstraint.empty : this;
+  PackageVersionNumberGeneralLibraryConstraint difference(
+          PackageVersionNumberGeneralLibraryConstraint other) =>
+      other.allows(this)
+          ? PackageVersionNumberGeneralLibraryConstraint.empty
+          : this;
 
   @override
   int compareTo(PackageVersionNumberGeneralLibraryRange other) {
@@ -343,7 +376,8 @@ class PackageVersionNumberGeneralLibrary implements PackageVersionNumberGeneralL
   /// assert(v.canonicalizedPackageVersionNumberGeneralLibrary == '1.2.3-1.dev+pre.2');
   /// assert(PackageVersionNumberGeneralLibrary.parse(v.canonicalizedPackageVersionNumberGeneralLibrary) == v);
   /// ```
-  String get canonicalizedPackageVersionNumberGeneralLibrary => PackageVersionNumberGeneralLibrary(
+  String get canonicalizedPackageVersionNumberGeneralLibrary =>
+      PackageVersionNumberGeneralLibrary(
         major,
         minor,
         patch,
