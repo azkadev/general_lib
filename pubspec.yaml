@@ -1,6 +1,6 @@
 name: 'general_lib'
 description: 'All in one library for help you make easy app on cross platform and support server side, inclue tcp, fetch, event emitter, websocket, and more.'
-version: '0.0.67'
+version: '0.0.68'
 environment:
   sdk: '>=3.6.0 <4.0.0'
 dev_dependencies:
@@ -21,6 +21,7 @@ dependencies:
   win32: '^5.11.0'
   io: '^1.0.5'
   ffi: '^2.1.4'
+  web: '^1.1.1'
 dependency_overrides:
   pointycastle: '4.0.0'
   mime: '^2.0.0'
