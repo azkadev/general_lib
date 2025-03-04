@@ -201,14 +201,8 @@ class DatabaseMiniGeneralLibrary extends DatabaseMiniGeneralLibraryBase {
   }
 
   @override
-  void ensureInitialized(
-      {required String pathToFile,
-      required DatabaseMiniGeneralLibraryBaseOptions
-          databaseMiniGeneralLibraryBaseOptions}) {
-    super.ensureInitialized(
-        pathToFile: pathToFile,
-        databaseMiniGeneralLibraryBaseOptions:
-            databaseMiniGeneralLibraryBaseOptions);
+  void ensureInitialized({required String pathToFile, required DatabaseMiniGeneralLibraryBaseOptions databaseMiniGeneralLibraryBaseOptions}) {
+    super.ensureInitialized(pathToFile: pathToFile, databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions);
 
     _initWeb();
     _openDatabase();
