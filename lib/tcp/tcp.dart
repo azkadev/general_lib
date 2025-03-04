@@ -32,4 +32,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
-export 'tcp_client.dart' if (dart.library.html) 'tcp_client_web.dart' if (dart.library.js) 'tcp_client_web.dart' if (dart.library.js_interop) 'tcp_client_web.dart';
+export 'tcp_client.dart'
+    if (dart.library.html) 'tcp_client_web.dart'
+    if (dart.library.js) 'tcp_client_web.dart'
+    if (dart.library.js_interop) 'tcp_client_web.dart';
