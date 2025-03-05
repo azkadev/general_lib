@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, empty_catches
 
 /* <!-- START LICENSE -->
 
@@ -71,9 +71,7 @@ class JsonScheme {
           jsonCreate.remove(key);
           // jsonCreate[key] = value;
         }
-      } catch (e, stack) {
-        print("Azka ${e.toString()}, ${stack.toString()}");
-      }
+      } catch (e) {}
     });
     return JsonScheme(jsonCreate);
   }

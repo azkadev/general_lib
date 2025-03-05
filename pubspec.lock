@@ -202,10 +202,10 @@ packages:
     dependency: "direct main"
     description:
       name: io_universe
-      sha256: "8086b50254572b70e056cce2f4ed3622565d6ba0dd90d9f4b4453c7b209408cf"
+      sha256: e42dd887a33901505bf1db5c6653d936d9c6260f2367150fe90b019349406aad
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.7"
+    version: "0.0.8"
   js:
     dependency: transitive
     description:

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 /* <!-- START LICENSE -->
 
 
@@ -122,9 +124,7 @@ class OperatingSystem {
             //   workingDirectory: home_directory.path,
             //   // runInShell: true,
             // );
-          } catch (e) {
-            print(e);
-          }
+          } catch (e) {}
         }
         is_set_pocces = true;
       }
