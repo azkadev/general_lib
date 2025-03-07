@@ -33,23 +33,39 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 // coverage:ignore-file
+// ignore_for_file: public_member_api_docs
 
-import 'dart:io';
+import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
+import 'package:win32/win32.dart' show GetStdHandle,STD_OUTPUT_HANDLE, STD_INPUT_HANDLE, ENABLE_ECHO_INPUT, ENABLE_PROCESSED_INPUT,ENABLE_LINE_INPUT,ENABLE_WINDOW_INPUT,SetConsoleMode,ENABLE_EXTENDED_FLAGS,ENABLE_INSERT_MODE,ENABLE_MOUSE_INPUT,ENABLE_QUICK_EDIT_MODE,ENABLE_VIRTUAL_TERMINAL_INPUT;
 
-import 'unix_terminal/unix_terminal.dart';
-import 'windows_terminal/windows_terminal.dart';
+class WindowsTerminal implements Terminal {
+  WindowsTerminal() {
+    outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    inputHandle = GetStdHandle(STD_INPUT_HANDLE);
+  }
 
-/// {@template terminal}
-/// Interface for the underlying native terminal.
-/// {@endtemplate}
-abstract class Terminal {
-  /// {@macro terminal}
-  factory Terminal() => Platform.isWindows ? WindowsTerminal() : UnixTerminal();
+  late final int inputHandle;
+  late final int outputHandle;
 
-  /// Enables raw mode which allows us to process each keypress as it comes in.
-  /// https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
-  void enableRawMode();
+  @override
+  void enableRawMode() {
+    const dwMode = (~ENABLE_ECHO_INPUT) &
+        (~ENABLE_PROCESSED_INPUT) &
+        (~ENABLE_LINE_INPUT) &
+        (~ENABLE_WINDOW_INPUT);
+    SetConsoleMode(inputHandle, dwMode);
+  }
 
-  /// Disables raw mode and restores the terminal’s original attributes.
-  void disableRawMode();
+  @override
+  void disableRawMode() {
+    const dwMode = ENABLE_ECHO_INPUT |
+        ENABLE_EXTENDED_FLAGS |
+        ENABLE_INSERT_MODE |
+        ENABLE_LINE_INPUT |
+        ENABLE_MOUSE_INPUT |
+        ENABLE_PROCESSED_INPUT |
+        ENABLE_QUICK_EDIT_MODE |
+        ENABLE_VIRTUAL_TERMINAL_INPUT;
+    SetConsoleMode(inputHandle, dwMode);
+  }
 }

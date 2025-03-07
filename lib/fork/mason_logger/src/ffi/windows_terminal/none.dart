@@ -33,23 +33,18 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 // coverage:ignore-file
+// ignore_for_file: public_member_api_docs
 
-import 'dart:io';
+import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
 
-import 'unix_terminal/unix_terminal.dart';
-import 'windows_terminal/windows_terminal.dart';
+class WindowsTerminal implements Terminal {
+  @override
+  void disableRawMode() {
+    // TODO: implement disableRawMode
+  }
 
-/// {@template terminal}
-/// Interface for the underlying native terminal.
-/// {@endtemplate}
-abstract class Terminal {
-  /// {@macro terminal}
-  factory Terminal() => Platform.isWindows ? WindowsTerminal() : UnixTerminal();
-
-  /// Enables raw mode which allows us to process each keypress as it comes in.
-  /// https://viewsourcecode.org/snaptoken/kilo/02.enteringRawMode.html
-  void enableRawMode();
-
-  /// Disables raw mode and restores the terminal’s original attributes.
-  void disableRawMode();
+  @override
+  void enableRawMode() {
+    // TODO: implement enableRawMode
+  }
 }

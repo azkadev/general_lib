@@ -33,39 +33,26 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 // coverage:ignore-file
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, constant_identifier_names, camel_case_types, non_constant_identifier_names, lines_longer_than_80_chars
+
+// cspell:words tcgetattr BRKINT ICRNL INPCK ISTRIP IXON lflag CSIZE
+// cspell:words fildes termios ospeed ispeed tcflag ncss vtime vmin cflag
+// cspell:words icanon isig iexten tcsanow tcsetattr FILENO iflag oflag OPOST
+ 
 
 import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
-import 'package:win32/win32.dart';
 
-class WindowsTerminal implements Terminal {
-  WindowsTerminal() {
-    outputHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-    inputHandle = GetStdHandle(STD_INPUT_HANDLE);
+class UnixTerminal implements Terminal {
+  UnixTerminal() {
+    
   }
-
-  late final int inputHandle;
-  late final int outputHandle;
-
-  @override
-  void enableRawMode() {
-    const dwMode = (~ENABLE_ECHO_INPUT) &
-        (~ENABLE_PROCESSED_INPUT) &
-        (~ENABLE_LINE_INPUT) &
-        (~ENABLE_WINDOW_INPUT);
-    SetConsoleMode(inputHandle, dwMode);
+ 
+ 
+  void enableRawMode() { 
   }
 
   @override
-  void disableRawMode() {
-    const dwMode = ENABLE_ECHO_INPUT |
-        ENABLE_EXTENDED_FLAGS |
-        ENABLE_INSERT_MODE |
-        ENABLE_LINE_INPUT |
-        ENABLE_MOUSE_INPUT |
-        ENABLE_PROCESSED_INPUT |
-        ENABLE_QUICK_EDIT_MODE |
-        ENABLE_VIRTUAL_TERMINAL_INPUT;
-    SetConsoleMode(inputHandle, dwMode);
+  void disableRawMode() { 
   }
 }
+  
