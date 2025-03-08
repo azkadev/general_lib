@@ -38,21 +38,15 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // cspell:words tcgetattr BRKINT ICRNL INPCK ISTRIP IXON lflag CSIZE
 // cspell:words fildes termios ospeed ispeed tcflag ncss vtime vmin cflag
 // cspell:words icanon isig iexten tcsanow tcsetattr FILENO iflag oflag OPOST
- 
 
 import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
 
 class UnixTerminal implements Terminal {
-  UnixTerminal() {
-    
-  }
- 
- 
-  void enableRawMode() { 
-  }
+  UnixTerminal();
 
   @override
-  void disableRawMode() { 
-  }
+  void enableRawMode() {}
+
+  @override
+  void disableRawMode() {}
 }
-  

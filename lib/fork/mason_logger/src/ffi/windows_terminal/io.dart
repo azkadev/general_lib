@@ -36,7 +36,21 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 // ignore_for_file: public_member_api_docs
 
 import 'package:general_lib/fork/mason_logger/src/ffi/terminal.dart';
-import 'package:win32/win32.dart' show GetStdHandle,STD_OUTPUT_HANDLE, STD_INPUT_HANDLE, ENABLE_ECHO_INPUT, ENABLE_PROCESSED_INPUT,ENABLE_LINE_INPUT,ENABLE_WINDOW_INPUT,SetConsoleMode,ENABLE_EXTENDED_FLAGS,ENABLE_INSERT_MODE,ENABLE_MOUSE_INPUT,ENABLE_QUICK_EDIT_MODE,ENABLE_VIRTUAL_TERMINAL_INPUT;
+import 'package:win32/win32.dart'
+    show
+        GetStdHandle,
+        STD_OUTPUT_HANDLE,
+        STD_INPUT_HANDLE,
+        ENABLE_ECHO_INPUT,
+        ENABLE_PROCESSED_INPUT,
+        ENABLE_LINE_INPUT,
+        ENABLE_WINDOW_INPUT,
+        SetConsoleMode,
+        ENABLE_EXTENDED_FLAGS,
+        ENABLE_INSERT_MODE,
+        ENABLE_MOUSE_INPUT,
+        ENABLE_QUICK_EDIT_MODE,
+        ENABLE_VIRTUAL_TERMINAL_INPUT;
 
 class WindowsTerminal implements Terminal {
   WindowsTerminal() {
